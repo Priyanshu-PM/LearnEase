@@ -3,7 +3,7 @@ import RoomAnalytics from './RoomAnalytics';
 import { useNavigate } from "react-router-dom";
 // import { Navigation } from 'react-router-dom';
 // import Navigationindex from '../../Navigationindex';
-
+import Sidebar from '../../Components/Sidebar'
 
 const CreateRoom = ({Navigation}) => {
   const  navigate = useNavigate()
@@ -29,7 +29,17 @@ const CreateRoom = ({Navigation}) => {
   }
 
   return (
-    <div className="pages_createroom">
+
+    <div className='bg-[#F3F8FF] min-h-screen'>
+
+    <div className="grid grid-cols-11">
+      <div className="hidden sm:block col-start-1 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%]">
+      <Sidebar/>
+      </div>
+
+      <div className="col-start-1 sm:col-start-3 col-end-12">
+
+      <div className="pages_createroom">
       <div className="createroom_container">
 
         <form onSubmit={handleSubmit}>
@@ -48,6 +58,15 @@ const CreateRoom = ({Navigation}) => {
 
       {screen === "roomanalytics" && <RoomAnalytics roomID={RoomID}/>}
     </div>
+      </div>
+
+
+
+
+    </div>
+
+  </div>
+
   )
 }
 
