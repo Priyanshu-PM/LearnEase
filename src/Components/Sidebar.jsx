@@ -1,65 +1,127 @@
-import React, {useState} from "react";
-import {FaBars, FaMeetup, FaPeopleCarry, FaQuestion, FaTh, FaUserAlt, FaUserTag} from 'react-icons/fa'
-import { NavLink } from "react-router-dom";
-const Sidebar = ({children}) => {
+import React from "react";
+import { Link } from "react-router-dom";
+import { AiOutlineHome } from "react-icons/ai";
+import { AiOutlineSetting } from "react-icons/ai";
+import { BiCategory } from "react-icons/bi";
+import { IoLibraryOutline } from "react-icons/io5";
+import { MdOutlineLibraryAddCheck } from "react-icons/md";
+import { FiHeart } from "react-icons/fi";
+import { FiHelpCircle } from "react-icons/fi";
 
-    const[isOpen, setIsOpen] = useState(true);
-    const toggle = () => setIsOpen(isOpen);
+import { useLocation } from "react-router-dom";
 
-    const menuItem = [
-
-        {
-            path: "/",
-            name: "dashboard",
-            icon: <FaTh/>
-        },
-        {
-            path: "/about",
-            name: "About",
-            icon: <FaUserAlt/>
-        },
-        {
-            path: "/createroom",
-            name: "CreateRoom",
-            icon: <FaMeetup/>
-        },
-        {
-            path: "/session",
-            name: "Session Details",
-            icon: <FaPeopleCarry/>
-        },
-        {
-            path: "/quiz",
-            name: "Quiz",
-            icon: <FaQuestion/>
-        },
-        {
-            path: "/attendance",
-            name: "Attendance",
-            icon: <FaUserTag/>
-        },
-
-    ]
+const Sidebar = () => {
+  let params = useLocation();
+  const path = params.pathname;
 
   return (
-    <div className="container">
-        <div style={{width: isOpen ? "300px" : "50px"}} className="sidebar">
-            <div className="top_section">
-                <h1  style={{display: isOpen ? "block" : "none"}} className="logo">Logo</h1>
-                <div style={{marginLeft: isOpen ? "300px" : "0px"}} className="bars">
-                    <FaBars onLoad={toggle}/>
-                </div>
+    <div className="p-0 sm:block z-30  relative">
+      <div className="px-5 py-3">
+        <Link
+          className="flex items-center justify-between text-[#0dd6b8]"
+          to="/home"
+        >
+            <div className="flex justify-center items-center w-full h-[7rem]">
+
+          <h1 className="text-xl font-bold">ClassRoom</h1>
             </div>
-            {
-                menuItem.map((item, index) => (
-                    <NavLink to={item.path} key={index} className="link" activeclassName="active">
-                        <div className="icon">{item.icon}</div>
-                        <div  style={{display: isOpen ? "block" : "none"}} className="link_text">{item.name}</div>
-                    </NavLink>
-                ))
-            }
-        </div>
-        <main>{children}</main>
+
+        </Link>
+      </div>
+      <div className="flex flex-col text-[16px] gap-4 px-5">
+        <Link
+          className={
+            path === "/home"
+              ? `py-3 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
+              : `py-3 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
+          }
+          to="/home"
+        >
+          <AiOutlineHome />
+          <span>Home</span>
+        </Link>
+        <Link
+          className={
+            path === "/create-room"
+              ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
+              : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
+          }
+          to="/create-room"
+        >
+          <BiCategory />
+          <span>Create Room</span>
+        </Link>
+        <Link
+          className={
+            path === "/Quiz"
+              ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
+              : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
+          }
+          to="/Quiz"
+        >
+          <IoLibraryOutline />
+          <span>Quiz</span>
+        </Link>
+        <Link
+          className={
+            path === "/session"
+              ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
+              : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
+          }
+          to="/session"
+        >
+          <MdOutlineLibraryAddCheck />
+          <span>Session Analytics</span>
+        </Link>
+        <Link
+          className={
+            path === "/attendance"
+              ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
+              : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
+          }
+          to="/attendance"
+        >
+          <FiHeart />
+          <span>Attendance</span>
+        </Link>
+        <Link
+          className={
+            path === "/room-analytics"
+              ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
+              : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
+          }
+          to="/room-analytics"
+        >
+          <AiOutlineSetting />
+          <span>Room Analytics</span>
+        </Link>
+        <Link
+          className={
+            path === "/about"
+              ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
+              : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
+          }
+          to="/about"
+        >
+          <FiHelpCircle />
+          <span>About Us</span>
+        </Link>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
     </div>
   );
 };
