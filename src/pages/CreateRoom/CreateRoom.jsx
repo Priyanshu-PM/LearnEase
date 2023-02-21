@@ -57,7 +57,7 @@ const CreateRoom = ({ Navigation }) => {
                   
                 </div>
                 <br />
-                <button type="submit" className="bg-transparent hover:bg-green-500 text-green-500 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded" >Submit</button>
+                <button type="submit" className="bg-transparent hover:bg-green-500 text-green-500 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded ml-10" >Create session</button>
                 {showInputValue && (
                   <RoomAnalytics sessionID={RoomID} sessionName={sessionName}/>
                 ) }

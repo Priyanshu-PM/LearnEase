@@ -17,6 +17,10 @@ const TestFile = () => {
 
   const [stopRecord, setStopRecord] = useState(false);
 
+  const [closebtn, displayclosebtn] = useState(false);
+
+  
+
   const timer = new TaskTimer(1000);
 
   const startRecording = () => {
@@ -41,6 +45,9 @@ const TestFile = () => {
           } else {
             interimTranscript += transcript;
           }
+
+          
+        displayclosebtn(true);
         }
         setFrameData(finalTranscript);
         setTranscript(finalTranscript);
@@ -50,7 +57,8 @@ const TestFile = () => {
         recognition.stop();
         timer.stop();
         console.log(frameData);
-        recognition.start();
+        if(recognition.stop())
+            recognition.start();
       }
     });
   };
@@ -71,19 +79,22 @@ const TestFile = () => {
     <div>
       <br />
       <div className="flex flex-row justify-around items-center">
+
+      {
+        closebtn === false && 
         <button
           className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
           onClick={startRecording}
         >
           Start Session
         </button>
-        <br />
-        <button
-          className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-          onClick={stopRecording}
-        >
-          End Session
-        </button>
+      }
+
+        
+        {closebtn === true && <button 
+            className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
+            onClick={stopRecording}>Close Session</button>}
+
         <br />
         <button
           className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
