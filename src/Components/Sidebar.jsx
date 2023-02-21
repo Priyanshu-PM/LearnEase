@@ -107,20 +107,6 @@ const Sidebar = () => {
           <span>About Us</span>
         </Link>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       
     </div>
   );

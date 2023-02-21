@@ -1,7 +1,8 @@
 import './App.css';
 
+
 import React from 'react';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route, useParams} from 'react-router-dom';
 import Dashboard from './pages/Dashboard/Dashboard.jsx';
 import About from './pages/About/About.jsx';
 import CreateRoom from './pages/CreateRoom/CreateRoom.jsx';
@@ -19,7 +20,7 @@ function App() {
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/session" element={<SessionAnalytics />} />
           <Route path="/attendance" element={<Attendance />} />
-          <Route path="/room-analytics" element={<RoomAnalytics />} />
+          <Route path="/room-analytics/:sessionId/:sessionName" element={<RoomAnalytics />} />
           <Route path="/about" element={<About/>} />
       </Routes>
   );
