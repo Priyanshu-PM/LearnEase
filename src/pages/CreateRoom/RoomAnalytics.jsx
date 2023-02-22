@@ -2,6 +2,7 @@ import React from 'react'
 import SpeechToText from './SpeechToText';
 import { TaskTimer } from 'tasktimer';
 import TestFile from './TestFile';
+import PitchAnimation from './DataDisplay/PitchAnimation';
 
 
 const RoomAnalytics = ({sessionID, sessionName}) => {
@@ -55,13 +56,11 @@ const RoomAnalytics = ({sessionID, sessionName}) => {
 
     <div className='bg-[#F3F8FF] min-h-screen'>
 
-      <div className='border-solid border-2 border-black-500 mt-10'>
-        <h3 className='ml-10 mt-10'>Welcome to the today's Session on {sessionName}</h3>
+      <div className='border-solid border-2 border-black-500 mt-5'>
         <div className='flex flex-row justify-start pt-5 gap-x-4 ml-10'>
           <h4>Session ID : {sessionID}</h4>
           <h4>Session name : {sessionName}</h4>
         </div>
-
         <TestFile/>
     </div>
 

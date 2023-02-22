@@ -8,9 +8,6 @@ import Sidebar from "../../Components/Sidebar";
 import "./Create-room.css";
 
 const CreateRoom = ({ Navigation }) => {
-  const navigate = useNavigate();
-
-  const [screen, setScreen] = useState("createroom");
 
   const [RoomID, setRoomID] = useState("");
   const [sessionName, setSessionName] = useState("");
