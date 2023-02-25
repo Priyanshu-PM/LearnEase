@@ -10,18 +10,20 @@ import Quiz from './pages/Quiz/Quiz.jsx';
 import SessionAnalytics from './pages/Session/SessionAnalytics.jsx';
 import Attendance from './pages/Attendance/Attendance';
 import RoomAnalytics from './pages/CreateRoom/RoomAnalytics';
+import QuizDetail from './pages/Quiz/QuizDetail';
 
 function App() {
   return (
       <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/home" element={<Dashboard />} />
-          <Route path="/create-room" element={<CreateRoom />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/session" element={<SessionAnalytics />} />
-          <Route path="/attendance" element={<Attendance />} />
-          <Route path="/room-analytics/:sessionId/:sessionName" element={<RoomAnalytics />} />
-          <Route path="/about" element={<About/>} />
+          <Route path="/teacher/home" element={<Dashboard />} />
+          <Route path="/teacher/create-room" element={<CreateRoom />} />
+          <Route path="/teacher/quiz" element={<Quiz />} />
+          <Route path="/teacher/quiz/quiz-details/:quizid" element={<QuizDetail/>}/>
+          <Route path="/teacher/session" element={<SessionAnalytics />} />
+          <Route path="/teacher/attendance" element={<Attendance />} />
+          <Route path="/teacher/room-analytics" element={<RoomAnalytics />} />
+          <Route path="/teacher/about" element={<About/>} />
       </Routes>
   );
 }

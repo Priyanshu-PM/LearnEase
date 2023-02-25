@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
-import { AiOutlineSetting } from "react-icons/ai";
 import { BiCategory } from "react-icons/bi";
 import { IoLibraryOutline } from "react-icons/io5";
 import { MdOutlineLibraryAddCheck } from "react-icons/md";
@@ -19,7 +18,7 @@ const Sidebar = () => {
       <div className="px-5 py-3">
         <Link
           className="flex items-center justify-between text-[#0dd6b8]"
-          to="/home"
+          to="/teacher/home"
         >
             <div className="flex justify-center items-center w-full h-[7rem]">
 
@@ -31,66 +30,66 @@ const Sidebar = () => {
       <div className="flex flex-col text-[16px] gap-4 px-5">
         <Link
           className={
-            path === "/home"
+            path === "/teacher/home"
               ? `py-3 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
               : `py-3 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
           }
-          to="/home"
+          to="/teacher/home"
         >
           <AiOutlineHome />
           <span>Home</span>
         </Link>
         <Link
           className={
-            path === "/create-room"
+            path === "/teacher/create-room"
               ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
               : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
           }
-          to="/create-room"
+          to="/teacher/create-room"
         >
           <BiCategory />
           <span>Create Room</span>
         </Link>
         <Link
           className={
-            path === "/Quiz"
+            path === "/teacher/Quiz"
               ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
               : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
           }
-          to="/Quiz"
+          to="/teacher/Quiz"
         >
           <IoLibraryOutline />
           <span>Quiz</span>
         </Link>
         <Link
           className={
-            path === "/session"
+            path === "/teacher/session"
               ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
               : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
           }
-          to="/session"
+          to="/teacher/session"
         >
           <MdOutlineLibraryAddCheck />
           <span>Session Analytics</span>
         </Link>
         <Link
           className={
-            path === "/attendance"
+            path === "/teacher/attendance"
               ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
               : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
           }
-          to="/attendance"
+          to="/teacher/attendance"
         >
           <FiHeart />
           <span>Attendance</span>
         </Link>
         <Link
           className={
-            path === "/about"
+            path === "/teacher/about"
               ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
               : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
           }
-          to="/about"
+          to="/teacher/about"
         >
           <FiHelpCircle />
           <span>About Us</span>
