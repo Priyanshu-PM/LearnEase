@@ -3,10 +3,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from './App';
+import Welcome from './pages/Landingpage/WebView/Welcome';
+
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <App/>
   </BrowserRouter>,
   document.getElementById("root")
 );

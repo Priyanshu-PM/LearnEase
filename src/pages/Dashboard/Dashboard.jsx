@@ -1,8 +1,8 @@
 import React from "react";
-import ChartLine from "../../Components/ChartLine";
 import Sidebar from "../../Components/Sidebar";
 
-import LineChart from "./Charts/LineChart";
+import ChartLine from "../../Components/Charts/ChartLine";
+import ChartBar from "../../Components/Charts/ChartBar";
 
 const Dashboard = () => {
   return (
@@ -12,14 +12,18 @@ const Dashboard = () => {
           <Sidebar />
         </div>
         <div className="col-start-1 sm:col-start-3 col-end-12 min-w-full">
-          <div className="mx-auto bg-purple-300 p-5">
-          <h1>hello Dashboard</h1>
+          <div className="mx-auto bg-blue-500 p-5">
+            <h1 className="text-center text-xl">Hello Dashboard</h1>
           </div>
         </div>
 
-        <div className="p-5 col-start-3 mt-15 charts col-end-7 min-w-full">
-        <ChartLine/>
-
+        <div className="p-5 col-start-3 mt-15  col-end-12 min-w-full ">
+          <div>
+            <ChartLine />
+          </div>
+          <div>
+            <ChartBar />
+          </div>
         </div>
       </div>
     </div>
