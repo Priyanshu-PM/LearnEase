@@ -1,13 +1,58 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Link} from 'react-router-dom';
 
 import { BiCategory } from "react-icons/bi";
 
 const Navbar = () => {
+
+
+  const navMenuDivRef = useRef(null);
+  const navMenuRef = useRef(null);
+
+  useEffect(() => {
+    document.addEventListener("click", check);
+
+    return () => {
+      document.removeEventListener("click", check);
+    };
+  });
+
+  function check(e) {
+    const target = e.target || window.event.srcElement;
+
+    // Nav Menu
+    if (!checkParent(target, navMenuDivRef.current)) {
+      // click NOT on the menu
+      if (checkParent(target, navMenuRef.current)) {
+        // click on the link
+        if (navMenuDivRef.current.classList.contains("hidden")) {
+          navMenuDivRef.current.classList.remove("hidden");
+        } else {
+          navMenuDivRef.current.classList.add("hidden");
+        }
+      } else {
+        // click both outside link and outside menu, hide menu
+        navMenuDivRef.current.classList.add("hidden");
+      }
+    }
+  }
+
+  function checkParent(t, elm) {
+    while (t.parentNode) {
+      if (t === elm) {
+        return true;
+      }
+      t = t.parentNode;
+    }
+    return false;
+  }
+
+
+
   return (
-    <div id="header" className="fixed w-full z-30 top-0 text-white">
+    <div id="header" className="bg-opaque fixed w-full z-30 top-0 text-white bg-gradient-to-r from-green-400 to-blue-500">
     <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 py-2">
-    <div class="pl-4 flex items-center">
+    <div class="pl-1 flex items-center">
       <a class="toggleColour text-black no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
         StudyAI
       </a>

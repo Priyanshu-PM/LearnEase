@@ -5,7 +5,6 @@ import { BiCategory } from "react-icons/bi";
 import { IoLibraryOutline } from "react-icons/io5";
 import { MdOutlineLibraryAddCheck } from "react-icons/md";
 import { FiHeart } from "react-icons/fi";
-import { FiHelpCircle } from "react-icons/fi";
 
 import { useLocation } from "react-router-dom";
 

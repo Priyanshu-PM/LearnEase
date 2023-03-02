@@ -17,7 +17,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="p-5 col-start-3 mt-15  col-end-12 min-w-full ">
+        <div className="p-5 col-start-3 sm:col-start-3 mt-15  col-end-12 min-w-full flex flex-row">
           <div>
             <ChartLine />
           </div>

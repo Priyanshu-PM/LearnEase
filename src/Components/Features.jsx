@@ -17,11 +17,11 @@ const Features = () => {
         </div>
         <div className="mt-15 space-y-10">
           <div className="flex flex-wrap shadow-xl">
-            <div className="w-5/6 sm:w-1/2 p-6 align-center justify-center shadow-xl space-y-10">
+            <div className="w-6/6 sm:w-1/2 p-6 align-center justify-center shadow-xl space-y-10">
               <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3 text-center">
               Interactive Assessments
               </h3>
-              <p className="text-gray-600 mb-8 left">
+              <p className="text-gray-600 mb-8 left text-center">
               Our interactive assessment platform offers engaging and interactive assessments with immediate feedback, allowing students to learn from their mistakes and reinforce their understanding of key concepts. Teachers can also track student progress and performance, identify areas for improvement, and provide targeted support and guidance to help students succeed.
                 <br />
                 <br />
@@ -47,7 +47,7 @@ const Features = () => {
                 <h3 className="text-3xl text-gray-800 font-bold leading-none mb-3 text-center">
                 Real-time Analytics
                 </h3>
-                <p className="text-gray-600 mb-8">
+                <p className="text-gray-600 mb-8 text-center">
                 Our platform provides real-time analytics to help teachers track student progress, engagement, and identify areas for improvement. Teachers can easily monitor individual student progress, compare class-wide performance over time, and use data-driven insights to inform instructional decisions and promote student success.
                 </p>
                 <br/>
