@@ -51,32 +51,25 @@ const SessionAnalytics = () => {
         </div>
 
         <div className="col-start-1 sm:col-start-3 col-end-12 min-w-full">
-          <div className="bg-blue-500 col-start-1 sm:col-start-3 col-end-12 min-w-full p-5 flex justify-center align-center fixed">
-            <h1 className="text-2xl">Quiz Details</h1>
+          <div className="mx-auto bg-blue-500 p-5">
+            <h1 className="text-center text-2xl">Quiz Details</h1>
           </div>
 
-          <div className="min-w-full bg-red-200 mt-10 pt-10 pl-5 pr-5 ">
+          <div className="min-w-full bg-red-200 pt-10 pl-5 pr-5 space-y-10">
             {Sessions.map((Session, index) => (
-              <div className=" mb-5 mt-10 rounded-lg flex flex-row justify-between bg-green-200">
+              <div className=" rounded-lg flex flex-row justify-between bg-green-200">
                 <Link
-                  className="bg-green-400 w-full rounded-lg pl-5 pr-5 hover:bg-yellow-200 shadow-xl"
-                  to="/"
+                  className="bg-yellow-400 w-full rounded-lg pl-5 pr-5 hover:bg-yellow-200"
+                  to={`/teacher/quiz/quiz-details/quizid:${Session.SessionID}`}
                 >
                   <span>
                     <div
                       key={index}
-                      className=" p-5 rounded-lg flex flex-row justify-between"
+                      className=" mb-5 mt-5  rounded-lg flex flex-row justify-between bg-green-200"
                     >
                       <div className="flex justify-between">
-                        <div>
-                          <h2 className="text-xl flex flex-column">
-                            {Session.Sessionname}
-                          </h2>
-                          <h2 className="text-l">{Session.date}</h2>
-                        </div>
-                        <div>
-                          <h2 className="text-xl ml-5">{Session.SessionID}</h2>
-                        </div>
+                        <h2 className="text-xl mr-5">{Session.Sessionname}</h2>
+                        <h2 className="text-xl ml-5">{Session.SessionID}</h2>
                       </div>
                       <div>
                         <h1 className="text-xl">{Session.Attendance}</h1>

@@ -22,15 +22,26 @@ const loginFields=[
 ]
 
 const signupFields=[
+    
     {
-        labelText:"Username",
-        labelFor:"username",
-        id:"username",
-        name:"username",
+        labelText:"First Name",
+        labelFor:"first-name",
+        id:"first-name",
+        name:"first-name",
         type:"text",
-        autoComplete:"username",
+        autoComplete:"first-name",
         isRequired:true,
-        placeholder:"Username"   
+        placeholder:"First Name"   
+    },
+    {
+        labelText:"Last Name",
+        labelFor:"last-name",
+        id:"last-name",
+        name:"last-name",
+        type:"text",
+        autoComplete:"last-name",
+        isRequired:true,
+        placeholder:"Last Name"   
     },
     {
         labelText:"Email address",
@@ -52,16 +63,6 @@ const signupFields=[
         isRequired:true,
         placeholder:"Password"   
     },
-    {
-        labelText:"Confirm Password",
-        labelFor:"confirm-password",
-        id:"confirm-password",
-        name:"confirm-password",
-        type:"password",
-        autoComplete:"confirm-password",
-        isRequired:true,
-        placeholder:"Confirm Password"   
-    }
 ]
 
 export {loginFields,signupFields};

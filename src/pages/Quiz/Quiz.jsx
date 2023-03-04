@@ -35,6 +35,16 @@ const Quiz = () => {
       sessionid: "6546546",
       average: "8",
     },
+    {
+      sessionname: "Quiz 7",
+      sessionid: "6546546",
+      average: "9.5",
+    },
+    {
+      sessionname: "Quiz 8",
+      sessionid: "6546546",
+      average: "8.5",
+    },
   ];
 
   return (
@@ -45,28 +55,29 @@ const Quiz = () => {
         </div>
 
         <div className="col-start-1 sm:col-start-3 col-end-12 min-w-full">
-          <div className="bg-blue-500 col-start-1 sm:col-start-3 col-end-12 min-w-full p-5 flex justify-center align-center fixed">
-            <h1 className="text-2xl">Quiz Details</h1>
+          <div className="mx-auto bg-blue-500 p-5">
+            <h1 className="text-center text-2xl">Quiz Details</h1>
           </div>
 
-          <div className="min-w-full bg-red-200 mt-10 pt-10 pl-5 pr-5 ">
+          <div className="min-w-full bg-blue-100 pt-10 pl-5 pr-5 space-y-10">
             {quizes.map((quiz, index) => (
-              <div className=" mb-5 mt-10 rounded-lg flex flex-row justify-between bg-green-200">
+              <div className="w-full rounded-lg flex flex-row justify-between bg-red-200 pl-5 pr-5 shadow-xl">
                 <Link
-                  className="bg-yellow-400 w-full rounded-lg pl-5 pr-5 hover:bg-yellow-200"
+                  className=" w-full "
                   to={`/teacher/quiz/quiz-details/quizid:${quiz.sessionid}`}
                 >
                   <span>
                     <div
                       key={index}
-                      className=" mb-5 mt-5 p-5 rounded-lg flex flex-row justify-between bg-green-200"
+                      className=" mb-5 mt-5  rounded-lg flex flex-row justify-between bg-green-200"
                     >
                       <div className="flex justify-between">
                         <h2 className="text-xl mr-5">{quiz.sessionname}</h2>
                         <h2 className="text-xl ml-5">{quiz.sessionid}</h2>
                       </div>
-                      <div>
+                      <div className="flex flex-row space-x-10">
                         <h1 className="text-xl">{quiz.average}</h1>
+                        <button>View Details</button>
                       </div>
                     </div>
                   </span>

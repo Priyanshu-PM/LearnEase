@@ -4,6 +4,8 @@ import TestFile from './TestFile';
 import RecordSession from './RecordSession';
 
 import Testing from './Testing';
+import Tester from './Tester';
+import Test from './Test';
 
 
 const RoomAnalytics = ({sessionID, sessionName}) => {
@@ -18,7 +20,7 @@ const RoomAnalytics = ({sessionID, sessionName}) => {
           <h4>Session ID : {sessionID}</h4>
           <h4>Session name : {sessionName}</h4>
         </div>
-        <RecordSession/>
+        <Test/>
     </div>
 
   </div>

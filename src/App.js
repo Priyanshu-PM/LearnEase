@@ -7,12 +7,13 @@ import Dashboard from './pages/Dashboard/Dashboard.jsx';
 import CreateRoom from './pages/CreateRoom/CreateRoom.jsx';
 import Quiz from './pages/Quiz/Quiz.jsx';
 import SessionAnalytics from './pages/Session/SessionAnalytics.jsx';
-import Attendance from './pages/Attendance/Attendance';
 import RoomAnalytics from './pages/CreateRoom/RoomAnalytics';
 import QuizDetail from './pages/Quiz/QuizDetail';
 import Welcome from './pages/Landingpage/WebView/Welcome';
 import SignupPage from './pages/Landingpage/Forms/pages/Signup';
 import LoginPage from './pages/Landingpage/Forms/pages/Login';
+import TestFile from './pages/CreateRoom/TestFile';
+import SelectProfile from './Components/SelectProfile';
 
 import About from './pages/Landingpage/About';
 
@@ -28,9 +29,10 @@ function App() {
           <Route path="/teacher/quiz" element={<Quiz />} />
           <Route path="/teacher/quiz/quiz-details/:quizid" element={<QuizDetail/>}/>
           <Route path="/teacher/session" element={<SessionAnalytics />} />
-          <Route path="/teacher/attendance" element={<Attendance />} />
           <Route path="/teacher/room-analytics" element={<RoomAnalytics />} />
+          <Route path="/select" element={<SelectProfile/>}/>
           
+          <Route path="/session/:sessionId" element={<TestFile />} />
           
       </Routes>
   );

@@ -3,6 +3,8 @@ import { signupFields } from "../constants/formFields"
 import FormAction from "./FormAction";
 import Input from "./Input";
 
+import axios from "../../../../axios/axios";
+
 const fields=signupFields;
 let fieldsState={};
 
@@ -21,6 +23,25 @@ export default function Signup(){
 
   //handle Signup API Integration here
   const createAccount=()=>{
+
+    axios
+      .post("/teacher/login", {
+        emailID: signupState["email-address"],
+        password: signupState.password,
+      })
+      .then((res) => {
+        const data = res.data;
+        if (data.success) {
+          console.log("goog to");
+          console.log(data);
+        } else {
+          alert("invalid");
+        }
+      })
+      .catch((err) => {
+        alert("invalid");
+        console.log(err);
+      });
 
   }
 

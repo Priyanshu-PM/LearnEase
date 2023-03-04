@@ -58,12 +58,14 @@ function ChartLine() {
 
   const labels = [ "January", "February", "March", "April", "May", "June", "July"];
 
+  const fetchdata = [12, 34, 56, 102, 67, 98, 46];
+
   const data = {
     labels,
     datasets: [
       {
         label: "Attentiveness",
-        data: [12, 34, 56, 102, 67, 98, 46],
+        data: fetchdata,
         borderColor: "blue",
         backgroundColor: "blue",
         pointRadius: 5

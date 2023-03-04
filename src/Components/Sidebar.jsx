@@ -71,17 +71,6 @@ const Sidebar = () => {
           <MdOutlineLibraryAddCheck />
           <span>Session Analytics</span>
         </Link>
-        <Link
-          className={
-            path === "/teacher/attendance"
-              ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
-              : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
-          }
-          to="/teacher/attendance"
-        >
-          <FiHeart />
-          <span>Attendance</span>
-        </Link>
       </div>
       
     </div>

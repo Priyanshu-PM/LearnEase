@@ -62,12 +62,14 @@ function ChartBar() {
 
       const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
 
+      const fetchdata = [12, 34, 56, 102, 67, 98, 46];
+
       const data = {
         labels,
         datasets: [
           {
             label: 'Attendance',
-            data: [12, 34, 56, 102, 67, 98, 46],
+            data: fetchdata,
             backgroundColor: 'blue',
           }
         ],

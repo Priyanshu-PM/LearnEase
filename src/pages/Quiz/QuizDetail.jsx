@@ -36,6 +36,21 @@ const QuizDetail = () => {
         studentemail: "6546546",
         score: "8",
     },
+    {
+        studentname: "Student 7",
+        studentemail: "6546546",
+        score: "8",
+    },
+    {
+        studentname: "Student 8",
+        studentemail: "6546546",
+        score: "8",
+    },
+    {
+        studentname: "Student 9",
+        studentemail: "6546546",
+        score: "8",
+    },
   ];
 
   const params = useParams();
@@ -52,15 +67,15 @@ const QuizDetail = () => {
         </div>
 
         <div className="col-start-1 sm:col-start-3 col-end-12 min-w-full">
-          <div className="bg-blue-500 col-start-1 sm:col-start-3 col-end-12 min-w-full p-5 flex justify-center align-center fixed">
-            <h1 className="text-2xl">Student Responses on quiz {quizid}</h1>
+          <div className="mx-auto bg-blue-500 p-5">
+            <h1 className="text-center text-2xl">Student Responses on quiz {quizid}</h1>
           </div>
 
-          <div className="min-w-full bg-red-200 mt-10 pt-10 pb-10 pl-5 pr-5">
+          <div className="min-w-full bg-blue-100 pt-10 pb-10 pl-5 pr-5 space-y-10">
             {Responses.map((response, index) => (
                 <div
                   key={index}
-                  className=" mt-10 p-3 rounded-lg flex flex-row justify-between bg-green-200 hover:bg-blue-100"
+                  className="shadow-xl  p-3 rounded-lg flex flex-row justify-between bg-white hover:bg-blue-100"
                 >
                   <div className="flex justify-between">
                     <h2 className="text-xl mr-5">{response.studentname}</h2>
