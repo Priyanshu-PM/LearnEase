@@ -47,7 +47,7 @@ const signupFields=[
         labelText:"Email address",
         labelFor:"email-address",
         id:"email-address",
-        name:"email",
+        name:"email-address",
         type:"email",
         autoComplete:"email",
         isRequired:true,

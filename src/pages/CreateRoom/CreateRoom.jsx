@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from "react";
-// import RoomAnalytics from "./RoomAnalytics";
 import Sidebar from "../../Components/Sidebar";
 import "./Create-room.css";
 import { FaPlus } from 'react-icons/fa';

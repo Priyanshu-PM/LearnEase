@@ -10,6 +10,8 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
+import axios from 'axios';
+
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -20,6 +22,8 @@ ChartJS.register(
   );
 
 function ChartBar() {
+  
+  const apiKey = process.env.REACT_APP_STUDYAI_API;
 
     const options = {
         responsive: true,

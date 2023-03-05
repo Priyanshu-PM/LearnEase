@@ -49,17 +49,21 @@ const Sidebar = () => {
           <BiCategory />
           <span>Create Room</span>
         </Link>
-        <Link
-          className={
-            path === "/teacher/Quiz"
-              ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
-              : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
-          }
-          to="/teacher/Quiz"
-        >
-          <IoLibraryOutline />
-          <span>Quiz</span>
-        </Link>
+
+        {/*
+        // <Link 
+        //   className={
+        //     path === "/teacher/Quiz"
+        //       ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
+        //       : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
+        //   }
+        //   to="/teacher/Quiz"
+        // >
+        //   <IoLibraryOutline />
+        //   <span>Quiz</span>
+        // </Link>
+        */}
+
         <Link
           className={
             path === "/teacher/session"

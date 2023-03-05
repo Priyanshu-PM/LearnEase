@@ -4,7 +4,7 @@ import FormAction from "./FormAction";
 import FormExtra from "./FormExtra";
 import Input from "./Input";
 
-import axios from 'axios';
+import axios from "../../../../axios/axios";
 
 import { useNavigate } from "react-router-dom";
 
@@ -12,10 +12,11 @@ const fields = loginFields;
 let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
-export default function Login() {
+export default function LoginStudent() {
 
+    
   const apiKey = process.env.REACT_APP_STUDYAI_API;
-  const key = `${apiKey}/teacher/login`;
+  const key = `${apiKey}/student/login`;
 
   const [loginState, setLoginState] = useState(fieldsState);
 
@@ -32,7 +33,6 @@ export default function Login() {
 
   //Handle Login API Integration here
   const authenticateUser = () => {
-
     axios
       .post(key, {
         emailID: loginState["email-address"],
@@ -41,7 +41,7 @@ export default function Login() {
       .then((res) => {
         const data = res.data;
         if (data.success) {
-          console.log("teacher login successfully");
+          console.log("student login successfully");
           console.log(data);
         } else {
           alert("invalid");

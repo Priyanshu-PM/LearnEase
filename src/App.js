@@ -10,8 +10,12 @@ import SessionAnalytics from './pages/Session/SessionAnalytics.jsx';
 import RoomAnalytics from './pages/CreateRoom/RoomAnalytics';
 import QuizDetail from './pages/Quiz/QuizDetail';
 import Welcome from './pages/Landingpage/WebView/Welcome';
+
 import SignupPage from './pages/Landingpage/Forms/pages/Signup';
 import LoginPage from './pages/Landingpage/Forms/pages/Login';
+import LoginStudent from './pages/Landingpage/Forms/pages/LoginStudent';
+import RegisterStudent from './pages/Landingpage/Forms/pages/RegisterStudent';
+
 import TestFile from './pages/CreateRoom/TestFile';
 import SelectProfile from './Components/SelectProfile';
 
@@ -29,6 +33,8 @@ function App() {
           <Route path="/" element={<Welcome />} />
           <Route path="/login" element={<LoginPage/>}/>
           <Route path="/signup" element={<SignupPage/>} />
+          <Route path="/loginstudent" element={<LoginStudent/>}/>
+          <Route path="/signupstudent" element={<RegisterStudent/>}/>
           <Route path="/about" element={<About/>}/>
           <Route path="/teacher/home" element={<Dashboard />} />
           <Route path="/teacher/create-room" element={<CreateRoom />} />

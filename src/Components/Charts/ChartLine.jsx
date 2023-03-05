@@ -12,9 +12,13 @@ import {
 
 import { Line } from "react-chartjs-2";
 
+import axios from 'axios';
+
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, Filler);
 
 function ChartLine() {
+  
+  const apiKey = process.env.REACT_APP_STUDYAI_API;
 
   const options = {
     responsive: true,

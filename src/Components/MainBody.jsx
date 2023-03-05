@@ -1,5 +1,5 @@
 import React from "react";
-
+import {Link} from 'react-router-dom';
 import download from "../assets/download.png";
 
 const MainBody = () => {
@@ -17,9 +17,9 @@ const MainBody = () => {
           for a cutting-edge, interactive experience that adapts to your unique
           needs.
         </p>
-        <button class="mx-auto lg:mx-0 hover: bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+        <Link to="/select"  class="mx-auto lg:mx-0 hover: bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
           Learn More
-        </button>
+        </Link>
       </div>
       <div class=" w-full md:w-3/5 py-6 text-center">
         <img class="w-full md:w-4/5 z-50" src={download} alt="" />

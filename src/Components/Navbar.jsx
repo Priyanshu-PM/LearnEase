@@ -85,7 +85,7 @@ const Navbar = () => {
       <Link
       className=
           " mx-auto lg:mx-0  bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 shadow opacity-75 focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out py-2 px-5  flex items-center gap-3 "
-      to="/login"
+      to="/select"
     >Login
     </Link>
     </div>
