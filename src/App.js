@@ -15,6 +15,8 @@ import LoginPage from './pages/Landingpage/Forms/pages/Login';
 import TestFile from './pages/CreateRoom/TestFile';
 import SelectProfile from './Components/SelectProfile';
 
+import Test from './pages/CreateRoom/Test';
+
 import About from './pages/Landingpage/About';
 
 function App() {
@@ -33,6 +35,7 @@ function App() {
           <Route path="/select" element={<SelectProfile/>}/>
           
           <Route path="/session/:sessionId" element={<TestFile />} />
+          <Route path="/test" element={<Test/>}/>
           
       </Routes>
   );

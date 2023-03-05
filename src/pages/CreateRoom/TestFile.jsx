@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, } from "react";
 import Sidebar from "../../Components/Sidebar";
 import { FaUserCircle } from "react-icons/fa";
 import { TaskTimer } from "tasktimer";
+
+
+// import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 const SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -9,8 +12,6 @@ const recognition = new SpeechRecognition();
 recognition.continuous = true;
 recognition.interimResults = true;
 recognition.lang = "en-US";
-
-
 
 
 const students = [
@@ -161,6 +162,9 @@ const students = [
 ];
 
 const TestFile = () => {
+
+
+
   const [transcript, setTranscript] = useState("");
 
   const [frameData, setFrameData] = useState("");
@@ -328,9 +332,9 @@ const joinedTime = new Date().toLocaleTimeString();
         }
   
           
-          {closebtn === true && <button 
+          <button 
               className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-2 px-4 border border-red-500 hover:border-transparent rounded"
-              onClick={stopRecording}>Close Session</button>}
+              onClick={stopRecording}>Close Session</button>
   
           <br />
 

@@ -27,8 +27,10 @@ const CreateRoom = () => {
   //   setShowInputValue(true);
   // }
   const navigate = useNavigate()
+
   const handleSessionClick = (sessionId) => {
     navigate(`/session/${sessionId}`);
+    // navigate("/test");
   };
 
 
@@ -64,7 +66,7 @@ const CreateRoom = () => {
   };
 
 
-  const isCreateSessionDisabled = !sessionId || !sessionName;
+  const isCreateSessionDisabled = !sessionName;
 
   const sessionsData = [
     {
@@ -221,19 +223,7 @@ const CreateRoom = () => {
 <div className="bg-gradient-to-b from-gray-200 to-white min-h-screen rounded-lg p-6">
       <h2 className="text-2xl font-semibold mb-4">Create a new session</h2>
       <form className="flex flex-col gap-4">
-        <div className="flex flex-col gap-1">
-          <label htmlFor="session-id" className="text-lg font-medium">
-            Session ID
-          </label>
-          <input
-            type="text"
-            id="session-id"
-            value={sessionId}
-            onChange={handleSessionIdChange}
-            placeholder="Enter session ID"
-            className="p-2 border rounded-md"
-          />
-        </div>
+        
         <div className="flex flex-col gap-1">
           <label htmlFor="session-name" className="text-lg font-medium">
             Session Name
