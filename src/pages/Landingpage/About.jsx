@@ -5,7 +5,7 @@ import { FaCheck } from 'react-icons/fa';
 const About = () => {
   return (
     <div className="bg-white px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
-      <div className="max-w-screen-xl mx-auto text-center">
+      <div className="max-w-screen-xl mx-auto text-center items-center">
         <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl">
           About StudyAI
         </h2>
@@ -16,8 +16,8 @@ const About = () => {
           learn and teachers to teach more effectively in an online setting.
         </p>
         <div className="mt-8">
-          <div className="flex justify-center">
-            <div className="mr-8">
+          <div className="justify-center">
+            <div className="">
               <h3 className="text-lg font-medium text-gray-900">
                 Personalized Learning
               </h3>

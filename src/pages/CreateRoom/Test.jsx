@@ -16,13 +16,17 @@ const Dictaphone = () => {
   const [transcription, setTranscription] = useState('');
 
   const startRecording = () => {
+
     setRecording(true);
     SpeechRecognition.startListening();
+    
   };
 
   const stopRecording = () => {
+
     setRecording(false);
     SpeechRecognition.stopListening();
+
   };
 
   // useEffect(() => {

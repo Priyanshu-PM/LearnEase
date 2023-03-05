@@ -4,7 +4,7 @@ import { AiOutlineHome } from "react-icons/ai";
 import { BiCategory } from "react-icons/bi";
 import { IoLibraryOutline } from "react-icons/io5";
 import { MdOutlineLibraryAddCheck } from "react-icons/md";
-import { FiHeart } from "react-icons/fi";
+import { FiHeart, FiUser, FiLogOut } from "react-icons/fi";
 
 import { useLocation } from "react-router-dom";
 
@@ -75,6 +75,27 @@ const Sidebar = () => {
           <MdOutlineLibraryAddCheck />
           <span>Session Analytics</span>
         </Link>
+        {/*
+        <Link
+          className={
+            path === "/teacher/session"
+              ? `py-2 px-5 rounded-md  flex items-center gap-3  bg-[#0dd6b814] text-[#0dd6b8]`
+              : `py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]`
+          }
+          to="/teacher/session"
+        >
+          <FiUser />
+          <span>Profile</span>
+        </Link>
+        */}
+        
+        <button
+          className="py-2 px-5 rounded-md  flex items-center gap-3 hover:bg-[#0dd6b814] hover:text-[#0dd6b8]"
+          onClick={()=> {}}
+        >
+          <FiLogOut />
+          <span>Logout</span>
+        </button>
       </div>
       
     </div>
