@@ -18,6 +18,10 @@ import SelectProfile from './Components/SelectProfile';
 import Test from './pages/CreateRoom/Test';
 
 import About from './pages/Landingpage/About';
+import Home from './pages/Student/pages/Home';
+import StdQuiz from './pages/Student/pages/StdQuiz';
+import DownloadExt from './pages/Student/pages/DownloadExt';
+import Room from './pages/Student/pages/Room';
 
 function App() {
   return (
@@ -33,9 +37,14 @@ function App() {
           <Route path="/teacher/session" element={<SessionAnalytics />} />
           <Route path="/teacher/room-analytics" element={<RoomAnalytics />} />
           <Route path="/select" element={<SelectProfile/>}/>
-          
           <Route path="/session/:sessionId" element={<TestFile />} />
-          <Route path="/test" element={<Test/>}/>
+
+          {/* _________________Students Routes____________________________ */}
+          
+          <Route path='/home' element={<Home/>} />
+          <Route path='/download' element={<DownloadExt/>} />
+          <Route path='/room/:roomId' element={<Room/>} />
+          <Route path='/quiz/:quizId' element={<StdQuiz/>} />
           
       </Routes>
   );
