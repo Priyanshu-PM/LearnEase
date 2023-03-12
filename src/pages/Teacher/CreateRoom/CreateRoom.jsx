@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import Sidebar from "../../Components/Sidebar";
+import React, { useState, useEffect} from "react";
+import Sidebar from "../../../Components/Sidebar";
+import "./Create-room.css";
+import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
-const SessionAnalytics = () => {
 
-
+const CreateRoom = () => {
   const apiKey = process.env.REACT_APP_STUDYAI_API;
 
   const key = `${apiKey}/teacher/63f1f295f25c00160b91024d/rooms`;
@@ -31,15 +31,42 @@ const SessionAnalytics = () => {
 
   console.log(rooms);
 
-  
   const navigate = useNavigate()
-  
+
   const handleSessionClick = (sessionId) => {
     navigate(`/session/${sessionId}`);
     // navigate("/test");
   };
 
 
+  const [sessionName, setSessionName] = useState('');
+
+  const [sessions, setSessions] = useState([]);
+
+  const handleSessionNameChange = (e) => {
+    setSessionName(e.target.value);
+  };
+
+  const handleCreateSession = () => {
+    const newSession = {
+      name: sessionName,
+      creationTime: new Date().toLocaleString(),
+    };
+
+    setSessions([...sessions, newSession]);
+    setSessionName('');
+
+
+    console.log('====================================');
+    console.log(sessions);
+    console.log('====================================');
+  };
+
+
+  const isCreateSessionDisabled = !sessionName;
+
+  
+  
   const gradientColors = [
     'from-purple-500/10 to-indigo-500/10',
     'from-green-500/10 to-teal-500/10',
@@ -87,55 +114,45 @@ const SessionAnalytics = () => {
   ];
 
 
-  const Sessions = [
-    {
-      Sessionname: "Session 1",
-      SessionID: "989746",
-      date: "10/2/2023",
-      Attendance: "10",
-    },
-    {
-      Sessionname: "Session 2",
-      SessionID: "6546546",
-      date: "10/2/2023",
-      Attendance: "10",
-    },
-    {
-      Sessionname: "Session 3",
-      SessionID: "6546546",
-      date: "10/2/2023",
-      Attendance: "10",
-    },
-    {
-      Sessionname: "Session 4",
-      SessionID: "6546546",
-      date: "10/2/2023",
-      Attendance: "8",
-    },
-    {
-      Sessionname: "Session 5",
-      SessionID: "6546546",
-      date: "10/2/2023",
-      Attendance: "10",
-    },
-    {
-      Sessionname: "Session 6",
-      SessionID: "6546546",
-      date: "10/2/2023",
-      Attendance: "8",
-    },
-  ];
-
   return (
-    <div className="bg-gradient-to-b from-gray-200 to-white min-h-screen">
+    <div className="bg-[#F3F8FF] min-h-screen">
       <div className="grid grid-cols-11">
-        <div className="hidden sm:block col-start-1 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%]">
+      <div className="hidden sm:block col-start-1 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%]">
           <Sidebar />
         </div>
 
-        <div className="col-start-1 sm:col-start-3 col-end-12 min-w-full">
-
-          <div>
+<div className="col-start-1 sm:col-start-3 col-end-12">
+<div className="bg-gradient-to-b from-gray-200 to-white min-h-screen rounded-lg p-6">
+      <h2 className="text-2xl font-semibold mb-4">Create a new session</h2>
+      <form className="flex flex-col gap-4">
+        
+        <div className="flex flex-col gap-1">
+          <label htmlFor="session-name" className="text-lg font-medium">
+            Session Name
+          </label>
+          <input
+            type="text"
+            id="session-name"
+            value={sessionName}
+            onChange={handleSessionNameChange}
+            placeholder="Enter session name"
+            className="p-2 border rounded-md"
+          />
+        </div>
+        <button
+          type="button"
+          onClick={handleCreateSession}
+          disabled={isCreateSessionDisabled}
+          className={`px-4 py-2 rounded-md bg-green-500 text-white font-medium ${
+            isCreateSessionDisabled && 'opacity-50 cursor-not-allowed'
+          }`}
+        >
+          <FaPlus className="inline-block mr-2" />
+          Create Session
+        </button>
+      </form>
+  {/*============================================================================================================  */}
+      <div>
       {rooms.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-7 mt-8">
           {rooms.map((session, index) => (
@@ -160,10 +177,12 @@ const SessionAnalytics = () => {
       </div>
       )}
     </div>
-        </div>
+
+    </div>
+</div>
       </div>
     </div>
   );
 };
 
-export default SessionAnalytics;
+export default CreateRoom;

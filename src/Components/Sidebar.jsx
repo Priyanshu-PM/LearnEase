@@ -21,7 +21,7 @@ const Sidebar = () => {
         >
             <div className="flex justify-center items-center w-full h-[7rem]">
 
-          <h1 className="text-xl font-bold">ClassRoom</h1>
+          <h1 className="text-xl font-bold">FirstName</h1>
             </div>
 
         </Link>

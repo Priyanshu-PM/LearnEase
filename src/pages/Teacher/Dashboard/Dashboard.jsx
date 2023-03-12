@@ -1,8 +1,8 @@
 import React from "react";
-import Sidebar from "../../Components/Sidebar";
+import Sidebar from "../../../Components/Sidebar";
 
-import ChartLine from "../../Components/Charts/ChartLine";
-import ChartBar from "../../Components/Charts/ChartBar";
+import ChartLine from "../../../Components/Charts/ChartLine";
+import ChartBar from "../../../Components/Charts/ChartBar";
 
 const Dashboard = () => {
   

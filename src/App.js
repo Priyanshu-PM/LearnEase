@@ -3,12 +3,13 @@ import './App.css';
 
 import React from 'react';
 import { Routes, Route} from 'react-router-dom';
-import Dashboard from './pages/Dashboard/Dashboard.jsx';
-import CreateRoom from './pages/CreateRoom/CreateRoom.jsx';
-import Quiz from './pages/Quiz/Quiz.jsx';
-import SessionAnalytics from './pages/Session/SessionAnalytics.jsx';
-import RoomAnalytics from './pages/CreateRoom/RoomAnalytics';
-import QuizDetail from './pages/Quiz/QuizDetail';
+import Dashboard from './pages/Teacher/Dashboard/Dashboard';
+import CreateRoom from './pages/Teacher/CreateRoom/CreateRoom.jsx';
+
+import Quiz from './pages/Teacher/Quiz/Quiz.jsx';
+import SessionAnalytics from './pages/Teacher/Session/SessionAnalytics.jsx';
+import RoomAnalytics from './pages/Teacher/CreateRoom/RoomAnalytics';
+import QuizDetail from './pages/Teacher/Quiz/QuizDetail';
 import Welcome from './pages/Landingpage/WebView/Welcome';
 
 import SignupPage from './pages/Landingpage/Forms/pages/Signup';
@@ -16,16 +17,18 @@ import LoginPage from './pages/Landingpage/Forms/pages/Login';
 import LoginStudent from './pages/Landingpage/Forms/pages/LoginStudent';
 import RegisterStudent from './pages/Landingpage/Forms/pages/RegisterStudent';
 
-import TestFile from './pages/CreateRoom/TestFile';
+import TestFile from './pages/Teacher/CreateRoom/TestFile';
 import SelectProfile from './Components/SelectProfile';
 
-import Test from './pages/CreateRoom/Test';
+import Test from './pages/Teacher/CreateRoom/Test';
 
 import About from './pages/Landingpage/About';
 import Home from './pages/Student/pages/Home';
 import StdQuiz from './pages/Student/pages/StdQuiz';
 import DownloadExt from './pages/Student/pages/DownloadExt';
 import Room from './pages/Student/pages/Room';
+import StudentRoutes from './pages/Student/StudentRoutes';
+import TeacherRoute from './pages/Teacher/TeacherRoute';
 
 function App() {
   return (
@@ -36,22 +39,29 @@ function App() {
           <Route path="/loginstudent" element={<LoginStudent/>}/>
           <Route path="/signupstudent" element={<RegisterStudent/>}/>
           <Route path="/about" element={<About/>}/>
-          <Route path="/teacher/home" element={<Dashboard />} />
-          <Route path="/teacher/create-room" element={<CreateRoom />} />
-          <Route path="/teacher/quiz" element={<Quiz />} />
-          <Route path="/teacher/quiz/quiz-details/:quizid" element={<QuizDetail/>}/>
-          <Route path="/teacher/session" element={<SessionAnalytics />} />
-          <Route path="/teacher/room-analytics" element={<RoomAnalytics />} />
           <Route path="/select" element={<SelectProfile/>}/>
-          <Route path="/session/:sessionId" element={<TestFile />} />
+
+
+          
+          {/* _________________Teacher Routes____________________________ */}
+          <Route path="/teacher" element = {<TeacherRoute/>}>
+            <Route path="home" element={<Dashboard />} />
+            <Route path="create-room" element={<CreateRoom />} />
+            <Route path="quiz" element={<Quiz />} />
+            <Route path="quiz/quiz-details/:quizid" element={<QuizDetail/>}/>
+            <Route path="session" element={<SessionAnalytics />} />
+            <Route path="room-analytics" element={<RoomAnalytics />} />
+            <Route path="session/:sessionId" element={<TestFile />} />
+          </Route>
+
 
           {/* _________________Students Routes____________________________ */}
-          
-          <Route path='/home' element={<Home/>} />
-          <Route path='/download' element={<DownloadExt/>} />
-          <Route path='/room/:roomId' element={<Room/>} />
-          <Route path='/quiz/:quizId' element={<StdQuiz/>} />
-          
+          <Route path = "/student" element={<StudentRoutes/>}>
+            <Route path='home' element={<Home/>} />
+            <Route path='download' element={<DownloadExt/>} />
+            <Route path='room/:roomId' element={<Room/>} />
+            <Route path='quiz/:quizId' element={<StdQuiz/>} />
+          </Route>
       </Routes>
   );
 }
