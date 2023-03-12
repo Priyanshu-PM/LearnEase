@@ -335,13 +335,7 @@ const TestFile = () => {
                   </div>
                 </div>
               </div>
-
-              {/* <div className="pt-5">
-                <span>Transcript data</span>
-                <br />
-                <p>{transcript}</p>
-                <br />
-              </div> */}
+              
             </div>
           ) : (
             <div>

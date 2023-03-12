@@ -40,23 +40,20 @@ export default function Login() {
       })
       .then((res) => {
         const data = res.data;
-        if (data.success) {
+        if (data.success) 
+        {
           console.log("teacher login successfully");
           console.log(data);
-        } else {
+        } else 
+        {
           alert("invalid");
         }
       })
-      .catch((err) => {
+      .catch((err) => 
+      {
         alert("invalid");
         console.log(err);
       });
-
-      
-    // console.log({ emailID: loginState["email-address"],
-    //     password: loginState.password,})
-
-    // navigate("/teacher/home");
   };
 
   return (

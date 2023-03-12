@@ -3,8 +3,7 @@ import Sidebar from "../../../Components/Sidebar";
 import { FaUserCircle } from "react-icons/fa";
 import { TaskTimer } from "tasktimer";
 
-// import SpeechRecognition, { useSpeechRecognition } from
-// 'react-speech-recognition';
+// import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 // const SpeechRecognition =
 //   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -184,21 +183,20 @@ const TestFile = () => {
 
   const [closebtn, displayclosebtn] = useState(false);
 
+  useEffect(() => {
+    let intervalId;
+    if (recording) {
+      intervalId = setInterval(() => {
+        sendTranscriptionToServer();
+      }, 60000); // repeat every 5 minutes
+    }
+    return () => clearInterval(intervalId);
+  }, [recording]);
 
- useEffect(() => {
-   let intervalId;
-   if (recording) {
-     intervalId = setInterval(() => {
-       sendTranscriptionToServer();
-     }, 60000); // repeat every 5 minutes
-   }
-   return () => clearInterval(intervalId);
- }, [recording]);
-
- const sendTranscriptionToServer = () => {
-  //sending data to server and reseting the transript;
-  resetTranscript();
- }
+  const sendTranscriptionToServer = () => {
+    //sending data to server and reseting the transript;
+    resetTranscript();
+  };
 
   const startRecording = () => {
     setRecording(true);
@@ -267,8 +265,10 @@ const TestFile = () => {
   return (
     <div className="bg-[#F3F8FF] min-h-screen">
       <div className="grid grid-cols-11">
-        <div className="hidden sm:block col-start-1 col-end-3 bg-white
-text-[#9696a6] min-h-screen fixed w-[18%]">
+        <div
+          className="hidden sm:block col-start-1 col-end-3 bg-white
+text-[#9696a6] min-h-screen fixed w-[18%]"
+        >
           <Sidebar />
         </div>
 
@@ -278,14 +278,18 @@ text-[#9696a6] min-h-screen fixed w-[18%]">
               <div className="flex flex-col justify-start items-start gap-10 ">
                 <div>
                   <form onSubmit={submitTranscript}>
-                    <button className="bg-transparent
+                    <button
+                      className="bg-transparent
 hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2
-px-4 border border-blue-500 hover:border-transparent rounded">
+px-4 border border-blue-500 hover:border-transparent rounded"
+                    >
                       Summary
                     </button>
                     {transcript && (
-                      <p className="mt-4 px-6 py-6 w-[90rem]
-rounded-md border-gray-700 bg-gray-200">
+                      <p
+                        className="mt-4 px-6 py-6 w-[90rem]
+rounded-md border-gray-700 bg-gray-200"
+                      >
                         {transcript}
                       </p>
                     )}
@@ -309,8 +313,10 @@ border-blue-500 hover:border-transparent rounded"
 items-start gap-4 bg-white bg-opacity-20 rounded-lg shadow-md p-4"
                         key={student.email}
                       >
-                        <FaUserCircle className="text-gray-500 w-12
-h-12 mb-4" />
+                        <FaUserCircle
+                          className="text-gray-500 w-12
+h-12 mb-4"
+                        />
                         <div>
                           <h2 className="text-lg font-medium">
                             {student.name}
@@ -319,10 +325,14 @@ h-12 mb-4" />
                           <p className="text-sm text-gray-400">
                             Joined at {joinedTime}
                           </p>
-                          <div className="flex items-center
-justify-between mt-4">
-                            <div className="w-32 h-3 rounded-lg
-overflow-hidden bg-gray-300">
+                          <div
+                            className="flex items-center
+justify-between mt-4"
+                          >
+                            <div
+                              className="w-32 h-3 rounded-lg
+overflow-hidden bg-gray-300"
+                            >
                               <div
                                 className={`h-full rounded-lg ${
                                   student.attentiveness >= 80
@@ -348,12 +358,6 @@ overflow-hidden bg-gray-300">
                 </div>
               </div>
 
-              {/* <div className="pt-5">
-                <span>Transcript data</span>
-                <br />
-                <p>{transcript}</p>
-                <br />
-              </div> */}
             </div>
           ) : (
             <div>
@@ -407,8 +411,10 @@ gap-4 bg-white bg-opacity-20 rounded-lg shadow-md p-4"
                         Joined at {joinedTime}
                       </p>
                       <div className="flex items-center justify-between mt-4">
-                        <div className="w-32 h-3 rounded-lg
-overflow-hidden bg-gray-300">
+                        <div
+                          className="w-32 h-3 rounded-lg
+overflow-hidden bg-gray-300"
+                        >
                           <div
                             className={`h-full rounded-lg ${
                               student.attentiveness >= 80
