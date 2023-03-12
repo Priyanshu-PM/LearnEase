@@ -1,18 +1,19 @@
 import React from 'react'
 
 const Footer = () => {
+  
   return (
     <div>
-    <footer class="bg-gradient-to-b from-blue-400 to-black-300">
+    <footer class="bg-[#F3F8FF] ">
     <div class="container mx-auto px-8">
       <div class="w-full flex flex-col md:flex-row py-6">
         <div class="flex-1 mb-6 text-black">
-          <a class=" bg-gradient-to-r from-green-400 to-blue-500 inline-block text-transparent bg-clip-text no-underline hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
+          <a class=" text-black hover:no-underline font-bold text-2xl lg:text-4xl" href="#">
             StudyAI
           </a>
         </div>
         <div class="flex-1 ">
-          <p class="uppercase text-white md:mb-6">Links</p>
+          <p class="uppercase text-black font-bold md:mb-6">Links</p>
           <ul class="list-reset mb-6">
             <li class="mt-2 inline-block mr-2 md:block md:mr-0">
               <a href="#" class="no-underline hover:underline text-gray-800 hover:text-pink-500">FAQ</a>
@@ -26,7 +27,7 @@ const Footer = () => {
           </ul>
         </div>
         <div class="flex-1">
-          <p class="uppercase text-white md:mb-6">Legal</p>
+          <p class="uppercase text-black font-bold md:mb-6">Legal</p>
           <ul class="list-reset mb-6">
             <li class="mt-2 inline-block mr-2 md:block md:mr-0">
               <a href="#" class="no-underline hover:underline text-gray-800 hover:text-pink-500">Terms</a>
@@ -37,7 +38,7 @@ const Footer = () => {
           </ul>
         </div>
         <div class="flex-1">
-          <p class="uppercase text-white md:mb-6">Social</p>
+          <p class="uppercase text-black font-bold md:mb-6">Social</p>
           <ul class="list-reset mb-6">
             <li class="mt-2 inline-block mr-2 md:block md:mr-0">
               <a href="#" class="no-underline hover:underline text-gray-800 hover:text-pink-500">Instagram</a>
@@ -51,7 +52,7 @@ const Footer = () => {
           </ul>
         </div>
         <div class="flex-1">
-          <p class="uppercase text-white md:mb-6">Company</p>
+          <p class="uppercase text-black font-bold md:mb-6">Company</p>
           <ul class="list-reset mb-6">
             <li class="mt-2 inline-block mr-2 md:block md:mr-0">
               <a href="#" class="no-underline hover:underline text-gray-800 hover:text-pink-500">Official Blog</a>

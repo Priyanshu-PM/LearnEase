@@ -1,16 +1,16 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Navigate } from 'react-router-dom';
 
 const StudentRoutes = () => {
 
-    let loggedIn = false;
+    let loggedIn = true;
 
     if(loggedIn) {
         return <Outlet/>
     }
     else {
 
-        return "User is not loggged in";
+        return <Navigate to= {"/select"}/>;
     }
 }
 

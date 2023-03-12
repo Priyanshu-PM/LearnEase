@@ -11,7 +11,7 @@ const SelectProfile = () => {
   return (
 
     <div className="flex items-center align-center justify-center h-screen space-x-20">
-      <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-100">
+      <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-50">
         <a href="#">
           <img
             class="p-8 rounded-t-lg"
@@ -36,7 +36,7 @@ const SelectProfile = () => {
         </div>
       </div>
 
-      <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-100">
+      <div class="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-50">
         <a href="#">
           <img
             class="p-8 rounded-t-lg"
