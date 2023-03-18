@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Navbar from "../components/Navbar";
-import { useNavigate, useParams } from 'react-router-dom';
+import { json, useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 
 
@@ -9,13 +9,15 @@ const Room = () => {
   
   const sessionid = useParams();
 
+  // console.log(sessionid.roomId);
+
   const apiKey = process.env.REACT_APP_STUDYAI_API;
-  const key = `${apiKey}/room//topics`;
+  const key = `${apiKey}/room/${sessionid.roomId}/topics`;
 
   
-  const [roomdetail, setRoomdetail] = useState();
+  const [roomdetail, setRoomdetail] = useState([]);
 
-  console.log(sessionid);
+
 
   useEffect(() => {
     axios
@@ -24,8 +26,8 @@ const Room = () => {
     })
     .then((res) => {
       const data = res.data;
-      console.log(data.success);
-      setRoomdetail(JSON.parse(data.data))
+      // console.log(data.success);
+      setRoomdetail(data.data[0].topics);
     })
     .catch((err) => {
       alert(err);
@@ -33,7 +35,13 @@ const Room = () => {
     });
 }, [key]);
 
+// const summary = JSON.stringify(roomdetail);
+
+// console.log(JSON.parse(summary));
+
 console.log(roomdetail);
+
+
 
     const navigate = useNavigate()
     const handleQuiz = () => {
@@ -61,8 +69,24 @@ console.log(roomdetail);
                 <p className="text-gray-700 mt-2">
                   {lectureSummary.duration} | {lectureSummary.instructor}
                 </p>
+
+
+                
+          
+                
                 <p className="text-gray-700 mt-4">
-                  {lectureSummary.description}
+                  {
+                    roomdetail.length > 0 ?
+                    roomdetail
+                    
+                    :
+                  <div className="bg-gray-200 rounded-md p-4 mt-8">
+                  <p className="text-gray-800 text-lg font-bold">
+                    No data available.
+                  </p>
+                </div>
+                
+                  }
                 </p>
               </div>
 

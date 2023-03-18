@@ -13,14 +13,16 @@ const Home = () => {
   const apiKey = process.env.REACT_APP_STUDYAI_API;
   const key = `${apiKey}/student/rooms`;
 
+  console.log(sdata.tokem);
+
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
       axios
       .get(key, {
 
-        params: {
-          
+        headers: {
+          Authorization: `${sdata.tokem}`
         }
 
       })
@@ -35,7 +37,8 @@ const Home = () => {
       });
   }, [key]);
 
-  console.log(rooms);
+  // console.log(rooms);
+
 
     const sessionsData = [
         {
@@ -130,16 +133,16 @@ const Home = () => {
     <div className='bg-gradient-to-b from-gray-200 to-white min-h-screen'>
         <Navbar/>
         <div className='px-[5rem]'>
-      {sessionsData.length > 0 ? (
+      {rooms.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 mt-8">
-          {sessionsData.map((session, index) => (
+          {rooms.map((session, index) => (
             <div
               key={session._id}
               className={`bg-gradient-to-br h-[10rem] rounded-lg shadow-md p-6 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${gradientColors[index % gradientColors.length]}`}
-              onClick={() => handleSessionClick(session.id)}
+              onClick={() => handleSessionClick(session._id)}
             >
               <div className="flex justify-between mb-4">
-                <div className="text-black font-bold text-xl">{session.name}</div>
+                <div className="text-black font-bold text-xl">{session.title}</div>
                 <div className="text-black text-sm pl-1">{new Date(session.createdAt).toLocaleDateString()}</div>
               </div>
               <div className="text-black">{session.id}</div>
@@ -161,4 +164,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

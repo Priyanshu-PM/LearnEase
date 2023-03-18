@@ -9,7 +9,12 @@ const SessionAnalytics = () => {
 
   const apiKey = process.env.REACT_APP_STUDYAI_API;
 
-  const key = `${apiKey}/teacher/63f1f295f25c00160b91024d/rooms`;
+  var teacherData = sessionStorage.getItem("teacher");
+  const tdata = (JSON.parse(teacherData));
+
+  console.log(tdata.teacher._id);
+
+  const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
 
   const [rooms, setRooms] = useState([]);
 
@@ -86,46 +91,6 @@ const SessionAnalytics = () => {
     
   ];
 
-
-  const Sessions = [
-    {
-      Sessionname: "Session 1",
-      SessionID: "989746",
-      date: "10/2/2023",
-      Attendance: "10",
-    },
-    {
-      Sessionname: "Session 2",
-      SessionID: "6546546",
-      date: "10/2/2023",
-      Attendance: "10",
-    },
-    {
-      Sessionname: "Session 3",
-      SessionID: "6546546",
-      date: "10/2/2023",
-      Attendance: "10",
-    },
-    {
-      Sessionname: "Session 4",
-      SessionID: "6546546",
-      date: "10/2/2023",
-      Attendance: "8",
-    },
-    {
-      Sessionname: "Session 5",
-      SessionID: "6546546",
-      date: "10/2/2023",
-      Attendance: "10",
-    },
-    {
-      Sessionname: "Session 6",
-      SessionID: "6546546",
-      date: "10/2/2023",
-      Attendance: "8",
-    },
-  ];
-
   return (
     <div className="bg-gradient-to-b from-gray-200 to-white min-h-screen">
       <div className="grid grid-cols-11">
@@ -133,7 +98,7 @@ const SessionAnalytics = () => {
           <Sidebar />
         </div>
 
-        <div className="col-start-1 sm:col-start-3 col-end-12 min-w-full">
+        <div className="col-start-1 sm:col-start-3 col-end-12 min-w-full p-6">
 
           <div>
       {rooms.length > 0 ? (

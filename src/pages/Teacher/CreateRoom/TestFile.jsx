@@ -5,15 +5,6 @@ import { TaskTimer } from "tasktimer";
 
 import axios from "axios";
 
-// import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-
-// const SpeechRecognition =
-//   window.SpeechRecognition || window.webkitSpeechRecognition;
-// const recognition = new SpeechRecognition();
-// recognition.continuous = true;
-// recognition.interimResults = true;
-// recognition.lang = "en-US";
-
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
@@ -169,7 +160,13 @@ const TestFile = () => {
 
   const apiKey = process.env.REACT_APP_STUDYAI_API;
 
-  const key = `${apiKey}/teacher/63f1f295f25c00160b91024d/rooms`;
+  
+  var teacherData = sessionStorage.getItem("teacher");
+  const tdata = (JSON.parse(teacherData));
+
+  console.log(tdata.teacher._id);
+
+  const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
 
   const {
     transcript,

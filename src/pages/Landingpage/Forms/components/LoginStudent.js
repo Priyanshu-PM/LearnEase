@@ -49,7 +49,6 @@ export default function LoginStudent() {
           sessionStorage.setItem("student", JSON.stringify(data.data));
 
           var studentData = sessionStorage.getItem("student");
-          console.log(studentData)
           navigate("/student/home")
 
         } 

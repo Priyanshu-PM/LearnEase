@@ -57,12 +57,19 @@ const CreateRoom = () => {
     // console.log(sessionName);
   };
 
-  const title = sessionName
+  const title = sessionName;
   const handleCreateSession = () => {
   //  console.log(sessionName);
   //  console.log(postKey);
    axios
-   .post(postKey, title)
+   .post(postKey, {
+
+    title: sessionName
+   }, {
+    headers: {
+      Authorization: `${tdata.tokem}`
+    }
+   })
    .then((res) => {
      const data = res.data;
      if (data.success) {
