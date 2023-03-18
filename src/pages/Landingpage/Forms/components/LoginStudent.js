@@ -41,9 +41,21 @@ export default function LoginStudent() {
       .then((res) => {
         const data = res.data;
         if (data.success) {
+
+
           console.log("student login successfully");
           console.log(data);
-        } else {
+
+          sessionStorage.setItem("student", JSON.stringify(data.data));
+
+          var studentData = sessionStorage.getItem("student");
+          console.log(studentData)
+          navigate("/student/home")
+
+        } 
+        
+        else 
+        {
           alert("invalid");
         }
       })

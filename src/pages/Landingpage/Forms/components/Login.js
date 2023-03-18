@@ -35,8 +35,10 @@ export default function Login() {
 
     axios
       .post(key, {
+
         emailID: loginState["email-address"],
         password: loginState.password,
+        
       })
       .then((res) => {
         const data = res.data;
@@ -44,6 +46,13 @@ export default function Login() {
         {
           console.log("teacher login successfully");
           console.log(data);
+
+          // ReactSession.setStoreType("localStorage");
+          sessionStorage.setItem("teacher", JSON.stringify(data.data));
+          // ReactSession.set();
+           var teacherData = sessionStorage.getItem("teacher");
+          console.log(teacherData)
+          navigate("/teacher/home")
         } else 
         {
           alert("invalid");
@@ -51,7 +60,7 @@ export default function Login() {
       })
       .catch((err) => 
       {
-        alert("invalid");
+        alert("err invalid");
         console.log(err);
       });
   };

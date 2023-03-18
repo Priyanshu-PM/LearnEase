@@ -6,7 +6,7 @@ function DownloadExt() {
     <div>
          <div className='bg-gradient-to-b from-gray-300 to-white min-h-screen'>
         <Navbar/>
-        <div className='px-[20rem]'>
+        <div className='px-[5rem]'>
 
 
 

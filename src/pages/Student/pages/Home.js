@@ -1,9 +1,41 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Navbar from '../components/Navbar'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
+const Home = () => {
 
-function Home() {
+  var studentData = sessionStorage.getItem("student");
+  const sdata = (JSON.parse(studentData));
+
+  console.log(sdata.student._id);
+
+  const apiKey = process.env.REACT_APP_STUDYAI_API;
+  const key = `${apiKey}/student/rooms`;
+
+  const [rooms, setRooms] = useState([]);
+
+  useEffect(() => {
+      axios
+      .get(key, {
+
+        params: {
+          
+        }
+
+      })
+      .then((res) => {
+        const data = res.data;
+        console.log(data.success);
+        setRooms(JSON.parse(data.data))
+      })
+      .catch((err) => {
+        alert(err);
+        console.log(err);
+      });
+  }, [key]);
+
+  console.log(rooms);
 
     const sessionsData = [
         {
@@ -38,7 +70,6 @@ function Home() {
         },
         
       ];
-
 
       const gradientColors = [
         'from-purple-500/10 to-indigo-500/10',
@@ -88,14 +119,17 @@ function Home() {
 
       const navigate = useNavigate()
       const handleSessionClick = (sessionId) => {
-        navigate(`/room/${sessionId}`);
+
+
+
+        navigate(`/student/room/${sessionId}`);
       };
     
     
   return (
     <div className='bg-gradient-to-b from-gray-200 to-white min-h-screen'>
         <Navbar/>
-        <div className='px-[20rem]'>
+        <div className='px-[5rem]'>
       {sessionsData.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7 mt-8">
           {sessionsData.map((session, index) => (

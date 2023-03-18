@@ -31,8 +31,8 @@ function App() {
   return (
       <Routes>
           <Route path="/" element={<Welcome />} />
-          <Route path="/login" element={<LoginPage/>}/>
-          <Route path="/signup" element={<SignupPage/>} />
+          <Route path="/loginteacher" element={<LoginPage/>}/>
+          <Route path="/signupteacher" element={<SignupPage/>} />
           <Route path="/loginstudent" element={<LoginStudent/>}/>
           <Route path="/signupstudent" element={<RegisterStudent/>}/>
           <Route path="/about" element={<About/>}/>
@@ -47,7 +47,7 @@ function App() {
             <Route path="quiz" element={<Quiz />} />
             <Route path="quiz/quiz-details/:quizid" element={<QuizDetail/>}/>
             <Route path="session" element={<SessionAnalytics />} />
-            <Route path="session/:sessionId" element={<TestFile />} />
+            <Route path="session/id" element={<TestFile />} />
           </Route>
 
 

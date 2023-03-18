@@ -3,15 +3,11 @@ import { Outlet, Navigate } from 'react-router-dom';
 
 const StudentRoutes = () => {
 
-    let loggedIn = true;
-
-    if(loggedIn) {
+    const student = sessionStorage.getItem('student');
+    if(student !== null)
         return <Outlet/>
-    }
-    else {
-
+    else
         return <Navigate to= {"/select"}/>;
-    }
 }
 
 export default StudentRoutes;

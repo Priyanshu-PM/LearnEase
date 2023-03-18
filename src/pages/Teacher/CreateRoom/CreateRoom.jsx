@@ -7,9 +7,18 @@ import axios from "axios";
 
 
 const CreateRoom = () => {
+
   const apiKey = process.env.REACT_APP_STUDYAI_API;
 
-  const key = `${apiKey}/teacher/63f1f295f25c00160b91024d/rooms`;
+  var teacherData = sessionStorage.getItem("teacher");
+  const tdata = (JSON.parse(teacherData));
+
+  console.log(tdata.teacher._id);
+
+
+  const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
+
+  const postKey = `${apiKey}/teacher/room`;
 
   const [rooms, setRooms] = useState([]);
 
@@ -29,39 +38,49 @@ const CreateRoom = () => {
       });
   }, [key]);
 
-  console.log(rooms);
+  // console.log(rooms);
 
   const navigate = useNavigate()
 
   const handleSessionClick = (sessionId) => {
-    navigate(`/session/${sessionId}`);
+    navigate(`/teacher/session/id`);
     // navigate("/test");
   };
 
-
   const [sessionName, setSessionName] = useState('');
 
-  const [sessions, setSessions] = useState([]);
+  // const [sessions, setSessions] = useState([]);
 
   const handleSessionNameChange = (e) => {
     setSessionName(e.target.value);
+
+    // console.log(sessionName);
   };
 
+  const title = sessionName
   const handleCreateSession = () => {
-    const newSession = {
-      name: sessionName,
-      creationTime: new Date().toLocaleString(),
-    };
+  //  console.log(sessionName);
+  //  console.log(postKey);
+   axios
+   .post(postKey, title)
+   .then((res) => {
+     const data = res.data;
+     if (data.success) {
+       console.log("Room Created successfully");
+       console.log(data);
+     
+     } else {
+       alert("invalid");
+     }
+   })
+   .catch((err) => {
+     alert(err);
+     console.log(sessionName);
+     console.log(err);
+   });   
 
-    setSessions([...sessions, newSession]);
-    setSessionName('');
 
-
-    console.log('====================================');
-    console.log(sessions);
-    console.log('====================================');
   };
-
 
   const isCreateSessionDisabled = !sessionName;
 

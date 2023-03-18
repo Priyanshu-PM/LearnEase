@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { signupFields } from "../constants/formFields"
 import FormAction from "./FormAction";
 import Input from "./Input";
+import { useNavigate } from 'react-router-dom';
 
 import axios from "../../../../axios/axios";
 
@@ -12,9 +13,9 @@ fields.forEach(field => fieldsState[field.id]='');
 
 export default function Signup(){
 
+  const navigate = useNavigate();
   
   const apiKey = process.env.REACT_APP_STUDYAI_API;
-
   const key = `${apiKey}/teacher/register`;
 
   const [signupState,setSignupState]=useState(fieldsState);
@@ -41,10 +42,14 @@ export default function Signup(){
       })
       .then((res) => {
         const data = res.data;
-        if (data.success) {
+        if (data.success) 
+        {
           console.log("teacher registered successfully");
           console.log(data);
-        } else {
+          navigate("/login");
+        } 
+        else 
+        {
           alert("invalid");
         }
       })

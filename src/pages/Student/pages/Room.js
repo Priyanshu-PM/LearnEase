@@ -1,12 +1,43 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Navbar from "../components/Navbar";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from "axios";
 
-function Room() {
+
+const Room = () => {
+
+  
+  const sessionid = useParams();
+
+  const apiKey = process.env.REACT_APP_STUDYAI_API;
+  const key = `${apiKey}/room//topics`;
+
+  
+  const [roomdetail, setRoomdetail] = useState();
+
+  console.log(sessionid);
+
+  useEffect(() => {
+    axios
+    .get(key, {
+      
+    })
+    .then((res) => {
+      const data = res.data;
+      console.log(data.success);
+      setRoomdetail(JSON.parse(data.data))
+    })
+    .catch((err) => {
+      alert(err);
+      console.log(err);
+    });
+}, [key]);
+
+console.log(roomdetail);
 
     const navigate = useNavigate()
     const handleQuiz = () => {
-        navigate(`/quiz/123`);
+        navigate(`/student/quiz/123`);
       };
   const lectureSummary = {
     title: "Introduction to React",
@@ -22,7 +53,7 @@ function Room() {
     <div>
       <div className="bg-gradient-to-b from-gray-300 to-white min-h-screen">
         <Navbar />
-        <div className="px-[20rem]">
+        <div className="px-[5rem]">
           <div className="p-4">
             <div className="flex justify-between items-start">
               <div className="w-1/2">

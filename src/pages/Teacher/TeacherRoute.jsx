@@ -1,11 +1,13 @@
 import React from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 
+import { isLoggedInTeacher } from '../auth';
+
 const TeacherRoute = () => {
 
-    let loggedIn = true;
+    const teacher = sessionStorage.getItem('teacher');
 
-    if(loggedIn) {
+    if(teacher !== null) {
         return <Outlet/>
     }
     else {

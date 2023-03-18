@@ -3,6 +3,8 @@ import Sidebar from "../../../Components/Sidebar";
 import { FaUserCircle } from "react-icons/fa";
 import { TaskTimer } from "tasktimer";
 
+import axios from "axios";
+
 // import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
 // const SpeechRecognition =
@@ -164,6 +166,11 @@ const students = [
 ];
 
 const TestFile = () => {
+
+  const apiKey = process.env.REACT_APP_STUDYAI_API;
+
+  const key = `${apiKey}/teacher/63f1f295f25c00160b91024d/rooms`;
+
   const {
     transcript,
     listening,
@@ -192,6 +199,17 @@ const TestFile = () => {
     }
     return () => clearInterval(intervalId);
   }, [recording]);
+
+
+  useEffect(() => {
+    axios.get(key, {
+
+    })
+    .then((res) => {
+
+    
+    })
+  })
 
   const sendTranscriptionToServer = () => {
     //sending data to server and reseting the transript;

@@ -4,6 +4,7 @@ import FormAction from "./FormAction";
 import Input from "./Input";
 
 import axios from "../../../../axios/axios";
+import { useNavigate } from "react-router-dom";
 
 const fields = signupFields;
 let fieldsState = {};
@@ -12,6 +13,7 @@ fields.forEach((field) => (fieldsState[field.id] = ""));
 
 export default function RegisterStudent() {
 
+  const navigate = useNavigate();
     
   const apiKey = process.env.REACT_APP_STUDYAI_API;
   const key = `${apiKey}/student/register`;
@@ -41,6 +43,9 @@ export default function RegisterStudent() {
         if (data.success) {
           console.log("student registered successfully");
           console.log(data);
+
+          navigate("/loginstudent");
+        
         } else {
           alert("invalid");
         }
