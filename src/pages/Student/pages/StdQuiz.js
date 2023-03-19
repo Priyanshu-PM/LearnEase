@@ -1,135 +1,208 @@
+/* eslint-disable no-whitespace-before-property */
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-// const quizData = [
-//   {
-//     id: 1,
-//     question: "What is the capital of France?",
-//     options: [
-//       { id: 1, text: "Paris" },
-//       { id: 2, text: "London" },
-//       { id: 3, text: "Berlin" },
-//       { id: 4, text: "Madrid" },
-//     ],
-//   },
-//   {
-//     id: 2,
-//     question: "What is the largest planet in our solar system?",
-//     options: [
-//       { id: 1, text: "Jupiter" },
-//       { id: 2, text: "Saturn" },
-//       { id: 3, text: "Neptune" },
-//       { id: 4, text: "Uranus" },
-//     ],
-//   },
-//   {
-//     id: 3,
-//     question: "What is the capital of France?",
-//     options: [
-//       { id: 1, text: "Paris" },
-//       { id: 2, text: "London" },
-//       { id: 3, text: "Berlin" },
-//       { id: 4, text: "Madrid" },
-//     ],
-//   },
-//   {
-//     id: 4,
-//     question: "What is the largest planet in our solar system?",
-//     options: [
-//       { id: 1, text: "Jupiter" },
-//       { id: 2, text: "Saturn" },
-//       { id: 3, text: "Neptune" },
-//       { id: 4, text: "Uranus" },
-//     ],
-//   },
-//   {
-//     id: 5,
-//     question: "What is the capital of France?",
-//     options: [
-//       { id: 1, text: "Paris" },
-//       { id: 2, text: "London" },
-//       { id: 3, text: "Berlin" },
-//       { id: 4, text: "Madrid" },
-//     ],
-//   },
-//   {
-//     id: 6,
-//     question: "What is the largest planet in our solar system?",
-//     options: [
-//       { id: 1, text: "Jupiter" },
-//       { id: 2, text: "Saturn" },
-//       { id: 3, text: "Neptune" },
-//       { id: 4, text: "Uranus" },
-//     ],
-//   },
-// ];
+const quizDataa = [
+  {
+    id: 1,
+    question: "What is the capital of France?",
+    options: [
+      { id: 1, text: "Paris" },
+      { id: 2, text: "London" },
+      { id: 3, text: "Berlin" },
+      { id: 4, text: "Madrid" },
+    ],
+  },
+  {
+    id: 2,
+    question: "What is the largest planet in our solar system?",
+    options: [
+      { id: 1, text: "Jupiter" },
+      { id: 2, text: "Saturn" },
+      { id: 3, text: "Neptune" },
+      { id: 4, text: "Uranus" },
+    ],
+  },
+  {
+    id: 3,
+    question: "What is the capital of France?",
+    options: [
+      { id: 1, text: "Paris" },
+      { id: 2, text: "London" },
+      { id: 3, text: "Berlin" },
+      { id: 4, text: "Madrid" },
+    ],
+  },
+  {
+    id: 4,
+    question: "What is the largest planet in our solar system?",
+    options: [
+      { id: 1, text: "Jupiter" },
+      { id: 2, text: "Saturn" },
+      { id: 3, text: "Neptune" },
+      { id: 4, text: "Uranus" },
+    ],
+  },
+  {
+    id: 5,
+    question: "What is the capital of France?",
+    options: [
+      { id: 1, text: "Paris" },
+      { id: 2, text: "London" },
+      { id: 3, text: "Berlin" },
+      { id: 4, text: "Madrid" },
+    ],
+  },
+  {
+    id: 6,
+    question: "What is the largest planet in our solar system?",
+    options: [
+      { id: 1, text: "Jupiter" },
+      { id: 2, text: "Saturn" },
+      { id: 3, text: "Neptune" },
+      { id: 4, text: "Uranus" },
+    ],
+  },
+];
 
 const StdQuiz = () => {
 
-  const quizid = useParams();
+  const { quizid } = useParams();
 
-  console.log(quizid);
+  // console.log(quizid);
 
   const apiKey = process.env.REACT_APP_STUDY_API;
 
   const key = `${apiKey}/quiz/${quizid}`;
 
-  const submitquizKey = `${apiKey}/quiz/${quizid}/response`;
+  // /quiz/63fa0605fdc6720b99be9c69/response
+  const submitquizKey = `http://localhost:5000/api/v1/quiz/${quizid}/response`;
 
-  const [quizData, setQuizData] = useState([]);
-  const [sData, setStudent] = useState();
+  // const [quizData, setQuizData] = useState([]);
+  // const [sData, setStudent] = useState();
 
-  const generateQuiz = () => {
+  // useEffect(() => {
 
-    
-    axios
-      .get(key, {})
-      .then((res) => {
-        const data = res.data;
-        console.log(data.success);
-        setQuizData(JSON.parse(data.data));
-      })
-      .catch((err) => {
-        alert(err);
-        console.log(err);
+  //   axios
+  //     .get(key, {})
+  //     .then((res) => {
+  //       const data = res.data;
+  //       console.log(data.success);
+  //       setQuizData(JSON.parse(data.data));
+  //     })
+  //     .catch((err) => {
+  //       alert(err);
+  //       console.log(err);
+  //     });
+  // }, [key]);
+
+  // var studentData = sessionStorage.getItem("student");
+  // setStudent(JSON.parse(studentData));
+
+  // console.log(sData);
+
+
+  // ====================================================================================
+
+
+
+
+
+
+    // Define the questions and answers
+    const [questions, setQuestions] = useState([
+      {
+        id: 1,
+        question: 'What is the capital of France?',
+        answers: [
+          { id: 'a', text: 'London' },
+          { id: 'b', text: 'Paris' },
+          { id: 'c', text: 'Madrid' },
+        ],
+        correctAnswer: 'b',
+        selectedAnswer: null,
+      },
+      {
+        id: 2,
+        question: 'What is the largest planet in our solar system?',
+        answers: [
+          { id: 'a', text: 'Jupiter' },
+          { id: 'b', text: 'Earth' },
+          { id: 'c', text: 'Saturn' },
+        ],
+        correctAnswer: 'a',
+        selectedAnswer: null,
+      },
+      {
+        id: 3,
+        question: 'What is the smallest country in the world?',
+        answers: [
+          { id: 'a', text: 'Monaco' },
+          { id: 'b', text: 'Nauru' },
+          { id: 'c', text: 'Vatican City' },
+        ],
+        correctAnswer: 'c',
+        selectedAnswer: null,
+      },
+    ]);
+  
+    // Define a state variable to hold the quiz score
+    const [score, setScore] = useState(0);
+  
+    // Define a function to handle selecting an answer
+    const handleAnswerSelect = (questionId, answerId) => {
+      setQuestions((prevQuestions) => {
+        return prevQuestions.map((question) => {
+          if (question.id === questionId) {
+            return { ...question, selectedAnswer: answerId };
+          } else {
+            return question;
+          }
+        });
       });
-  };
+    };
+  
+    // Define a function to handle submitting the quiz
+    const handleSubmit = async (event) => {
+      let newScore = 0;
+      questions.forEach((question) => {
+        if (question. selectedAnswer === question.correctAnswer) {
+          newScore++;
+        }
+      });
+      setScore(newScore);
 
-  var studentData = sessionStorage.getItem("student");
-  setStudent(JSON.parse(studentData));
 
-  console.log(sData);
+      console.log(questions);
 
-  const submitQuiz = () => {
+      console.log(submitquizKey);
 
-    axios
-   .post(submitquizKey, {
+      console.log(apiKey);
 
-    student: sData._id,
-    quiz: quizid,
-    answers: [{"question": "63fa0605fdc6720b99be9c69", "answer": "Option 1"}],
 
-   })
-   .then((res) => {
-     const data = res.data;
-     if (data.success) {
-       console.log("Response submitted successfully");
-       console.log(data);
-     
-     } else {
-       alert("invalid");
-     }
-   })
-   .catch((err) => {
-     alert(err);
-     console.log(sData);
-     console.log(err);
-   });  
+      event.preventDefault();
+  try {
+    const response = await axios.post(submitquizKey, questions, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
   }
 
-  console.log(quizData);
+
+    };
+
+
+
+
+
+
+  
 
   return (
     <div className="bg-gray-100 min-h-screen py-8">
@@ -145,38 +218,43 @@ const StdQuiz = () => {
             enim lectus. Sed blandit tortor felis, ac dictum leo bibendum a. Sed
             tempor fringilla sapien, vel sagittis eros interdum eget.
           </p>
-          <button onClick={generateQuiz}>
-          Start Quiz
-          </button>
         </div>
-          <form>
-            {quizData.map((question, index) => (
-              <div key={question.id} className="mb-6">
-                <h2 className="text-xl font-bold text-gray-800 mb-4">
-                  {index + 1}. {question.question}
-                </h2>
-                <div className="flex flex-col">
-                  {question.options.map((option) => (
-                    <label
-                      key={option.id}
-                      className="inline-flex items-center mb-2"
-                    >
-                      <input
-                        type="radio"
-                        className="form-radio h-4 w-4"
-                        name={`question-${question.id}`}
-                        value={option.id}
-                      />
-                      <span className="ml-2 text-gray-700">{option.text}</span>
-                    </label>
-                  ))}
+
+
+
+          <div>
+          {questions.map((question, index) => (
+            <div key={question.id} className="mb-6">
+              <h2 className="text-xl font-bold text-gray-800 mb-4">{index + 1}.{question.question}</h2>
+              {question.answers.map((answer) => (
+                <div className="flex flex-col" key={answer.id}>
+                  <input
+                    className="form-radio h-4 w-4"
+                    type="radio"
+                    id={answer.id}
+                    name={`question-${question.id}`}
+                    value={answer.id}
+                    checked={question.selectedAnswer === answer.id}
+                    onChange={() => handleAnswerSelect(question.id, answer.id)}
+                  />
+                  <label className="inline-flex items-center mb-2" htmlFor={answer.id}>{answer.text}</label>
                 </div>
-              </div>
-            ))}
-            <button type="submit" onClick={submitQuiz} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center">
-              Submit
-            </button>
-          </form>
+              ))}
+            </div>
+          ))}
+          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center" onClick={handleSubmit}>Submit Quiz</button>
+          {score > 0 && (
+            <div>
+              <h2>Your Score</h2>
+              <p>{score} out of {questions.length}</p>
+            </div>
+          )}
+        </div>
+
+
+
+
+
         </div>
       </div>
     </div>

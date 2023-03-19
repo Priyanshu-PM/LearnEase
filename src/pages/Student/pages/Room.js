@@ -40,6 +40,7 @@ const Room = () => {
 
   const handleQuiz = () => {
 
+    // alert("button kaam kar rahi hai");
     axios
       .get(key, {})
       .then((res) => {
