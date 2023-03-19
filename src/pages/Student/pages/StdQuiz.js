@@ -71,10 +71,11 @@ const StdQuiz = () => {
   const quizid = useParams();
 
   console.log(quizid);
+
   const apiKey = process.env.REACT_APP_STUDY_API;
 
   const key = `${apiKey}/quiz/${quizid}`;
-  
+
   const submitquizKey = `${apiKey}/quiz/${quizid}/response`;
 
   const [quizData, setQuizData] = useState([]);
@@ -82,6 +83,7 @@ const StdQuiz = () => {
 
   const generateQuiz = () => {
 
+    
     axios
       .get(key, {})
       .then((res) => {
