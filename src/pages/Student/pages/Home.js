@@ -39,41 +39,6 @@ const Home = () => {
 
   // console.log(rooms);
 
-
-    const sessionsData = [
-        {
-          id: "session-1",
-          name: "M3 Class",
-          createdAt: "2022-02-24T10:00:00.000Z",
-        },
-        {
-          id: "session-2",
-          name: "Linux Class",
-          createdAt: "2022-02-23T11:30:00.000Z",
-        },
-        {
-          id: "session-3",
-          name: "OS Class",
-          createdAt: "2022-02-22T13:15:00.000Z",
-        },
-        {
-          id: "session-4",
-          name: "Java Class",
-          createdAt: "2022-02-24T10:00:00.000Z",
-        },
-        {
-          id: "session-5",
-          name: "C++ Class",
-          createdAt: "2022-02-23T11:30:00.000Z",
-        },
-        {
-          id: "session-6",
-          name: "Web Dev Class",
-          createdAt: "2022-02-22T13:15:00.000Z",
-        },
-        
-      ];
-
       const gradientColors = [
         'from-purple-500/10 to-indigo-500/10',
         'from-green-500/10 to-teal-500/10',

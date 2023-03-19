@@ -4,7 +4,7 @@ import download from "../assets/download.png";
 
 const MainBody = () => {
   return (
-    <div class=" pt-15 container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center justify-between space-between">
+    <div class=" pl-15 pr-15 container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center justify-between space-between">
       <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
         <p class="uppercase tracking-loose w-full mt-20 text-3xl">Enhanced Online Learning</p>
         <h1 class="my-4 text-5xl font-bold leading-tight">
@@ -22,7 +22,7 @@ const MainBody = () => {
         </Link>
       </div>
       <div class=" w-full md:w-3/5 py-6 text-center">
-        <img class="w-full md:w-4/5 z-50" src={download} alt="" />
+        <img class="w-full md:w-5/5 z-50" src={download} alt="" />
       </div>
     </div>
   );

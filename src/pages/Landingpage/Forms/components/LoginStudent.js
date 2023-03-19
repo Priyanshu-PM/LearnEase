@@ -3,6 +3,7 @@ import { loginFields } from "../constants/formFields";
 import FormAction from "./FormAction";
 import FormExtra from "./FormExtra";
 import Input from "./Input";
+import Spinner from "react-spinkit";
 
 import axios from "../../../../axios/axios";
 
@@ -13,8 +14,6 @@ let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
 export default function LoginStudent() {
-
-    
   const apiKey = process.env.REACT_APP_STUDYAI_API;
   const key = `${apiKey}/student/login`;
 
@@ -31,8 +30,13 @@ export default function LoginStudent() {
     authenticateUser();
   };
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [error, setError] = useState(null);
+
   //Handle Login API Integration here
   const authenticateUser = () => {
+    setIsLoading(true);
     axios
       .post(key, {
         emailID: loginState["email-address"],
@@ -41,29 +45,26 @@ export default function LoginStudent() {
       .then((res) => {
         const data = res.data;
         if (data.success) {
-
-
+          setIsLoading(false);
+          setIsLoggedIn(true);
           console.log("student login successfully");
           console.log(data);
 
           sessionStorage.setItem("student", JSON.stringify(data.data));
 
-          var studentData = sessionStorage.getItem("student");
-          navigate("/student/home")
-
-        } 
-        
-        else 
-        {
+          navigate("/student/home");
+        } else {
+          setIsLoading(false);
           alert("invalid");
         }
       })
       .catch((err) => {
-        alert("invalid");
+        setIsLoading(false);
+        alert(err);
         console.log(err);
+        setError(err.message);
       });
 
-      
     // console.log({ emailID: loginState["email-address"],
     //     password: loginState.password,})
 
@@ -71,26 +72,36 @@ export default function LoginStudent() {
   };
 
   return (
-    <form className=" space-y-6" onSubmit={handleSubmit}>
-      <div className="-space-y-px">
-        {fields.map((field) => (
-          <Input
-            key={field.id}
-            handleChange={handleChange}
-            value={loginState[field.id]}
-            labelText={field.labelText}
-            labelFor={field.labelFor}
-            id={field.id}
-            name={field.name}
-            type={field.type}
-            isRequired={field.isRequired}
-            placeholder={field.placeholder}
-          />
-        ))}
-      </div>
+    <div>
+      {isLoading ? (
+        <div>
+          <Spinner name="chasing-dots" style={{ width: 100, height: 100 }} />
+        </div>
+      ) : (
 
-      <FormExtra />
-      <FormAction handleSubmit={handleSubmit} text="Login" />
-    </form>
+        <form className=" space-y-6" onSubmit={handleSubmit}>
+        {error && <div>{error}</div>}
+          <div className="-space-y-px">
+            {fields.map((field) => (
+              <Input
+                key={field.id}
+                handleChange={handleChange}
+                value={loginState[field.id]}
+                labelText={field.labelText}
+                labelFor={field.labelFor}
+                id={field.id}
+                name={field.name}
+                type={field.type}
+                isRequired={field.isRequired}
+                placeholder={field.placeholder}
+              />
+            ))}
+          </div>
+
+          <FormExtra />
+          <FormAction handleSubmit={handleSubmit} text="Login" />
+        </form>
+      )}
+    </div>
   );
 }

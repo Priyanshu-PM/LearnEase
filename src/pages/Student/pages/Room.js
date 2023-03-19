@@ -1,12 +1,9 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { json, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
-
 const Room = () => {
-
-  
   const sessionid = useParams();
 
   // console.log(sessionid.roomId);
@@ -14,39 +11,32 @@ const Room = () => {
   const apiKey = process.env.REACT_APP_STUDYAI_API;
   const key = `${apiKey}/room/${sessionid.roomId}/topics`;
 
-  
   const [roomdetail, setRoomdetail] = useState([]);
-
-
 
   useEffect(() => {
     axios
-    .get(key, {
-      
-    })
-    .then((res) => {
-      const data = res.data;
-      // console.log(data.success);
-      setRoomdetail(data.data[0].topics);
-    })
-    .catch((err) => {
-      alert(err);
-      console.log(err);
-    });
-}, [key]);
+      .get(key, {})
+      .then((res) => {
+        const data = res.data;
 
-// const summary = JSON.stringify(roomdetail);
+        setRoomdetail(data.data[0].topics);
+      })
+      .catch((err) => {
+        alert(err);
+        console.log(err);
+      });
+  }, [key]);
 
-// console.log(JSON.parse(summary));
+  // const summary = JSON.stringify(roomdetail);
 
-console.log(roomdetail);
+  // console.log(JSON.parse(summary));
 
+  console.log(roomdetail);
 
-
-    const navigate = useNavigate()
-    const handleQuiz = () => {
-        navigate(`/student/quiz/123`);
-      };
+  const navigate = useNavigate();
+  const handleQuiz = () => {
+    navigate(`/student/quiz/${roomdetail.quiz}`);
+  };
   const lectureSummary = {
     title: "Introduction to React",
     duration: "1 hour",
@@ -70,23 +60,16 @@ console.log(roomdetail);
                   {lectureSummary.duration} | {lectureSummary.instructor}
                 </p>
 
-
-                
-          
-                
                 <p className="text-gray-700 mt-4">
-                  {
-                    roomdetail.length > 0 ?
+                  {roomdetail.length > 0 ? (
                     roomdetail
-                    
-                    :
-                  <div className="bg-gray-200 rounded-md p-4 mt-8">
-                  <p className="text-gray-800 text-lg font-bold">
-                    No data available.
-                  </p>
-                </div>
-                
-                  }
+                  ) : (
+                    <div className="bg-gray-200 rounded-md p-4 mt-8">
+                      <p className="text-gray-800 text-lg font-bold">
+                        No data available.
+                      </p>
+                    </div>
+                  )}
                 </p>
               </div>
 
@@ -114,9 +97,10 @@ console.log(roomdetail);
                   <span>Your Score - 00</span>
                 </div>
                 <div>
-                  <button 
-                  onClick={handleQuiz}
-                   className=" inline-flex items-center text-white bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
+                  <button
+                    onClick={handleQuiz}
+                    className=" inline-flex items-center text-white bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0"
+                  >
                     Take a Quiz
                   </button>
                 </div>
@@ -127,6 +111,6 @@ console.log(roomdetail);
       </div>
     </div>
   );
-}
+};
 
 export default Room;

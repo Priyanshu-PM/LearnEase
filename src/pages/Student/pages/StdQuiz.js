@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 // const quizData = [
 //   {
@@ -66,8 +67,11 @@ import axios from "axios";
 // ];
 
 const StdQuiz = () => {
+
+  const quizid = useParams();
+
   const apiKey = process.env.REACT_APP_STUDY_API;
-  const key = `${apiKey}/quiz/63f4ff4aa769c0748f2af39c`;
+  const key = `${apiKey}/quiz/${quizid}`;
 
   const [quizData, setQuizData] = useState([]);
 

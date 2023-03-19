@@ -31,10 +31,10 @@ function App() {
   return (
       <Routes>
           <Route path="/" element={<Welcome />} />
-          <Route path="/loginteacher" element={<LoginPage/>}/>
-          <Route path="/signupteacher" element={<SignupPage/>} />
-          <Route path="/loginstudent" element={<LoginStudent/>}/>
-          <Route path="/signupstudent" element={<RegisterStudent/>}/>
+          <Route path="/teacher/login" element={<LoginPage/>}/>
+          <Route path="/teacher/signup" element={<SignupPage/>} />
+          <Route path="/student/login" element={<LoginStudent/>}/>
+          <Route path="/student/signup" element={<RegisterStudent/>}/>
           <Route path="/about" element={<About/>}/>
           <Route path="/select" element={<SelectProfile/>}/>
 

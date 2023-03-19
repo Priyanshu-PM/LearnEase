@@ -3,8 +3,9 @@ import { loginFields } from "../constants/formFields";
 import FormAction from "./FormAction";
 import FormExtra from "./FormExtra";
 import Input from "./Input";
+import Spinner from "react-spinkit";
 
-import axios from 'axios';
+import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +14,6 @@ let fieldsState = {};
 fields.forEach((field) => (fieldsState[field.id] = ""));
 
 export default function Login() {
-
   const apiKey = process.env.REACT_APP_STUDYAI_API;
   const key = `${apiKey}/teacher/login`;
 
@@ -30,62 +30,74 @@ export default function Login() {
     authenticateUser();
   };
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [error, setError] = useState(null);
+
   //Handle Login API Integration here
   const authenticateUser = () => {
+    setIsLoading(true);
 
     axios
       .post(key, {
-
         emailID: loginState["email-address"],
         password: loginState.password,
-        
       })
       .then((res) => {
         const data = res.data;
-        if (data.success) 
-        {
+        if (data.success) {
+          setIsLoading(false);
+          setIsLoggedIn(true);
           console.log("teacher login successfully");
           console.log(data);
-
-          // ReactSession.setStoreType("localStorage");
+          
           sessionStorage.setItem("teacher", JSON.stringify(data.data));
-          // ReactSession.set();
-           var teacherData = sessionStorage.getItem("teacher");
-          console.log(teacherData)
-          navigate("/teacher/home")
-        } else 
-        {
+          var teacherData = sessionStorage.getItem("teacher");
+          console.log(teacherData);
+          navigate("/teacher/home");
+        } else {
+          setIsLoading(false);
           alert("invalid");
         }
       })
-      .catch((err) => 
-      {
+      .catch((err) => {
+        setIsLoading(false);
         alert("err invalid");
         console.log(err);
+        setError(err.message);
       });
   };
 
   return (
-    <form className=" space-y-6" onSubmit={handleSubmit}>
-      <div className="-space-y-px">
-        {fields.map((field) => (
-          <Input
-            key={field.id}
-            handleChange={handleChange}
-            value={loginState[field.id]}
-            labelText={field.labelText}
-            labelFor={field.labelFor}
-            id={field.id}
-            name={field.name}
-            type={field.type}
-            isRequired={field.isRequired}
-            placeholder={field.placeholder}
-          />
-        ))}
-      </div>
+    <div>
+      {isLoading ? (
+        <div>
+          <Spinner name="chasing-dots" style={{ width: 100, height: 100 }} />
+        </div>
+      ) : (
+        <form className=" space-y-6" onSubmit={handleSubmit}>
+        {error && <div>{error}</div>}
+          <div className="-space-y-px">
+            {fields.map((field) => (
+              <Input
+                key={field.id}
+                handleChange={handleChange}
+                value={loginState[field.id]}
+                labelText={field.labelText}
+                labelFor={field.labelFor}
+                id={field.id}
+                name={field.name}
+                type={field.type}
+                isRequired={field.isRequired}
+                placeholder={field.placeholder}
+              />
+            ))}
+          </div>
 
-      <FormExtra />
-      <FormAction handleSubmit={handleSubmit} text="Login" />
-    </form>
+          <FormExtra />
+          <FormAction handleSubmit={handleSubmit} text="Login" />
+        </form>
+      )}
+    </div>
   );
 }

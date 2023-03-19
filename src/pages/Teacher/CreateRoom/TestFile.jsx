@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "../../../Components/Sidebar";
 import { FaUserCircle } from "react-icons/fa";
-import { TaskTimer } from "tasktimer";
 
 import axios from "axios";
 
@@ -157,12 +156,10 @@ const students = [
 ];
 
 const TestFile = () => {
-
   const apiKey = process.env.REACT_APP_STUDYAI_API;
 
-  
   var teacherData = sessionStorage.getItem("teacher");
-  const tdata = (JSON.parse(teacherData));
+  const tdata = JSON.parse(teacherData);
 
   console.log(tdata.teacher._id);
 
@@ -197,16 +194,9 @@ const TestFile = () => {
     return () => clearInterval(intervalId);
   }, [recording]);
 
-
   useEffect(() => {
-    axios.get(key, {
-
-    })
-    .then((res) => {
-
-    
-    })
-  })
+    axios.get(key, {}).then((res) => {});
+  });
 
   const sendTranscriptionToServer = () => {
     //sending data to server and reseting the transript;
@@ -216,48 +206,6 @@ const TestFile = () => {
   const startRecording = () => {
     setRecording(true);
     SpeechRecognition.startListening({ continuous: true });
-
-    // recognition.start();
-    // recognition.onstart = () => {
-    //   console.log("Voice recognition started.");
-    // };
-
-    let interimTranscript = "";
-    let finalTranscript = "";
-    // timer.start();
-
-    // timer.on("tick", () => {
-    //   // console.log("tick count: " + timer.tickCount);
-
-    //   recognition.onresult = (event) => {
-    //     for (let i = event.resultIndex; i < event.results.length; i++) {
-    //       const transcript = event.results[i][0].transcript;
-
-    //       if (event.results[i].isFinal) {
-    //         finalTranscript += transcript + " ";
-    //       } else {
-    //         interimTranscript += transcript;
-    //       }
-
-    //       displayclosebtn(true);
-    //     }
-    //     setFrameData(finalTranscript);
-    //     setTranscript(finalTranscript);
-    //   };
-    //   console.log(finalTranscript);
-    //   if (finalTranscript.length > 100) {
-    //     console.log(finalTranscript);
-    //     console.log("sending data to server and reseting it.");
-    //     finalTranscript = "";
-    //   }
-
-    //   // if (timer.tickCount >= 300) {
-    //   //   recognition.stop();
-    //   //   timer.stop();
-    //   //   console.log(frameData);
-    //   //   if (recognition.stop()) recognition.start();
-    //   // }
-    // });
   };
 
   const stopRecording = () => {
@@ -372,7 +320,6 @@ overflow-hidden bg-gray-300"
                   </div>
                 </div>
               </div>
-
             </div>
           ) : (
             <div>
