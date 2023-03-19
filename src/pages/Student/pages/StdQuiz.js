@@ -70,12 +70,18 @@ const StdQuiz = () => {
 
   const quizid = useParams();
 
+  console.log(quizid);
   const apiKey = process.env.REACT_APP_STUDY_API;
+
   const key = `${apiKey}/quiz/${quizid}`;
+  
+  const submitquizKey = `${apiKey}/quiz/${quizid}/response`;
 
   const [quizData, setQuizData] = useState([]);
+  const [sData, setStudent] = useState();
 
-  useEffect(() => {
+  const generateQuiz = () => {
+
     axios
       .get(key, {})
       .then((res) => {
@@ -84,10 +90,42 @@ const StdQuiz = () => {
         setQuizData(JSON.parse(data.data));
       })
       .catch((err) => {
-        alert("invalid");
+        alert(err);
         console.log(err);
       });
-  }, [key]);
+  };
+
+  var studentData = sessionStorage.getItem("student");
+  setStudent(JSON.parse(studentData));
+
+  console.log(sData);
+
+  const submitQuiz = () => {
+
+    axios
+   .post(submitquizKey, {
+
+    student: sData._id,
+    quiz: quizid,
+    answers: [{"question": "63fa0605fdc6720b99be9c69", "answer": "Option 1"}],
+
+   })
+   .then((res) => {
+     const data = res.data;
+     if (data.success) {
+       console.log("Response submitted successfully");
+       console.log(data);
+     
+     } else {
+       alert("invalid");
+     }
+   })
+   .catch((err) => {
+     alert(err);
+     console.log(sData);
+     console.log(err);
+   });  
+  }
 
   console.log(quizData);
 
@@ -95,6 +133,7 @@ const StdQuiz = () => {
     <div className="bg-gray-100 min-h-screen py-8">
       <div className="container mx-auto px-4">
         <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <div>
           <h1 className="text-3xl font-bold text-gray-800 mb-8">Quiz Title</h1>
           <p className="text-gray-700 mb-8">
             Description of the quiz goes here. Lorem ipsum dolor sit amet,
@@ -104,6 +143,10 @@ const StdQuiz = () => {
             enim lectus. Sed blandit tortor felis, ac dictum leo bibendum a. Sed
             tempor fringilla sapien, vel sagittis eros interdum eget.
           </p>
+          <button onClick={generateQuiz}>
+          Start Quiz
+          </button>
+        </div>
           <form>
             {quizData.map((question, index) => (
               <div key={question.id} className="mb-6">
@@ -128,7 +171,7 @@ const StdQuiz = () => {
                 </div>
               </div>
             ))}
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center">
+            <button type="submit" onClick={submitQuiz} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center">
               Submit
             </button>
           </form>

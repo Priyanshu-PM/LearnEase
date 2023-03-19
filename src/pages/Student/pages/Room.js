@@ -12,6 +12,10 @@ const Room = () => {
   const key = `${apiKey}/room/${sessionid.roomId}/topics`;
 
   const [roomdetail, setRoomdetail] = useState([]);
+  const [teacherId, setTeacherId] = useState("");
+  const [quizID, setQuizID] = useState("");
+
+  var getid = true;
 
   useEffect(() => {
     axios
@@ -20,6 +24,8 @@ const Room = () => {
         const data = res.data;
 
         setRoomdetail(data.data[0].topics);
+        setTeacherId(data.data[0].creator._id);
+        setQuizID(data.data[0].quiz);
       })
       .catch((err) => {
         alert(err);
@@ -27,22 +33,34 @@ const Room = () => {
       });
   }, [key]);
 
-  // const summary = JSON.stringify(roomdetail);
-
-  // console.log(JSON.parse(summary));
-
   console.log(roomdetail);
+  console.log("Teacher id is : "+teacherId);
 
   const navigate = useNavigate();
+
   const handleQuiz = () => {
-    navigate(`/student/quiz/${roomdetail.quiz}`);
+
+    axios
+      .get(key, {})
+      .then((res) => {
+        const data = res.data;
+        setQuizID(data.data[0].quiz);
+      })
+      .catch((err) => {
+        alert(err);
+        console.log(err);
+      });
+    
+    console.log(quizID);  
+    navigate(`/student/quiz/${quizID}`);
   };
+
+  console.log("Quiz id is : "+quizID);
+
   const lectureSummary = {
     title: "Introduction to React",
     duration: "1 hour",
-    instructor: "John Doe",
-    description:
-      "Learn the basics of React, including components, props, and state. Learn the basics of React, including components, props, and state. Learn the basics of React, including components, props, and state. Learn the basics of React, including components, props, and state.Learn the basics of React, including components, props, and state. Learn the basics of React, including components, props, and state. Learn the basics of React, including components, props, and state. Learn the basics of React, including components, props, and state. Learn the basics of React, including components, props, and state. Learn the basics of React, including components, props, and state.Learn the basics of React, including components, props, and state.Learn the basics of React, including components, props, and state.",
+    instructor: "John Doe"
   };
 
   let attentiveness = 90;
