@@ -60,9 +60,9 @@ export default function LoginStudent() {
       })
       .catch((err) => {
         setIsLoading(false);
-        alert(err);
+        // alert(err);
         console.log(err);
-        setError(err.message);
+        setError("user does not exist");
       });
 
     // console.log({ emailID: loginState["email-address"],
@@ -80,7 +80,7 @@ export default function LoginStudent() {
       ) : (
 
         <form className=" space-y-6" onSubmit={handleSubmit}>
-        {error && <div>{error}</div>}
+        {error && <div><h5 className="text-center">{error}</h5></div>}
           <div className="-space-y-px">
             {fields.map((field) => (
               <Input

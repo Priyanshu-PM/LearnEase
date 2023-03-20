@@ -62,9 +62,9 @@ export default function Login() {
       })
       .catch((err) => {
         setIsLoading(false);
-        alert("err invalid");
+        // alert("err invalid");
         console.log(err);
-        setError(err.message);
+        setError("user does not exist");
       });
   };
 
@@ -76,7 +76,7 @@ export default function Login() {
         </div>
       ) : (
         <form className=" space-y-6" onSubmit={handleSubmit}>
-        {error && <div>{error}</div>}
+        {error && <div><h5 className="text-center">{error}</h5></div>}
           <div className="-space-y-px">
             {fields.map((field) => (
               <Input
