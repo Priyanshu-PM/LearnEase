@@ -50,7 +50,7 @@ export default function Login() {
           setIsLoggedIn(true);
           console.log("teacher login successfully");
           console.log(data);
-          
+
           sessionStorage.setItem("teacher", JSON.stringify(data.data));
           var teacherData = sessionStorage.getItem("teacher");
           console.log(teacherData);
@@ -69,35 +69,45 @@ export default function Login() {
   };
 
   return (
-    <div>
-      {isLoading ? (
+    <form className=" space-y-6" onSubmit={handleSubmit}>
+      {error && (
         <div>
-          <Spinner name="chasing-dots" style={{ width: 100, height: 100 }} />
+          <h5 className="text-center">{error}</h5>
         </div>
-      ) : (
-        <form className=" space-y-6" onSubmit={handleSubmit}>
-        {error && <div><h5 className="text-center">{error}</h5></div>}
-          <div className="-space-y-px">
-            {fields.map((field) => (
-              <Input
-                key={field.id}
-                handleChange={handleChange}
-                value={loginState[field.id]}
-                labelText={field.labelText}
-                labelFor={field.labelFor}
-                id={field.id}
-                name={field.name}
-                type={field.type}
-                isRequired={field.isRequired}
-                placeholder={field.placeholder}
-              />
-            ))}
-          </div>
-
-          <FormExtra />
-          <FormAction handleSubmit={handleSubmit} text="Login" />
-        </form>
       )}
-    </div>
+      <div className="-space-y-px">
+        {fields.map((field) => (
+          <Input
+            key={field.id}
+            handleChange={handleChange}
+            value={loginState[field.id]}
+            labelText={field.labelText}
+            labelFor={field.labelFor}
+            id={field.id}
+            name={field.name}
+            type={field.type}
+            isRequired={field.isRequired}
+            placeholder={field.placeholder}
+          />
+        ))}
+      </div>
+
+      <FormExtra />
+      <FormAction
+        handleSubmit={handleSubmit}
+        text={
+          isLoading ? (
+            <div>
+              <Spinner
+                name="chasing-dots"
+                style={{ width: 20, height: 20 }}
+              />
+            </div>
+          ) : (
+            "login"
+          )
+        }
+      />
+    </form>
   );
 }

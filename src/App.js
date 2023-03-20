@@ -48,6 +48,7 @@ function App() {
             <Route path="quiz/quiz-details/:quizid" element={<QuizDetail/>}/>
             <Route path="session" element={<SessionAnalytics />} />
             <Route path="session/id" element={<TestFile />} />
+            <Route path="session/:id" element={<TestFile/>}/>
           </Route>
 
 

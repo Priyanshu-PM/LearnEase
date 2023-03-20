@@ -368,7 +368,7 @@ gap-4 bg-white bg-opacity-20 rounded-lg shadow-md p-4"
                     <FaUserCircle className="text-gray-500 w-12 h-12 mb-4" />
                     <div>
                       <h2 className="text-lg font-medium">{student.name}</h2>
-                      <p className="text-gray-500 mb-2">{student.email}</p>
+                    +  <p className="text-gray-500 mb-2">{student.email}</p>
                       <p className="text-sm text-gray-400">
                         Joined at {joinedTime}
                       </p>
