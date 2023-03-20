@@ -26,6 +26,7 @@ import DownloadExt from './pages/Student/pages/DownloadExt';
 import Room from './pages/Student/pages/Room';
 import StudentRoutes from './pages/Student/StudentRoutes';
 import TeacherRoute from './pages/Teacher/TeacherRoute';
+import Session from './pages/Teacher/CreateRoom/Session';
 
 function App() {
   return (
@@ -47,8 +48,8 @@ function App() {
             <Route path="quiz" element={<Quiz />} />
             <Route path="quiz/quiz-details/:quizid" element={<QuizDetail/>}/>
             <Route path="session" element={<SessionAnalytics />} />
-            <Route path="session/id" element={<TestFile />} />
-            <Route path="session/:id" element={<TestFile/>}/>
+            <Route path="current/:id" element={<TestFile/>}/>
+            <Route path="lecture/:id" element= {<Session/>}/>
           </Route>
 
 

@@ -40,7 +40,7 @@ const SessionAnalytics = () => {
   const navigate = useNavigate()
   
   const handleSessionClick = (sessionId) => {
-    navigate(`/session/${sessionId}`);
+    navigate(`/teacher/lecture/${sessionId}`);
     // navigate("/test");
   };
 

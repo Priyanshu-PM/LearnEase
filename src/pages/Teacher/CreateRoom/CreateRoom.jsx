@@ -37,8 +37,9 @@ const CreateRoom = () => {
   const navigate = useNavigate();
 
   const handleSessionClick = (sessionId) => {
-    navigate(`/teacher/session/${sessionId}`);
+    // navigate(`/teacher/lecture/${sessionId}`);
     // navigate("/test");
+    
   };
 
   const [sessionName, setSessionName] = useState("");
@@ -52,15 +53,15 @@ const CreateRoom = () => {
   };
 
   const title = sessionName;
-  const handleCreateSession = () => {
-    //  console.log(sessionName);
-    //  console.log(postKey);
+
+
+  const handleCreateSession = (event) => {
 
     axios
       .post(
         postKey,
         {
-          title: sessionName,
+          title,  
         },
         {
           headers: {
@@ -72,7 +73,7 @@ const CreateRoom = () => {
         const data = res.data;
         if (data.success) {
           console.log("Room Created successfully");
-          navigate(`/teacher/session/${data.data._id}`);
+          navigate(`/teacher/current/${data.data._id}`);
           console.log(data);
         } else {
           alert("Error in creating room");
