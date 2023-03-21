@@ -4,8 +4,9 @@ import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+const apiKey = process.env.REACT_APP_STUDYAI_API;
+
 const CreateRoom = () => {
-  const apiKey = process.env.REACT_APP_STUDYAI_API;
 
   var teacherData = sessionStorage.getItem("teacher");
   const tdata = JSON.parse(teacherData);
@@ -17,29 +18,34 @@ const CreateRoom = () => {
   const postKey = `${apiKey}/teacher/room`;
 
   const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    fetchRooms();
+  }, []);
+
+  const fetchRooms = () => {
     axios
       .get(key, {})
       .then((res) => {
         const data = res.data;
         console.log(data.success);
         setRooms(JSON.parse(data.data));
+        setLoading(false);
       })
       .catch((err) => {
         alert("invalid");
         console.log(err);
       });
-  }, [key]);
-
-  console.log(rooms);
+  };
 
   const navigate = useNavigate();
 
   const handleSessionClick = (sessionId) => {
-    // navigate(`/teacher/lecture/${sessionId}`);
+
+    alert("Session click successfull")
+    navigate(`/teacher/lecture/${sessionId}`);
     // navigate("/test");
-    
   };
 
   const [sessionName, setSessionName] = useState("");
@@ -52,16 +58,14 @@ const CreateRoom = () => {
     // console.log(sessionName);
   };
 
-  const title = sessionName;
-
+  // const title = sessionName;
 
   const handleCreateSession = (event) => {
-
     axios
       .post(
         postKey,
         {
-          title,  
+          title: sessionName,
         },
         {
           headers: {
@@ -71,10 +75,11 @@ const CreateRoom = () => {
       )
       .then((res) => {
         const data = res.data;
+        console.log(data);
         if (data.success) {
           console.log("Room Created successfully");
           navigate(`/teacher/current/${data.data._id}`);
-          console.log(data);
+          // console.log(data);
         } else {
           alert("Error in creating room");
         }
@@ -85,6 +90,7 @@ const CreateRoom = () => {
         console.log(err);
       });
   };
+
 
   const isCreateSessionDisabled = !sessionName;
 
@@ -132,6 +138,12 @@ const CreateRoom = () => {
     "from-green-500/10 to-red-500/10",
     "from-teal-500/10 to-blueGray-500",
   ];
+
+  if (loading) {
+    return (
+      <h1>Loading</h1>
+    )
+  }
 
   return (
     <div className="bg-[#F3F8FF] min-h-screen">
@@ -183,6 +195,7 @@ const CreateRoom = () => {
                       }`}
                       onClick={() => handleSessionClick(session._id)}
                     >
+
                       <div className="flex justify-between mb-4">
                         <div className="text-black font-bold text-xl">
                           {session.title}
