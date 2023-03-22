@@ -20,6 +20,7 @@
     "react-scripts": "5.0.1",
     "react-speech-recognition": "^3.10.0",
     "react-spinkit": "^3.0.0",
+    "sweetalert2": "^11.7.3",
     "tasktimer": "^3.0.0",
     "web-vitals": "^2.1.4"
   },

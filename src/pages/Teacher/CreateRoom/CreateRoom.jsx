@@ -160,7 +160,7 @@ const CreateRoom = () => {
             <form className="flex flex-col gap-4">
               <div className="flex flex-col gap-1">
                 <label htmlFor="session-name" className="text-lg font-medium">
-                  Session Name
+                  Enter Session Name
                 </label>
                 <input
                   type="text"
@@ -186,7 +186,7 @@ const CreateRoom = () => {
             {/*============================================================================================================  */}
             <div>
               {rooms.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-7 mt-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-7 mt-8">
                   {rooms.map((session, index) => (
                     <div
                       key={session._id}

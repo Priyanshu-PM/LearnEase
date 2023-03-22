@@ -86,9 +86,8 @@ const Home = () => {
       ];
 
       const navigate = useNavigate()
+
       const handleSessionClick = (sessionId) => {
-
-
 
         navigate(`/student/room/${sessionId}`);
       };

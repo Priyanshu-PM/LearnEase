@@ -187,7 +187,6 @@ const TestFile = () => {
   const [closebtn, displayclosebtn] = useState(false);
 
   useEffect(() => {
-
     var teacherData = sessionStorage.getItem("teacher");
     setTdata(JSON.parse(teacherData));
     setSessionID(Id.id);
@@ -218,7 +217,6 @@ const TestFile = () => {
     SpeechRecognition.startListening({ continuous: true });
   };
 
-
   const [qButton, setQButton] = useState(false);
 
   const stopRecording = () => {
@@ -229,9 +227,7 @@ const TestFile = () => {
     // setStopRecord(true);
     // timer.stop();
 
-      setQButton(true);
-
-
+    setQButton(true);
   };
 
   const submitTranscript = (event) => {
@@ -251,61 +247,53 @@ const TestFile = () => {
     }
   };
 
-
   const [quizequestion, quizesetQuestion] = useState("");
   const [quizeoptions, quizesetOptions] = useState(["", "", "", ""]);
 
-
   const quizehandleSubmit = (event) => {
-
     event.preventDefault();
     // handle form submission logic here
   };
 
   const quizehandleOptionChange = (event, index) => {
-
     const newOptions = [...options];
     newOptions[index] = event.target.value;
     setOptions(newOptions);
-
   };
-
 
   const [showModal, setShowModal] = useState(false);
 
   const handleGenerateQuiz = () => {
     setShowModal(true);
-
-
   };
 
   const [question, setQuestion] = useState("");
   const [options, setOptions] = useState(["", "", "", ""]);
   const [correctAnswer, setCorrectAnswer] = useState("");
 
-
   // handle generate quiz button
 
   const handleSubmit = (e) => {
-
     e.preventDefault();
     console.log(tdata.tokem);
     const data = { question, options, correctAnswer };
     axios
-      .patch(quizkey, {
-
-        text: question,
-        options: options,
-        correctAnswer: correctAnswer
-      },
-      {
-        headers: {
-          Authorization: `${tdata.tokem}`,
+      .patch(
+        quizkey,
+        {
+          text: question,
+          options: options,
+          correctAnswer: correctAnswer,
+        },
+        {
+          headers: {
+            Authorization: `${tdata.tokem}`,
+          },
         }
-      })
+      )
       .then((res) => {
         console.log(res);
-        if(res.success) {
+        if (res.success) {
           alert("question added successfully");
         }
         // Handle success
@@ -322,7 +310,7 @@ const TestFile = () => {
   const [responses, setResponses] = useState([]);
 
   // useEffect(() => {
-    
+
   //   axios
   //     .get(getresKey, {})
   //     .then((res) => {
@@ -336,7 +324,6 @@ const TestFile = () => {
   //       console.log(err);
   //     });
   // }, [])
-
 
   // const fetchResponses = () => {
 
@@ -354,7 +341,6 @@ const TestFile = () => {
   //     });
 
   // }
-  
 
   const handleOptionChange = (index, value) => {
     const newOptions = [...options];
@@ -364,54 +350,82 @@ const TestFile = () => {
 
   const joinedTime = new Date().toLocaleTimeString();
 
-
-
-
   if (loading) {
     return <h1>loading</h1>;
   }
 
   return (
-
     <div>
-
-    {
-      showModal ?
-      <div  className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-           
-              <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-gray-200 shadow-2xl p-10 rounded-md">
-      <div className="my-4">
-        <label htmlFor="question" className="block text-gray-700 font-medium mb-2">Question</label>
-        <textarea id="question" className="w-full border-gray-300 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value={question} onChange={(e) => setQuestion(e.target.value)} />
-      </div>
-      <div className="my-4">
-        <label className="block text-gray-700 font-medium mb-2">Options</label>
-        {options.map((option, index) => (
-          <input key={index} type="text" className="w-full border-gray-300 rounded-lg mb-2 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" placeholder={`Option ${index + 1}`} value={option} onChange={(e) => handleOptionChange(index, e.target.value)} />
-        ))}
-      </div>
-      <div className="my-4">
-        <label htmlFor="correctAnswer" className="block text-gray-700 font-medium mb-2">Correct Answer</label>
-        <input id="correctAnswer" type="text" className="w-full border-gray-300 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" value={correctAnswer} onChange={(e) => setCorrectAnswer(e.target.value)} />
-      </div>
-      <div>
-      <button type="submit" className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors duration-300">Submit</button>
-      </div>
-      </form>
-
-      </div>
-      :
-      null
-    }
-    
-    <div className="bg-[#F3F8FF] min-h-screen">
-      <div className="grid grid-cols-11">
-        <div
-          className="hidden sm:block col-start-1 col-end-3 bg-white
-text-[#9696a6] min-h-screen fixed w-[18%]"
-        >
-          <Sidebar />
+      {showModal ? (
+        <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+          <form
+            onSubmit={handleSubmit}
+            className="max-w-md mx-auto bg-gray-200 shadow-2xl p-10 rounded-md"
+          >
+            <div className="my-4">
+              <label
+                htmlFor="question"
+                className="block text-gray-700 font-medium mb-2"
+              >
+                Question
+              </label>
+              <textarea
+                id="question"
+                className="w-full border-gray-300 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+              />
+            </div>
+            <div className="my-4">
+              <label className="block text-gray-700 font-medium mb-2">
+                Options
+              </label>
+              {options.map((option, index) => (
+                <input
+                  key={index}
+                  type="text"
+                  className="w-full border-gray-300 rounded-lg mb-2 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  placeholder={`Option ${index + 1}`}
+                  value={option}
+                  onChange={(e) => handleOptionChange(index, e.target.value)}
+                />
+              ))}
+            </div>
+            <div className="my-4">
+              <label
+                htmlFor="correctAnswer"
+                className="block text-gray-700 font-medium mb-2"
+              >
+                Correct Answer
+              </label>
+              <input
+                id="correctAnswer"
+                type="text"
+                className="w-full border-gray-300 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                value={correctAnswer}
+                onChange={(e) => setCorrectAnswer(e.target.value)}
+              />
+            </div>
+            <div>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors duration-300"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
         </div>
+      ) : null}
+
+      <div className="bg-[#F3F8FF] min-h-screen">
+        <div className="grid grid-cols-11">
+          <div
+            className="hidden sm:block col-start-1 col-end-3 bg-white
+text-[#9696a6] min-h-screen fixed w-[18%]"
+          >
+            <Sidebar />
+          </div>
           <section className="  col-start-3 col-end-12 min-h-screen px-8">
             {stopRecord ? (
               <div className="px-10 py-5">
@@ -539,16 +553,16 @@ border-red-500 hover:border-transparent rounded"
                     Close Session
                   </button>
 
-                  {
-                    qButton ?
-                    <button className=" ml-4 bg-transparent hover:bg-blue-500
+                  {qButton ? (
+                    <button
+                      className=" ml-4 bg-transparent hover:bg-blue-500
                   text-blue-700 font-semibold hover:text-white py-2 px-4 border
-                  border-blue-500 hover:border-transparent rounded" onClick={handleGenerateQuiz}>Generate Quiz
-                  </button>
-                    :
-                    null
-                  }
-                  
+                  border-blue-500 hover:border-transparent rounded"
+                      onClick={handleGenerateQuiz}
+                    >
+                      Generate Quiz
+                    </button>
+                  ) : null}
 
                   <br />
                   <p>{transcript}</p>
@@ -603,9 +617,8 @@ overflow-hidden bg-gray-300"
               </div>
             )}
           </section>
-          
+        </div>
       </div>
-    </div>
     </div>
   );
 };

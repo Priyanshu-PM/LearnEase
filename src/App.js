@@ -27,6 +27,7 @@ import Room from './pages/Student/pages/Room';
 import StudentRoutes from './pages/Student/StudentRoutes';
 import TeacherRoute from './pages/Teacher/TeacherRoute';
 import Session from './pages/Teacher/CreateRoom/Session';
+import Summary from './pages/Student/pages/Summary';
 
 function App() {
   return (
@@ -52,12 +53,12 @@ function App() {
             <Route path="lecture/:id" element= {<Session/>}/>
           </Route>
 
-
           {/* _________________Students Routes____________________________ */}
           <Route path = "/student" element={<StudentRoutes/>}>
             <Route path='home' element={<Home/>} />
             <Route path='download' element={<DownloadExt/>} />
             <Route path='room/:roomId' element={<Room/>} />
+            <Route path='summary/:roomId' element={<Summary/>}/>
             <Route path='quiz/:quizId' element={<StdQuiz/>} />
           </Route>
       </Routes>
