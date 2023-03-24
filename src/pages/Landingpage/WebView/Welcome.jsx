@@ -9,7 +9,7 @@ import Navbar from '../../../Components/Navbar';
 
 const Welcome = () => {
   return (
-    <div className='p-5 bg-gradient-to-r from-green-400 to-blue-500'>
+    <div className='bg-gradient-to-r from-green-400 to-blue-500'>
         <Navbar/>
         <MainBody/>
         <BelowMain/>

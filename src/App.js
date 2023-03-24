@@ -46,7 +46,7 @@ function App() {
           <Route path="/teacher" element = {<TeacherRoute/>}>
             <Route path="home" element={<Dashboard />} />
             <Route path="create-room" element={<CreateRoom />} />
-            <Route path="quiz" element={<Quiz />} />
+            <Route path="quiz/:quizid" element={<Quiz />} />
             <Route path="quiz/quiz-details/:quizid" element={<QuizDetail/>}/>
             <Route path="session" element={<SessionAnalytics />} />
             <Route path="current/:id" element={<TestFile/>}/>

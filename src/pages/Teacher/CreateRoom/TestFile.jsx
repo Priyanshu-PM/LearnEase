@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../../../Components/Sidebar";
 import { FaCopy, FaUserCircle } from "react-icons/fa";
 
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 import SpeechRecognition, {
@@ -169,6 +171,7 @@ const TestFile = () => {
   const [tdata, setTdata] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
   let Id = useParams();
 
   const apiKey = process.env.REACT_APP_STUDYAI_API;
@@ -176,6 +179,7 @@ const TestFile = () => {
   console.log(sessionID);
 
   const quizkey = `${apiKey}/quiz/${sessionID}`;
+  const quizDemo = `${apiKey}/quiz/63fa00bff48312e9af983087`;
   const getresKey = `${apiKey}/quiz/${sessionID}/response`;
 
   // const [transcript, setTranscript] = useState("");
@@ -208,8 +212,10 @@ const TestFile = () => {
   // });
 
   const sendTranscriptionToServer = () => {
+
     //sending data to server and reseting the transript;
     resetTranscript();
+
   };
 
   const startRecording = () => {
@@ -264,7 +270,9 @@ const TestFile = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleGenerateQuiz = () => {
-    setShowModal(true);
+    console.log(`/teacher/quiz/${sessionID}`)
+    navigate(`/teacher/quiz/${sessionID}`);
+    
   };
 
   const [question, setQuestion] = useState("");
@@ -302,7 +310,8 @@ const TestFile = () => {
         console.log(err);
         // Handle error
       });
-
+    
+    // setShowResponses(true);
     setShowModal(false);
     console.log(data);
   };
@@ -573,7 +582,7 @@ border-red-500 hover:border-transparent rounded"
         <p>{frameData}</p> */}
                 </div>
 
-                <div className="  grid grid-cols-5 gap-5 grid-wrap">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-7 mt-8">
                   {students.map((student) => (
                     <div
                       className="flex flex-row justify-start items-start

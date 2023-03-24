@@ -170,7 +170,7 @@ const StdQuiz = () => {
   };
 
   
-
+  
   console.log(sendingData);
 
   // Define a function to handle selecting an answer

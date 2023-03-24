@@ -3,6 +3,7 @@ import Sidebar from "../../../Components/Sidebar";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Spinner from "react-spinkit";
 
 const apiKey = process.env.REACT_APP_STUDYAI_API;
 
@@ -34,7 +35,7 @@ const CreateRoom = () => {
         setLoading(false);
       })
       .catch((err) => {
-        alert("invalid");
+        alert("load hi nahi hua hai");
         console.log(err);
       });
   };
@@ -47,6 +48,7 @@ const CreateRoom = () => {
     navigate(`/teacher/lecture/${sessionId}`);
     // navigate("/test");
   };
+
 
   const [sessionName, setSessionName] = useState("");
 
@@ -141,7 +143,12 @@ const CreateRoom = () => {
 
   if (loading) {
     return (
-      <h1>Loading</h1>
+      <div className="flex min-h-screen min-w-full align-center content-center items-center justify-center">
+              <Spinner
+                name="chasing-dots"
+                style={{ width: 100, height: 100 }}
+              />
+            </div>
     )
   }
 
