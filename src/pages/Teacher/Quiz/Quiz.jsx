@@ -18,14 +18,21 @@ const Quiz = () => {
 
   useEffect(() => {
     setQuizId(Id.quizid);
-    getQuizes()
+    getQuizes();
   }, [quizDemo]);
   console.log(Id.quizid);
 
-  const getQuizes = async ()=>{
-    const data = await axios.get(quizDemo)
-    console.log("something",data.data);
-  }
+  const getQuizes = async () => {
+    try {
+      const { data } = await axios.get(quizDemo);
+      const res = JSON.parse(data.data)
+      setQuizData(res)
+      setQuizes(res.questions)
+      console.log(quizes)
+    } catch (error) {
+      console.log(error)
+    }
+  };
   // useEffect(() => {
   //   axios
   //     .get(quizDemo, {})
@@ -122,53 +129,55 @@ const Quiz = () => {
 
   return (
     <div className="bg-[#F3F8FF] min-h-screen ">
-    <div className="grid grid-cols-11">
-      <div
-        className="hidden bg-white sm:block col-start-1 col-end-3 
+      <div className="grid grid-cols-11">
+        <div
+          className="hidden bg-white sm:block col-start-1 col-end-3 
 text-[#9696a6] min-h-screen fixed w-[18%]"
-      >
-        <Sidebar />
-      </div>
+        >
+          <Sidebar />
+        </div>
 
         <div className="col-start-3 col-span-full first-letter:w-full bg-gray-100 min-h-screen py-8">
           <div className="mx-auto px-4">
             <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-              <div >
+              <div>
                 <h1 className="text-3xl font-bold text-gray-800 mb-8">
                   {quizData.title}
                 </h1>
               </div>
-
-              { console.log("inside map ", quizes)};
+              {console.log("inside map ", quizes)};
               <div>
-                 { quizes.map((question, index) => (
-                  <div key={question.id} className="mb-6">
-                    <h2 className="text-xl font-bold text-gray-800 mb-4">
-                      {index + 1}.{question.question}
-                    </h2>
-                    {question.answers.map((answer) => (
-                      <div className="flex flex-col" key={answer.id}>
-                        <input
-                          className="form-radio h-4 w-4"
-                          type="radio"
-                          id={answer.id}
-                          name={`question-${question.id}`}
-                          value={answer.id}
-                          checked={question.selectedAnswer === answer.id}
-                          onChange={() =>
-                            // handleAnswerSelect(question.id, answer.id)
-                            {}
-                          }
-                        />
-                        <label
-                          className="inline-flex items-center mb-2"
-                          htmlFor={answer.id}
-                        >
-                          {answer.text}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
+                {quizes.map((question, index) => (
+                  // <div key={question.id} className="mb-6">
+                  //   <h2 className="text-xl font-bold text-gray-800 mb-4">
+                  //     {index + 1}.{question.text}
+                  //   </h2>
+                  //   {question.options.map((answer) => (
+                  //     <div className="flex flex-col" key={answer.id}>
+                  //       <input
+                  //         className="form-radio h-4 w-4"
+                  //         type="radio"
+                  //         id={answer.id}
+                  //         name={`question-${question.id}`}
+                  //         value={answer.id}
+                  //         checked={question.selectedAnswer === answer.id}
+                  //         onChange={() =>
+                  //           // handleAnswerSelect(question.id, answer.id)
+                  //           {}
+                  //         }
+                  //       />
+                  //       <label
+                  //         className="inline-flex items-center mb-2"
+                  //         htmlFor={answer.id}
+                  //       >
+                  //         {answer.text}
+                  //       </label>
+                  //     </div>
+                  //   ))}
+                  // </div>
+                  <>
+
+                  </>
                 ))}
                 <button
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center"
