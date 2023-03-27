@@ -42,9 +42,12 @@ const Quiz = () => {
       console.log(error);
     }
   };
+
+
+
   // useEffect(() => {
   //   axios
-  //     .get(quizDemo, {})
+  //     .get(quizKey, {})
   //     .then((res) => {
   //       const data = res.data;
   //       console.log("inside " , quizData);
@@ -59,11 +62,25 @@ const Quiz = () => {
   //     });
   // }, [quizDemo]);
 
+
+
+
+
   const handleSubmit = (event) => {
     console.log(QUESTIONS);
 
     event.preventDefault();
   };
+
+  const GetQuizResponses = () => {
+
+    // useEffect(() => {
+
+    // }, [quizKey])
+  
+
+  };
+
 
   const [questext, setQuestion] = useState("");
   const [options, setOptions] = useState(["", "", "", ""]);
@@ -79,6 +96,7 @@ const Quiz = () => {
     setOptions(newOptions);
   };
 
+
   // console.log(tdata.tokem);
 
   const handleCorrectAnswerChange = (e) => {
@@ -93,7 +111,7 @@ const Quiz = () => {
         quizKey,
         {
           text: questext,
-          options: [],
+          options: options,
           correctAnswer: correctAnswer,
         },
         {
@@ -127,12 +145,12 @@ const Quiz = () => {
   console.log("=====================");
 
   return (
-    <div>
+    <div >
       {modal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <form
             onSubmit={handleaddQuestion}
-            className="max-w-md mx-auto bg-gray-200 shadow-2xl p-10 rounded-md"
+            className="max-w-md mx-auto bg-gray-100 shadow-2xl p-10 rounded-md"
           >
             <div className="my-4">
               <label
@@ -214,7 +232,7 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
                   </button>
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center mx-3"
-                    onClick={handleSubmit}
+                    onClick={GetQuizResponses}
                   >
                     Get Responses
                   </button>
