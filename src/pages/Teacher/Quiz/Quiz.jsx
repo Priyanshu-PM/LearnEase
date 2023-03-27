@@ -73,12 +73,10 @@ const Quiz = () => {
     setQuestion(e.target.value);
   };
 
-  const handleOptionChange = ( index, event) => {
-
+  const handleOptionChange = (index, event) => {
     const newOptions = [...options];
     newOptions[index] = event.target.value;
     setOptions(newOptions);
-
   };
 
   // console.log(tdata.tokem);
@@ -111,7 +109,6 @@ const Quiz = () => {
         if (data.success) {
           console.log("Question added successfully");
           setShowModal(false);
-          
         } else {
           alert("Failed to add question");
         }
@@ -131,8 +128,7 @@ const Quiz = () => {
 
   return (
     <div>
-    {
-      modal ? (
+      {modal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <form
             onSubmit={handleaddQuestion}
@@ -192,56 +188,52 @@ const Quiz = () => {
             </div>
           </form>
         </div>
-      ) : null
-    }
-    <div className="bg-[#F3F8FF] min-h-screen ">
-      <div className="grid grid-cols-11">
-        <div
-          className="hidden bg-white sm:block col-start-1 col-end-3 
+      ) : null}
+      <div className="bg-[#F3F8FF] min-h-screen ">
+        <div className="grid grid-cols-11">
+          <div
+            className="hidden bg-white sm:block col-start-1 col-end-3 
 text-[#9696a6] min-h-screen fixed w-[18%]"
-        >
-          <Sidebar />
-        </div>
+          >
+            <Sidebar />
+          </div>
 
-        <div className="col-start-3 col-span-full first-letter:w-full bg-gray-100 min-h-screen py-8 pt-0">
-          <div className="mx-auto px-4">
-            {(modal === true) & (<div className="z-50"></div>)}
-
-            <div>
-              <h1 className="text-3xl font-bold text-gray-800 mb-8">
-                {quizData.title}
-              </h1>
-            </div>
-
-            <div>
-
-
-            </div>
-            <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-              {console.log(quizData.questions)}
-              <div className="flex flex-end justify-end">
-                <div>{console.log(quizData.questions)}</div>
+          <div className="col-start-3 col-span-full first-letter:w-full bg-gray-100 min-h-screen py-8 pt-0">
+            <div className="mx-auto px-4 py-8">
+              <div className="flex justify-between ">
                 <div>
+                <h1 className="text-3xl font-bold text-gray-800 mb-8">
+                  {quizData.title}
+                </h1></div>
+                <div className="">
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center"
-                    onClick={() => 
-                      setShowModal(true)}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center mx-3"
+                    onClick={() => setShowModal(true)}
                   >
                     Add Question
                   </button>
                   <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center mx-3"
                     onClick={handleSubmit}
                   >
                     Get Responses
                   </button>
                 </div>
               </div>
+
+              <div></div>
+              <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+                {console.log(quizData.questions)}
+                <div className="">
+                  <div>{console.log(quizData.questions)}
+                  <h1>Quiz data</h1>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 };
