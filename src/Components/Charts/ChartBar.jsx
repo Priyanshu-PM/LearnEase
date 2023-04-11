@@ -28,13 +28,17 @@ const ChartBar = () => {
 
   const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
 
-  console.log(tdata.teacher._id);
+  console.log(tdata.tokem);
 
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     axios
-      .get(key, {})
+      .get(key, {
+          headers: {
+            Authorization: `${tdata.tokem}`,
+          },
+      })
       .then((res) => {
         const data = res.data;
         console.log(data.success);

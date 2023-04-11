@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios';
+import { FaCross } from 'react-icons/fa';
 
 const Modal = (quizId, tdata) => {
 
@@ -13,6 +14,7 @@ const Modal = (quizId, tdata) => {
   const [options, setOptions] = useState(['', '', '', '']);
   const [correctAnswer, setCorrectAnswer] = useState('');
   const [showModal, setShowModal] = useState(false);
+  const [alert, setAlert]= useState("");
 
   const handleQuestionChange = (e) => {
     setQuestion(e.target.value);
@@ -25,12 +27,20 @@ const Modal = (quizId, tdata) => {
   };
 
   const handleCorrectAnswerChange = (e) => {
+
     setCorrectAnswer(e.target.value);
   };
 
 
+
   const handleaddQuestion = (event) => {
     event.preventDefault();
+
+
+    if(options.includes(correctAnswer)) {
+
+      setAlert("");
+    }
 
     axios
       .patch(
@@ -64,6 +74,7 @@ const Modal = (quizId, tdata) => {
 
   return (
     <div className="modal">
+    <div><FaCross/></div>
                 <form onSubmit={handleaddQuestion}>
                   <label>Question Text:</label>
                   <input

@@ -4,10 +4,6 @@ import { FaUserCircle } from "react-icons/fa";
 
 import axios from "axios";
 
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
-
 const students = [
   {
     id: 1,
@@ -165,57 +161,6 @@ const Session = () => {
 
   const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
 
-
-  // const [transcript, setTranscript] = useState("");
-
-//   const [recording, setRecording] = useState(false);
-//   const [transcription, setTranscription] = useState("");
-
-//   const [frameData, setFrameData] = useState("");
-
-//   const [stopRecord, setStopRecord] = useState(false);
-
-//   const [closebtn, displayclosebtn] = useState(false);
-
-//   useEffect(() => {
-//     let intervalId;
-//     if (recording) {
-//       intervalId = setInterval(() => {
-//         sendTranscriptionToServer();
-//       }, 60000); // repeat every 5 minutes
-//     }
-//     return () => clearInterval(intervalId);
-//   }, [recording]);
-
-//   useEffect(() => {
-//     axios.get(key, {}).then((res) => {});
-//   });
-
-//   const sendTranscriptionToServer = () => {
-//     //sending data to server and reseting the transript;
-//     resetTranscript();
-//   };
-
-//   const startRecording = () => {
-//     setRecording(true);
-//     SpeechRecognition.startListening({ continuous: true });
-//   };
-
-//   const stopRecording = () => {
-//     setRecording(false);
-//     SpeechRecognition.stopListening();
-//     // recognition.stop();
-//     console.log("Voice recognition stopped.");
-//     // setStopRecord(true);
-//     // timer.stop();
-//   };
-
-//   const submitTranscript = (event) => {
-//     // TODO: Send the transcript to a speech-to-text API for transcription
-//     console.log("Transcript submitted: ", transcript);
-//     event.preventDefault();
-//   };
-
   const joinedTime = new Date().toLocaleTimeString();
 
   return (
@@ -232,24 +177,16 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
             <div className="px-10 py-5">
               <div className="flex flex-col justify-start items-start gap-10 ">
                 <div>
-                  <form >
-                    <button
-                      className="bg-transparent
-hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2
-px-4 border border-blue-500 hover:border-transparent rounded"
-                    >
-                      Summary
-                    </button>
                       <p
                         className="mt-4 px-6 py-6
 rounded-md border-gray-700 bg-gray-200"
                       >
                         summary dalna hai
                       </p>
-                  </form>
                 </div>
 
                 <div>
+                {/* 
                   <button
                     className="bg-transparent hover:bg-blue-500
 text-blue-700 font-semibold hover:text-white py-2 px-4 border
@@ -258,6 +195,7 @@ border-blue-500 hover:border-transparent rounded"
                   >
                     Quiz responses
                   </button>
+                  */}
 
                   <div className="  grid grid-cols-5 gap-4 pt-10">
                     {students.map((student) => (

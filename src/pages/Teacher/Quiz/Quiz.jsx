@@ -1,22 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Sidebar from "../../../Components/Sidebar";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Modal from "./Modal";
+
 
 const Quiz = () => {
+
+
+  let Id = useParams();
+  const navigate = useNavigate();
+
   const [quizId, setQuizId] = useState("");
-  const [quizes, setQuizes] = useState([]);
   const [modal, setShowModal] = useState(false);
   const [QUESTIONS, setQUESTIONS] = useState();
 
   const [quizData, setQuizData] = useState([]);
 
-  let Id = useParams();
 
   const apiKey = process.env.REACT_APP_STUDYAI_API;
-  const quizKey = `${apiKey}/quiz/${quizId}`;
+  const quizKey = `${apiKey}/quiz/${Id.quizId}`;
   const quizDemo = `${apiKey}/quiz/63fa00bff48312e9af983087`;
 
   useEffect(() => {
@@ -32,12 +35,11 @@ const Quiz = () => {
 
   const getQuizes = async () => {
     try {
-      const { data } = await axios.get(quizDemo);
+      const { data } = await axios.get(quizKey);
       const res = JSON.parse(data.data);
       setQuizData(res);
 
       setQUESTIONS(quizData.questions);
-      setQuizes(res);
     } catch (error) {
       console.log(error);
     }
@@ -77,6 +79,7 @@ const Quiz = () => {
     // useEffect(() => {
 
     // }, [quizKey])
+    navigate(`/teacher/quiz/responses/${Id.quizid}`);
   
 
   };
@@ -85,6 +88,7 @@ const Quiz = () => {
   const [questext, setQuestion] = useState("");
   const [options, setOptions] = useState(["", "", "", ""]);
   const [correctAnswer, setCorrectAnswer] = useState("");
+  const [alert, setAlert] = useState("");
 
   const handleQuestionChange = (e) => {
     setQuestion(e.target.value);
@@ -104,9 +108,13 @@ const Quiz = () => {
   };
 
   const handleaddQuestion = (event) => {
+
+    
     event.preventDefault();
 
-    axios
+    if(options.includes(correctAnswer)) {
+
+      axios
       .patch(
         quizKey,
         {
@@ -125,9 +133,20 @@ const Quiz = () => {
         console.log(data);
 
         if (data.success) {
+
           console.log("Question added successfully");
+          
+          setQuestion("");
+          setOptions(["", "", "", ""]);
+          setCorrectAnswer("");
+          setAlert("");
           setShowModal(false);
-        } else {
+
+          getQuizes();
+
+        } 
+        else 
+        {
           alert("Failed to add question");
         }
       })
@@ -135,6 +154,15 @@ const Quiz = () => {
         alert(err);
         console.log(err);
       });
+      
+    }
+    else {
+
+      setAlert("Correct Answer should match any one of the options")
+
+    }
+
+    
   };
 
   console.log("=====================");
@@ -148,16 +176,23 @@ const Quiz = () => {
     <div >
       {modal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+        
+    
+        
           <form
             onSubmit={handleaddQuestion}
             className="max-w-md mx-auto bg-gray-100 shadow-2xl p-10 rounded-md"
           >
+          <div className="p-0 flex justify-end items-end"><button onClick={()=> setShowModal(false)}>
+          
+          cross
+          </button></div>
             <div className="my-4">
               <label
                 htmlFor="question"
                 className="block text-gray-700 font-medium mb-2"
               >
-                Question
+                Question Text
               </label>
               <textarea
                 id="question"
@@ -182,6 +217,7 @@ const Quiz = () => {
               ))}
             </div>
             <div className="my-4">
+            {alert}
               <label
                 htmlFor="correctAnswer"
                 className="block text-gray-700 font-medium mb-2"
@@ -228,6 +264,7 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center mx-3"
                     onClick={() => setShowModal(true)}
                   >
+
                     Add Question
                   </button>
                   <button

@@ -1,11 +1,13 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Sidebar from "../../../Components/Sidebar";
 
 import ChartLine from "../../../Components/Charts/ChartLine";
 import ChartBar from "../../../Components/Charts/ChartBar";
 
+
+
 const Dashboard = () => {
-  
+
   return (
     <div className="bg-gradient-to-b from-gray-200 to-white  min-h-screen">
       <div className="grid grid-cols-11">

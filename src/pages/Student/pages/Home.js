@@ -21,6 +21,10 @@ const Home = () => {
       axios
       .get(key, {
 
+        params: {
+          classroom: "SE-11"
+        },
+
         headers: {
           Authorization: `${sdata.tokem}`
         }

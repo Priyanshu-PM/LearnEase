@@ -33,7 +33,7 @@ const ChartLine = () => {
 
   const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
 
-  console.log(tdata.teacher._id);
+  console.log(tdata.tokem);
 
   const [rooms, setRooms] = useState([]);
 

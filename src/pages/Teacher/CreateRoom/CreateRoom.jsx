@@ -3,52 +3,45 @@ import Sidebar from "../../../Components/Sidebar";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Spinner from "react-spinkit";
 
 const apiKey = process.env.REACT_APP_STUDYAI_API;
 
 const CreateRoom = () => {
-
   var teacherData = sessionStorage.getItem("teacher");
   const tdata = JSON.parse(teacherData);
 
   console.log(tdata.teacher._id);
+  console.log(tdata.tokem);
 
-  const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
 
   const postKey = `${apiKey}/teacher/room`;
 
-  const [rooms, setRooms] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchRooms();
-  }, []);
+  // useEffect(() => {
+  //   fetchRooms();
+  // }, []);
 
-  const fetchRooms = () => {
-    axios
-      .get(key, {})
-      .then((res) => {
-        const data = res.data;
-        console.log(data.success);
-        setRooms(JSON.parse(data.data));
-        setLoading(false);
-      })
-      .catch((err) => {
-        alert("load hi nahi hua hai");
-        console.log(err);
-      });
-  };
+  // const fetchRooms = () => {
+  //   axios
+  //     .get(key, {})
+  //     .then((res) => {
+  //       const data = res.data;
+  //       console.log(data.success);
+  //       setRooms(JSON.parse(data.data));
+  //       setLoading(false);
+  //     })
+  //     .catch((err) => {
+  //       alert("load hi nahi hua hai");
+  //       console.log(err);
+  //     });
+  // };
 
   const navigate = useNavigate();
 
-  const handleSessionClick = (sessionId) => {
-
-    alert("Session click successfull")
-    navigate(`/teacher/lecture/${sessionId}`);
-    // navigate("/test");
-  };
-
+  // const handleSessionClick = (sessionId) => {
+  //   navigate(`/teacher/lecture/${sessionId}`);
+  //   // navigate("/test");
+  // };
 
   const [sessionName, setSessionName] = useState("");
 
@@ -63,6 +56,7 @@ const CreateRoom = () => {
   // const title = sessionName;
 
   const handleCreateSession = (event) => {
+
     axios
       .post(
         postKey,
@@ -93,64 +87,20 @@ const CreateRoom = () => {
       });
   };
 
-
-  const isCreateSessionDisabled = !sessionName;
-
-  const gradientColors = [
-    "from-purple-500/10 to-indigo-500/10",
-    "from-green-500/10 to-teal-500/10",
-    "from-yellow-500/10 to-green-500/10",
-    "from-pink-500/10 to-red-500/10",
-    "from-blue-500/10 to-gray-500/10",
-    "from-red-500/10 to-orange-500/10",
-    "from-teal-500/10 to-green-500/10",
-    "from-indigo-500/10 to-purple-500/10",
-    "from-gray-500/10 to-blue-500/10",
-    "from-red-500/10 to-pink-500/10",
-    "from-blue-500/10 to-teal-500/10",
-    "from-yellow-500/10 to-orange-500/10",
-    "from-purple-500/10 to-red-500/10",
-    "from-green-500/10 to-blueGray-500/10",
-    "from-pink-500/10 to-purple-500/10",
-    "from-gray-500/10 to-teal-500/10",
-    "from-blue-500/10 to-yellow-500/10",
-    "from-red-500/10 to-gray-500/10",
-    "from-teal-500/10 to-orange-500/10",
-    "from-indigo-500/10 to-blue-500/10",
-    "from-blue-500/10 to-gray-500/10",
-    "from-purple-500/10 to-red-500/10",
-    "from-green-500/10 to-yellow-500/10",
-    "from-teal-500/10 to-blue-500/10",
-    "from-pink-500/10 to-orange-500/10",
-    "from-yellow-500/10 to-red-500/10",
-    "from-gray-500/10 to-blue-500/10",
-    "from-purple-500/10 to-green-500/10",
-    "from-blue-500/10 to-indigo-500/10",
-    "from-red-500/10 to-pink-500/10",
-    "from-teal-500/10 to-green-500/10",
-    "from-orange-500/10 to-yellow-500/10",
-    "from-gray-500/10 to-red-500/10",
-    "from-blue-500/10 to-teal-500/10",
-    "from-purple-500/10 to-gray-500/10",
-    "from-green-500/10 to-blue-500/10",
-    "from-pink-500/10 to-teal-500/10",
-    "from-red-500/10 to-orange-500/10",
-    "from-yellow-500/10 to-gray-500/10",
-    "from-blue-500/10 to-purple-500/10",
-    "from-green-500/10 to-red-500/10",
-    "from-teal-500/10 to-blueGray-500",
+  const steps = [
+    "Click the 'Create Session' button and enter the name of the session in the provided field.",
+    "The session ID will be generated automatically, which you should share with students so they can join the session",
+    "To begin recording the lecture, click on the Start Recording button.",
+    "The microphone will be turned on once you click the start recording",
+    "When you are finished with the lecture, click on the End Session button to stop the recording.",
+    "The Generate Quiz button will appear after you click the End Session button.",
+    "Click on the Generate Quiz button to generate an automated quiz.",
+    "You can also add custom questions in the quiz for better performance",
+    "The generated quiz will then be shared with the students.",
+    "The responses of the students will be displayed on the screen as they submit the quiz.",
   ];
 
-  if (loading) {
-    return (
-      <div className="flex min-h-screen min-w-full align-center content-center items-center justify-center">
-              <Spinner
-                name="chasing-dots"
-                style={{ width: 100, height: 100 }}
-              />
-            </div>
-    )
-  }
+  const isCreateSessionDisabled = !sessionName;
 
   return (
     <div className="bg-[#F3F8FF] min-h-screen">
@@ -191,37 +141,15 @@ const CreateRoom = () => {
               </button>
             </form>
             {/*============================================================================================================  */}
-            <div>
-              {rooms.length > 0 ? (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-7 mt-8">
-                  {rooms.map((session, index) => (
-                    <div
-                      key={session._id}
-                      className={`bg-gradient-to-br h-[10rem] rounded-lg shadow-md p-6 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
-                        gradientColors[index % gradientColors.length]
-                      }`}
-                      onClick={() => handleSessionClick(session._id)}
-                    >
-
-                      <div className="flex justify-between mb-4">
-                        <div className="text-black font-bold text-xl">
-                          {session.title}
-                        </div>
-                        <div className="text-black text-sm pl-1">
-                          {new Date(session.createdAt).toLocaleDateString()}
-                        </div>
-                      </div>
-                      <div className="text-black">{session.id}</div>
-                    </div>
+            <div className="mt-10">
+              <h2 className="text-2xl font-semibold mb-4">Steps to follow :</h2>
+              <div>
+                <ul className="space-y-3">
+                  {steps.map((step) => (
+                    <li className="text-xl text-gray">{step}</li>
                   ))}
-                </div>
-              ) : (
-                <div className="bg-gray-200 rounded-md p-4 mt-8">
-                  <p className="text-gray-800 text-lg font-bold">
-                    No sessions available. Please create a new session.
-                  </p>
-                </div>
-              )}
+                </ul>
+              </div>
             </div>
           </div>
         </div>
