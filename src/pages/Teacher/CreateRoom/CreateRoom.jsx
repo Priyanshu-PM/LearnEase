@@ -48,12 +48,9 @@ const CreateRoom = () => {
   // const [sessions, setSessions] = useState([]);
 
   const handleSessionNameChange = (e) => {
+
     setSessionName(e.target.value);
-
-    // console.log(sessionName);
   };
-
-  // const title = sessionName;
 
   const handleCreateSession = (event) => {
 

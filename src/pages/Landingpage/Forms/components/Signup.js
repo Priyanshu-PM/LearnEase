@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { signupFields } from "../constants/formFields"
 import FormAction from "./FormAction";
 import Input from "./Input";
@@ -16,7 +16,9 @@ export default function Signup(){
   const navigate = useNavigate();
   
   const apiKey = process.env.REACT_APP_STUDYAI_API;
+  
   const key = `${apiKey}/teacher/register`;
+  const getKey = `${apiKey}/common/new-registration`;
 
   const [signupState,setSignupState]=useState(fieldsState);
 
@@ -28,11 +30,48 @@ export default function Signup(){
     createAccount();
   }
 
+
+  
+  const options = [
+
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+  ];
+  
+  const [dropdown, setDropDown] = useState();
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
+  }
+
+  
+  console.log(getKey);
+  useEffect(() => {
+    axios
+    .get(getKey, {
+      
+    })
+    .then((res) => {
+      const data = res.data;
+      console.log(data.success);
+      setDropDown(data)
+    })
+    .catch((err) => {
+      alert("invalid");
+      console.log(err);
+    });
+}, [key]);
+
+console.log(dropdown.data);
+
   //handle Signup API Integration here
   const createAccount=()=>{
 
     axios
       .post(key, {
+
         firstName: signupState["first-name"],
         lastName: signupState["last-name"],
 
@@ -79,7 +118,15 @@ export default function Signup(){
                     />
                 
                 )
-            }
+            }<select value={selectedOption} onChange={handleOptionChange}>
+<option value="">Select an option</option>
+{options.map((option) => (
+  <option key={option.value} value={option.value}>
+    {option.label}
+  </option>
+))}
+</select>'
+
           <FormAction handleSubmit={handleSubmit} text="Signup" />
         </div>
 

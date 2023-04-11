@@ -71,6 +71,8 @@ export default function LoginStudent() {
     // navigate("/teacher/home");
   };
 
+
+
   return (
     <form className=" space-y-6" onSubmit={handleSubmit}>
       {error && (

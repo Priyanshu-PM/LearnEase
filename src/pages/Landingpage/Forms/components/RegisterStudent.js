@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signupFields } from "../constants/formFields";
 import FormAction from "./FormAction";
 import Input from "./Input";
@@ -17,6 +17,7 @@ export default function RegisterStudent() {
     
   const apiKey = process.env.REACT_APP_STUDYAI_API;
   const key = `${apiKey}/student/register`;
+  const getKey = `${apiKey}/common/new-registration`;
 
   const [signupState, setSignupState] = useState(fieldsState);
 
@@ -29,7 +30,43 @@ export default function RegisterStudent() {
     createAccount();
   };
 
-  //handle Signup API Integration here
+
+
+  const options = [
+
+    { value: 'option1', label: 'Option 1' },
+    { value: 'option2', label: 'Option 2' },
+    { value: 'option3', label: 'Option 3' },
+  ];
+  
+  const [dropdown, setDropDown] = useState();
+  const [dropdownoption, setdropdownoption] = useState([]);
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const handleOptionChange = (e) => {
+    setSelectedOption(e.target.value);
+  }
+
+  console.log(getKey);
+  useEffect(() => {
+    axios
+    .get(getKey, {
+      
+    })
+    .then((res) => {
+      const data = res.data;
+      console.log(data.success);
+      setDropDown(data)
+    })
+    .catch((err) => {
+      alert("invalid");
+      console.log(err);
+    });
+}, [key]);
+
+console.log(dropdown.data[0].name);
+  
+
   const createAccount = () => {
     axios
       .post(key, {
@@ -65,7 +102,7 @@ export default function RegisterStudent() {
             handleChange={handleChange}
             value={signupState[field.id]}
             labelText={field.labelText}
-            labelFor={field.labelFor}
+            labelFor={field.labelFor}                                                                                                                                                                                    
             id={field.id}
             name={field.name}
             type={field.type}
@@ -73,6 +110,25 @@ export default function RegisterStudent() {
             placeholder={field.placeholder}
           />
         ))}
+
+        <select value={selectedOption} onChange={handleOptionChange}>
+          <option value="">Select an option</option>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+
+        <select value={selectedOption} onChange={handleOptionChange}>
+          <option value="">Select an option</option>
+          {options.map((option) => (  
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+
         <FormAction handleSubmit={handleSubmit} text="Signup" />
       </div>
     </form>
