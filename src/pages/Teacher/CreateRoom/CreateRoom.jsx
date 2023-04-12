@@ -4,61 +4,90 @@ import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
+import Select from "react-select";
+
+
+
 const apiKey = process.env.REACT_APP_STUDYAI_API;
 
 const CreateRoom = () => {
   var teacherData = sessionStorage.getItem("teacher");
   const tdata = JSON.parse(teacherData);
 
-  console.log(tdata.teacher._id);
+  console.log(tdata.teacher.clg);
   console.log(tdata.tokem);
 
-
   const postKey = `${apiKey}/teacher/room`;
-
-
-  // useEffect(() => {
-  //   fetchRooms();
-  // }, []);
-
-  // const fetchRooms = () => {
-  //   axios
-  //     .get(key, {})
-  //     .then((res) => {
-  //       const data = res.data;
-  //       console.log(data.success);
-  //       setRooms(JSON.parse(data.data));
-  //       setLoading(false);
-  //     })
-  //     .catch((err) => {
-  //       alert("load hi nahi hua hai");
-  //       console.log(err);
-  //     });
-  // };
+  const getKey = `${apiKey}/common/get-classrooms-clg?clg_id=${tdata.teacher.clg}`;
 
   const navigate = useNavigate();
 
-  // const handleSessionClick = (sessionId) => {
-  //   navigate(`/teacher/lecture/${sessionId}`);
-  //   // navigate("/test");
-  // };
-
   const [sessionName, setSessionName] = useState("");
-
-  // const [sessions, setSessions] = useState([]);
+  const [meetURL, setMeetURL] = useState("");
 
   const handleSessionNameChange = (e) => {
-
     setSessionName(e.target.value);
   };
 
-  const handleCreateSession = (event) => {
+  const handleMeetChange = (e) => {
 
+    setMeetURL(e.target.value);
+  };
+
+  const [classrooms, setClassrooms] = useState([]);
+  const [selectedClassroom, setSelectedClassroom] = useState();
+
+  useEffect(()=> {
+
+    fetchClassrooms();
+  }, []);
+  
+    const fetchClassrooms = () => {
+  
+      axios
+        .get(
+          getKey
+          
+        )
+        .then((res) => {
+          const data = res.data;
+          console.log(data.success);
+          console.log(data.data.classrooms);
+  
+          let options = [] ;
+  
+          data.data.classrooms.forEach((clg) => {
+
+            options.push({
+              value: tdata.teacher.clg,
+              label: clg
+
+          });
+          });
+          
+          console.log(options);
+          setClassrooms(options);
+  
+          setSelectedClassroom(options[0]);
+          //  setRooms(JSON.parse(data.data));
+          // setLoading(false);
+        })
+        .catch((err) => {
+          // alert("invalid");
+          console.log(err);
+        });
+    };
+  
+
+
+  const handleCreateSession = (event) => {
     axios
       .post(
         postKey,
         {
           title: sessionName,
+          clg: tdata.teacher.clg,
+          classroom: ""
         },
         {
           headers: {
@@ -84,6 +113,7 @@ const CreateRoom = () => {
       });
   };
 
+
   const steps = [
     "Click the 'Create Session' button and enter the name of the session in the provided field.",
     "The session ID will be generated automatically, which you should share with students so they can join the session",
@@ -97,7 +127,7 @@ const CreateRoom = () => {
     "The responses of the students will be displayed on the screen as they submit the quiz.",
   ];
 
-  const isCreateSessionDisabled = !sessionName;
+  const isCreateSessionDisabled = !sessionName || !selectedClassroom;
 
   return (
     <div className="bg-[#F3F8FF] min-h-screen">
@@ -124,6 +154,34 @@ const CreateRoom = () => {
                   placeholder="Enter session name"
                   className="p-2 border rounded-md"
                 />
+              </div>
+
+
+              <div className=" w-full flex flex-row justify-between ">
+                <div className="col-start-3 col-end-6 p-2  w-5/12">
+                  <label htmlFor="session-name" className="mt-1 mb-1 text-lg font-medium">
+                    Select the classroom
+                  </label>
+                  <Select
+                  value={selectedClassroom}
+                  onChange={(op) => setSelectedClassroom(op)}
+                  options={classrooms}
+                />
+                </div>
+
+                <div className="flex flex-col gap-1 col-start-7 col-end-12  w-5/12">
+                  <label htmlFor="meet-name" className="text-lg font-medium">
+                    Enter Meeting URL
+                  </label>
+                  <input
+                    type="text"
+                    id="meet-name"
+                    value={meetURL}
+                    onChange={handleMeetChange}
+                    placeholder="Enter session name"
+                    className="p-2 border rounded-md"
+                  />
+                </div>
               </div>
               <button
                 type="button"

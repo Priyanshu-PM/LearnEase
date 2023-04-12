@@ -42,8 +42,9 @@ const Sidebar = () => {
           className="flex items-center justify-between text-[#0dd6b8]"
           to="/teacher/home"
         >
+
           <div className="flex justify-center items-center w-full h-[7rem]">
-            <h1 className="text-xl font-bold">{teacher.teacher.emailID}</h1>
+            <h1 className="text-xl font-bold">{ teacher.teacher.emailID.length < 15 ? teacher.teacher.emailID: `${teacher.teacher.emailID.substring(0, 15)}...`}</h1>
           </div>
         </Link>
       </div>

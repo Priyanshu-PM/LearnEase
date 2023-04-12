@@ -32,40 +32,33 @@ export default function RegisterStudent() {
 
 
 
-  const options = [
+  const collegeOptions = [
 
-    { value: 'option1', label: 'Option 1' },
-    { value: 'option2', label: 'Option 2' },
-    { value: 'option3', label: 'Option 3' },
+    { value: 'option1', label: 'college 1' },
+    { value: 'option2', label: 'college 2' },
+    { value: 'option3', label: 'college 3' },
+  ];
+
+  const classroomOptions = [
+
+    { value: 'option1', label: 'class 1' },
+    { value: 'option2', label: 'class 2' },
+    { value: 'option3', label: 'class 3' },
   ];
   
-  const [dropdown, setDropDown] = useState();
+  const [dropdown, setDropDown] = useState([]);
   const [dropdownoption, setdropdownoption] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("");
+  const [selectedCollege, setSelectedCollege] = useState("");
+  const [selectedClass, setSelectedClass] = useState("");
 
-  const handleOptionChange = (e) => {
-    setSelectedOption(e.target.value);
+  const handleCollegeChange = (e) => {
+    setSelectedCollege(e.target.value);
   }
 
-  console.log(getKey);
-  useEffect(() => {
-    axios
-    .get(getKey, {
-      
-    })
-    .then((res) => {
-      const data = res.data;
-      console.log(data.success);
-      setDropDown(data)
-    })
-    .catch((err) => {
-      alert("invalid");
-      console.log(err);
-    });
-}, [key]);
+  const handleClassChange = (e) => {
+    setSelectedClass(e.target.value);
+  }
 
-console.log(dropdown.data[0].name);
-  
 
   const createAccount = () => {
     axios
@@ -93,6 +86,40 @@ console.log(dropdown.data[0].name);
       });
   };
 
+
+  useEffect(()=> {
+
+    collegeList(getKey);
+
+  }, [getKey])
+
+  const collegeList = async () => {
+
+    try {
+      
+      const { data }  = await axios.get(getKey);
+      const res = data.data;
+      setDropDown(res);
+
+      setDropDown(dropdown);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  console.log(dropdown);
+
+  const updatedList = dropdown.map(({ name, _id, classrooms }) => ({
+    name,
+    _id,
+    classrooms
+  }));
+  
+  console.log(updatedList);
+
+  
+
+
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="">
@@ -111,23 +138,24 @@ console.log(dropdown.data[0].name);
           />
         ))}
 
-        <select value={selectedOption} onChange={handleOptionChange}>
-          <option value="">Select an option</option>
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
 
-        <select value={selectedOption} onChange={handleOptionChange}>
-          <option value="">Select an option</option>
-          {options.map((option) => (  
+        <select className="my-5 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" value={selectedCollege} onChange={handleCollegeChange}>
+          <option value="">Select the college</option>
+          {collegeOptions.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>
           ))}
         </select>
+        
+        <select className="my-5 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" value={selectedClass} onChange={handleClassChange}>
+        <option value="">Select the classroom</option>
+        {classroomOptions.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
 
         <FormAction handleSubmit={handleSubmit} text="Signup" />
       </div>

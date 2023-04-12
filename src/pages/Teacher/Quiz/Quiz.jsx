@@ -34,7 +34,9 @@ const Quiz = () => {
   console.log(tdata.teacher._id);
 
   const getQuizes = async () => {
+
     try {
+      
       const { data } = await axios.get(quizKey);
       const res = JSON.parse(data.data);
       setQuizData(res);
@@ -216,7 +218,7 @@ const Quiz = () => {
                 />
               ))}
             </div>
-            <div className="my-4">
+            <div className="my-4 text-red-500">
             {alert}
               <label
                 htmlFor="correctAnswer"
