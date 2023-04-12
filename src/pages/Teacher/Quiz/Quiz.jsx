@@ -4,10 +4,7 @@ import Sidebar from "../../../Components/Sidebar";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-
 const Quiz = () => {
-
-
   let Id = useParams();
   const navigate = useNavigate();
 
@@ -17,58 +14,52 @@ const Quiz = () => {
 
   const [quizData, setQuizData] = useState([]);
 
-
   const apiKey = process.env.REACT_APP_STUDYAI_API;
   const quizKey = `${apiKey}/quiz/${Id.quizId}`;
   const quizDemo = `${apiKey}/quiz/63fa00bff48312e9af983087`;
 
   useEffect(() => {
     setQuizId(Id.quizid);
-    getQuizes();
   }, [quizDemo]);
+
   console.log(Id.quizid);
+
+  console.log("quiz id : ", quizId);
 
   var teacherData = sessionStorage.getItem("teacher");
   const tdata = JSON.parse(teacherData);
 
-  console.log(tdata.teacher._id);
-
-  const getQuizes = async () => {
-
-    try {
-      
-      const { data } = await axios.get(quizKey);
-      const res = JSON.parse(data.data);
-      setQuizData(res);
-
-      setQUESTIONS(quizData.questions);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  console.log("teacher id : ", tdata.teacher._id);
 
 
+  const [questions, setQuestions] = useState([]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(quizKey, {})
-  //     .then((res) => {
-  //       const data = res.data;
-  //       console.log("inside " , quizData);
-  //       const quizes = quizData.questions
-  //       setQuizData(JSON.parse(data.data));
-  //       setQuizes(quizData.questions)
-  //       console.log(quizes)
-  //     })
-  //     .catch((err) => {
-  //       alert("invalid");
-  //       console.log(err);
-  //     });
-  // }, [quizDemo]);
+  useEffect(() => {
 
+    axios
+      .get(quizDemo, {})
+      .then((res) => {
+        const data = res.data;
+        console.log("inside ", quizData);
+        const quizes = quizData.questions;
+        setQuizData(JSON.parse(data.data));
+        let options = [];
 
+        quizes.forEach((question) => {
+          options.push({
+            text: question.text,
+            answer: question.correctAnswer,
+            opt: question.options,
+          });
+        });
 
-
+        setQuestions(options);
+        console.log(questions);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [quizDemo]);
 
   const handleSubmit = (event) => {
     console.log(QUESTIONS);
@@ -77,15 +68,8 @@ const Quiz = () => {
   };
 
   const GetQuizResponses = () => {
-
-    // useEffect(() => {
-
-    // }, [quizKey])
     navigate(`/teacher/quiz/responses/${Id.quizid}`);
-  
-
   };
-
 
   const [questext, setQuestion] = useState("");
   const [options, setOptions] = useState(["", "", "", ""]);
@@ -102,93 +86,72 @@ const Quiz = () => {
     setOptions(newOptions);
   };
 
-
-  // console.log(tdata.tokem);
-
   const handleCorrectAnswerChange = (e) => {
     setCorrectAnswer(e.target.value);
   };
 
   const handleaddQuestion = (event) => {
-
-    
     event.preventDefault();
 
-    if(options.includes(correctAnswer)) {
+    if (options.includes(correctAnswer)) {
 
+      // idhar bhi correct quizKey dalni hai
       axios
-      .patch(
-        quizKey,
-        {
-          text: questext,
-          options: options,
-          correctAnswer: correctAnswer,
-        },
-        {
-          headers: {
-            Authorization: `${tdata.tokem}`,
+        .patch(
+          quizDemo,
+          {
+            text: questext,
+            options: options,
+            correctAnswer: correctAnswer,
           },
-        }
-      )
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
+          {
+            headers: {
+              Authorization: `${tdata.tokem}`,
+            },
+          }
+        )
+        .then((res) => {
+          const data = res.data;
+          console.log(data);
 
-        if (data.success) {
+          if (data.success) {
+            console.log("Question added successfully");
 
-          console.log("Question added successfully");
-          
-          setQuestion("");
-          setOptions(["", "", "", ""]);
-          setCorrectAnswer("");
-          setAlert("");
-          setShowModal(false);
+            setQuestion("");
+            setOptions(["", "", "", ""]);
+            setCorrectAnswer("");
+            setAlert("");
+            setShowModal(false);
 
-          getQuizes();
-
-        } 
-        else 
-        {
-          alert("Failed to add question");
-        }
-      })
-      .catch((err) => {
-        alert(err);
-        console.log(err);
-      });
-      
+            // getQuizes();
+          } else {
+            alert("Failed to add question");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      setAlert("Correct Answer should match any one of the options");
     }
-    else {
-
-      setAlert("Correct Answer should match any one of the options")
-
-    }
-
-    
   };
 
   console.log("=====================");
   console.log(quizData.title);
   console.log(quizData.questions);
   console.log("=====================");
-  console.log(QUESTIONS);
-  console.log("=====================");
 
   return (
-    <div >
+    <div>
       {modal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-        
-    
-        
           <form
             onSubmit={handleaddQuestion}
             className="max-w-md mx-auto bg-gray-100 shadow-2xl p-10 rounded-md"
           >
-          <div className="p-0 flex justify-end items-end"><button onClick={()=> setShowModal(false)}>
-          
-          cross
-          </button></div>
+            <div className="p-0 flex justify-end items-end">
+              <button onClick={() => setShowModal(false)}>cross</button>
+            </div>
             <div className="my-4">
               <label
                 htmlFor="question"
@@ -218,8 +181,9 @@ const Quiz = () => {
                 />
               ))}
             </div>
-            <div className="my-4 text-red-500">
-            {alert}
+            <div className="my-4 ">
+            <h3 className="text-red-500">
+            {alert}</h3>
               <label
                 htmlFor="correctAnswer"
                 className="block text-gray-700 font-medium mb-2"
@@ -258,15 +222,15 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
             <div className="mx-auto px-4 py-8">
               <div className="flex justify-between ">
                 <div>
-                <h1 className="text-3xl font-bold text-gray-800 mb-8">
-                  {quizData.title}
-                </h1></div>
+                  <h1 className="text-3xl font-bold text-gray-800 mb-8">
+                    {quizData.title}
+                  </h1>
+                </div>
                 <div className="">
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center mx-3"
                     onClick={() => setShowModal(true)}
                   >
-
                     Add Question
                   </button>
                   <button
@@ -278,12 +242,22 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
                 </div>
               </div>
 
-              <div></div>
-              <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
-                {console.log(quizData.questions)}
+              <div className="bg-white rounded-lg  p-8 mb-8">
                 <div className="">
-                  <div>{console.log(quizData.questions)}
-                  <h1>Quiz data</h1>
+                  <div className="gap-5">
+                    {questions.map((question, index) => (
+                      <div className="space-y-3">
+                        <h1>{(index+1) + " : " +question.text}</h1>
+                        
+                        <ul>
+                          {question.opt.map((option) => (
+                            <li>{option}</li>
+                          ))}
+                        </ul>
+                        <h1>{"Correct answer : "+ question.answer}</h1>
+                      </div>
+                    ))}
+                    {console.log(quizData.questions)}
                   </div>
                 </div>
               </div>

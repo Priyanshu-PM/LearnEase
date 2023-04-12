@@ -159,13 +159,7 @@ const students = [
 ];
 
 const TestFile = () => {
-  const {
-    transcript,
-    listening,
-    resetTranscript,
-    browserSupportsSpeechRecognition,
-    browserSupportsContinuousListening,
-  } = useSpeechRecognition();
+  const { transcript, resetTranscript } = useSpeechRecognition();
 
   const [sessionID, setSessionID] = useState("");
   const [tdata, setTdata] = useState(null);
@@ -212,10 +206,8 @@ const TestFile = () => {
   // });
 
   const sendTranscriptionToServer = () => {
-
     //sending data to server and reseting the transript;
     resetTranscript();
-
   };
 
   const startRecording = () => {
@@ -270,9 +262,8 @@ const TestFile = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleGenerateQuiz = () => {
-    console.log(`/teacher/quiz/${sessionID}`)
+    console.log(`/teacher/quiz/${sessionID}`);
     navigate(`/teacher/quiz/${sessionID}`);
-    
   };
 
   const [question, setQuestion] = useState("");
@@ -310,46 +301,13 @@ const TestFile = () => {
         console.log(err);
         // Handle error
       });
-    
+
     // setShowResponses(true);
     setShowModal(false);
     console.log(data);
   };
 
   const [responses, setResponses] = useState([]);
-
-  // useEffect(() => {
-
-  //   axios
-  //     .get(getresKey, {})
-  //     .then((res) => {
-  //       const data = res.data;
-  //       console.log(data.success);
-  //       setResponses(JSON.parse(data.data));
-  //       console.log(responses);
-  //     })
-  //     .catch((err) => {
-  //       alert("invalid");
-  //       console.log(err);
-  //     });
-  // }, [])
-
-  // const fetchResponses = () => {
-
-  //   axios
-  //     .get(getresKey, {})
-  //     .then((res) => {
-  //       const data = res.data;
-  //       console.log(data.success);
-  //       setResponses(JSON.parse(data.data));
-  //       console.log(responses);
-  //     })
-  //     .catch((err) => {
-  //       alert("invalid");
-  //       console.log(err);
-  //     });
-
-  // }
 
   const handleOptionChange = (index, value) => {
     const newOptions = [...options];
@@ -542,31 +500,31 @@ overflow-hidden bg-gray-300"
                         </h1>
                       </div>
 
-                      
-                      
-                      <button
-                        className="bg-transparent hover:bg-blue-500
+                      <div className="flex justify-between">
+                        <button
+                          className="bg-transparent hover:bg-blue-500
 text-blue-700 font-semibold hover:text-white py-2 px-4 border
 border-blue-500 hover:border-transparent rounded"
-                        onClick={startRecording}
-                      >
-                        Start Session
-                      </button>
+                          onClick={startRecording}
+                        >
+                          Start Session
+                        </button>
+
+                        <button
+                          className=" bg-transparent hover:bg-red-500
+text-red-700 font-semibold hover:text-white py-2 px-4 border
+border-red-500 hover:border-transparent rounded"
+                          onClick={stopRecording}
+                        >
+                          Close Session
+                        </button>
+                      </div>
                     </div>
                   )}
 
-                  <button
-                    className=" mt-2 bg-transparent hover:bg-red-500
-text-red-700 font-semibold hover:text-white py-2 px-4 border
-border-red-500 hover:border-transparent rounded"
-                    onClick={stopRecording}
-                  >
-                    Close Session
-                  </button>
-
                   {qButton ? (
                     <button
-                      className=" ml-4 bg-transparent hover:bg-blue-500
+                      className="mt-5 bg-transparent hover:bg-blue-500
                   text-blue-700 font-semibold hover:text-white py-2 px-4 border
                   border-blue-500 hover:border-transparent rounded"
                       onClick={handleGenerateQuiz}

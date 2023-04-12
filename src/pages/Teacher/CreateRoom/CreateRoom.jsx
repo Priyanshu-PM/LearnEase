@@ -18,6 +18,7 @@ const CreateRoom = () => {
   console.log(tdata.tokem);
 
   const postKey = `${apiKey}/teacher/room`;
+  console.log(tdata.teacher.clg);
   const getKey = `${apiKey}/common/get-classrooms-clg?clg_id=${tdata.teacher.clg}`;
 
   const navigate = useNavigate();
@@ -40,14 +41,16 @@ const CreateRoom = () => {
   useEffect(()=> {
 
     fetchClassrooms();
+
   }, []);
   
     const fetchClassrooms = () => {
   
       axios
         .get(
-          getKey
-          
+          getKey, {
+            clg_id: tdata.teacher.clg
+          }
         )
         .then((res) => {
           const data = res.data;
@@ -69,8 +72,6 @@ const CreateRoom = () => {
           setClassrooms(options);
   
           setSelectedClassroom(options[0]);
-          //  setRooms(JSON.parse(data.data));
-          // setLoading(false);
         })
         .catch((err) => {
           // alert("invalid");
@@ -78,6 +79,7 @@ const CreateRoom = () => {
         });
     };
   
+    console.log(selectedClassroom.label);
 
 
   const handleCreateSession = (event) => {
@@ -87,7 +89,7 @@ const CreateRoom = () => {
         {
           title: sessionName,
           clg: tdata.teacher.clg,
-          classroom: ""
+          classroom: selectedClassroom.label
         },
         {
           headers: {

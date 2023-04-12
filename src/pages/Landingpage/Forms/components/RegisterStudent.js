@@ -6,6 +6,8 @@ import Input from "./Input";
 import axios from "../../../../axios/axios";
 import { useNavigate } from "react-router-dom";
 
+import Select from "react-select";
+
 const fields = signupFields;
 let fieldsState = {};
 
@@ -30,43 +32,64 @@ export default function RegisterStudent() {
     createAccount();
   };
 
-
-
-  const collegeOptions = [
-
-    { value: 'option1', label: 'college 1' },
-    { value: 'option2', label: 'college 2' },
-    { value: 'option3', label: 'college 3' },
-  ];
-
-  const classroomOptions = [
-
-    { value: 'option1', label: 'class 1' },
-    { value: 'option2', label: 'class 2' },
-    { value: 'option3', label: 'class 3' },
-  ];
   
-  const [dropdown, setDropDown] = useState([]);
-  const [dropdownoption, setdropdownoption] = useState([]);
-  const [selectedCollege, setSelectedCollege] = useState("");
-  const [selectedClass, setSelectedClass] = useState("");
+  
+  const [classrooms, setClassrooms] = useState([]);
+  const [selectedClassroom, setSelectedClassroom] = useState();
+  const [clgs, setClgs] = useState([]);
+  const [selectedClg, setSelectedClg] = useState();
+  
+  const [collegeID, setCollegeID] = useState("");
 
-  const handleCollegeChange = (e) => {
-    setSelectedCollege(e.target.value);
-  }
 
-  const handleClassChange = (e) => {
-    setSelectedClass(e.target.value);
-  }
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    axios
+      .get(getKey)
+      .then((res) => {
+        const data = res.data;
+        if (data.success) {
+          console.log("fetching details");
+          console.log(data.data);
+          let arrOfClgs = [];
+          data.data.forEach((college) => {
+            arrOfClgs.push({
+              label: college.name,
+              value: college.name,
+              id: college._id,
+              classrooms: college.classrooms,
+            });
+          });
+          setClgs(arrOfClgs);
+          console.log(arrOfClgs);
+        } else {
+          alert("error occured while fetching");
+        }
+      })
+      .catch((err) => {
+        alert("invalid");
+        console.log(err);
+      });
+  };
 
 
   const createAccount = () => {
+
+  console.log(selectedClg.id);
+  console.log(selectedClassroom);
+
+
     axios
       .post(key, {
         firstName: signupState["first-name"],
         lastName: signupState["last-name"],
         emailID: signupState["email-address"],
         password: signupState.password,
+        clg: selectedClg.id,
+        classroom: selectedClassroom.label
       })
       .then((res) => {
         const data = res.data;
@@ -74,7 +97,7 @@ export default function RegisterStudent() {
           console.log("student registered successfully");
           console.log(data);
 
-          navigate("/loginstudent");
+          navigate("/student/login");
         
         } else {
           alert("invalid");
@@ -85,39 +108,6 @@ export default function RegisterStudent() {
         console.log(err);
       });
   };
-
-
-  useEffect(()=> {
-
-    collegeList(getKey);
-
-  }, [getKey])
-
-  const collegeList = async () => {
-
-    try {
-      
-      const { data }  = await axios.get(getKey);
-      const res = data.data;
-      setDropDown(res);
-
-      setDropDown(dropdown);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  
-  console.log(dropdown);
-
-  const updatedList = dropdown.map(({ name, _id, classrooms }) => ({
-    name,
-    _id,
-    classrooms
-  }));
-  
-  console.log(updatedList);
-
-  
 
 
   return (
@@ -139,23 +129,29 @@ export default function RegisterStudent() {
         ))}
 
 
-        <select className="my-5 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" value={selectedCollege} onChange={handleCollegeChange}>
-          <option value="">Select the college</option>
-          {collegeOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        
-        <select className="my-5 rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm" value={selectedClass} onChange={handleClassChange}>
-        <option value="">Select the classroom</option>
-        {classroomOptions.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+        <Select
+            value={selectedClg}
+            onChange={(op) => {
+              let arrOfCLassrooms = [];
+              op.classrooms.forEach((cl) => {
+                arrOfCLassrooms.push({
+                  label: cl,
+                  value: cl,
+                });
+              });
+              setSelectedClassroom();
+              setClassrooms(arrOfCLassrooms);
+              setSelectedClg(op);
+            }}
+            options={clgs}
+          />
+        </div>
+        <div>
+          <Select
+            value={selectedClassroom}
+            onChange={(op) => setSelectedClassroom(op)}
+            options={classrooms}
+          />
 
         <FormAction handleSubmit={handleSubmit} text="Signup" />
       </div>

@@ -65,11 +65,8 @@ useEffect(()=> {
         setColleges(options);
 
         setSelectedCollege(options[0]);
-        //  setRooms(JSON.parse(data.data));
-        // setLoading(false);
       })
       .catch((err) => {
-        // alert("invalid");
         console.log(err);
       });
   };
