@@ -49,7 +49,7 @@ const Quiz = () => {
           options.push({
             text: question.text,
             answer: question.correctAnswer,
-            opt: question.options,
+            opt: question.answers,
           });
         });
 
@@ -98,7 +98,7 @@ const Quiz = () => {
       // idhar bhi correct quizKey dalni hai
       axios
         .patch(
-          quizDemo,
+          quizKey,
           {
             text: questext,
             options: options,

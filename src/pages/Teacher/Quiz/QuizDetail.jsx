@@ -4,6 +4,7 @@ import React, {useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
 import Sidebar from "../../../Components/Sidebar";
 import axios from "axios";
+import { FaUserCircle } from "react-icons/fa";
 
 const QuizDetail = () => {
   
@@ -23,75 +24,45 @@ const QuizDetail = () => {
   const responseDemo = `${apiKey}/quiz/63fa0605fdc6720b99be9c69/response`;
   
   const [responses, setResponses] = useState([]);
+  const [updatedResponses, setUpdatedResponses] = useState([]);
 
-  const Responses = [
-    {
-      studentname: "Student 1",
-      studentemail: "989746",
-      score: "10",
-    },
-    {
-        studentname: "Student 2",
-        studentemail: "6546546",
-        score: "10",
-    },
-    {
-        studentname: "Student 3",
-        studentemail: "6546546",
-        score: "10",
-    },
-    {
-        studentname: "Student 4",
-        studentemail: "6546546",
-        score: "8",
-    },
-    {
-        studentname: "Student 5",
-        studentemail: "6546546",
-        score: "10",
-    },
-    {
-        studentname: "Student 6",
-        studentemail: "6546546",
-        score: "8",
-    },
-    {
-        studentname: "Student 7",
-        studentemail: "6546546",
-        score: "8",
-    },
-    {
-        studentname: "Student 8",
-        studentemail: "6546546",
-        score: "8",
-    },
-    {
-        studentname: "Student 9",
-        studentemail: "6546546",
-        score: "8",
-    },
-  ];
 
-  useEffect(() => {
-    fetchResponses();
-  }, []);
+    useEffect(() => {
 
-  const fetchResponses = () => {
+    // ithe pan responseKey takaychi aahe
 
-    axios
+      axios
       .get(responseDemo, {})
       .then((res) => {
         const data = res.data;
         console.log(data.success);
         setResponses(JSON.parse(data.data));
-      })
-      .catch((err) => {
-        alert("load hi nahi hua hai");
+        console.log(responses);
+
+        let resStudents = [];
+        responses.forEach((response) => {
+
+          
+          resStudents.push({
+            student: response.student,
+            answers: response.answers
+          });
+        });
+
+        
+      console.log(resStudents);
+      setUpdatedResponses(resStudents);
+
+      
+      }).catch((err) => {
         console.log(err);
       });
-  };
+    }, []);
 
+
+    
   console.log(responses);
+  console.log("updated responses : ",updatedResponses);
 
   return (
     <div className="bg-gradient-to-b from-gray-200 to-white  min-h-screen">
@@ -101,25 +72,56 @@ const QuizDetail = () => {
         </div>
 
         <div className="col-start-1 sm:col-start-3 col-end-12 min-w-full">
-          <div className="mx-auto bg-blue-500 p-5">
-            <h1 className="text-center text-2xl">{params.quizid}  Responses</h1>
+          <div className="mx-auto bg-blue-500 p-2">
+            <h1 className="text-center text-2xl">Quiz Responses</h1>
           </div>
 
           <div className="min-w-full pt-10 pb-10 pl-5 pr-5 space-y-10">
-            {Responses.map((response, index) => (
-                <div
-                  key={index}
-                  className="shadow-xl  p-3 rounded-lg flex flex-row justify-between bg-white hover:bg-blue-100"
-                >
-                  <div className="flex justify-between">
-                    <h2 className="text-xl mr-5">{response.studentname}</h2>
-                    <h2 className="text-xl ml-5">{response.studentemail}</h2>
-                  </div>
-                  <div>
-                    <h1 className="text-xl">Score : {response.score}</h1>
-                  </div>
-                </div>
+          {updatedResponses.length > 0 ? (
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-7 mt-8">
+            {updatedResponses.map((response)=> (
+              <div className="flex flex-row justify-start items-start
+              gap-4 bg-white bg-opacity-20 rounded-lg shadow-md p-4" key={updatedResponses.student._id}>
+
+  
+
+              <FaUserCircle className="text-gray-500 w-12 h-12 mb-4" />
+                      <div>
+                        <h2 className="text-lg font-medium">{response.student.emailID}</h2>+{" "}
+                        
+                        {/** 
+                        <p className="text-graay-500 mb-2">{student.email}</p>
+
+                        <p className="text-sm text-gray-400">
+                          Joined at {joinedTime}
+                        </p>
+                        */}
+                        
+                        <div className="flex items-center justify-between mt-4">
+                          <div
+                            className="w-32 h-3 rounded-lg
+overflow-hidden bg-gray-300"
+                          >
+                          </div>
+
+                        </div>
+                      </div>
+
+              </div>
             ))}
+
+            </div>
+
+          ): (
+            <div className=" rounded-md p-4 ">
+
+            <p className="text-gray-800 text-lg font-bold">
+            No responses yet...
+            </p>
+
+            </div>
+          )}
           </div>
         </div>
       </div>
