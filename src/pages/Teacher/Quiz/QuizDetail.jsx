@@ -36,8 +36,11 @@ const QuizDetail = () => {
       .then((res) => {
         const data = res.data;
         console.log(data.success);
+
         setResponses(JSON.parse(data.data));
+
         console.log(responses);
+        
 
         let resStudents = [];
         responses.forEach((response) => {
@@ -58,11 +61,11 @@ const QuizDetail = () => {
       }).catch((err) => {
         console.log(err);
       });
-    }, []);
+    }, [responseKey]);
 
     
-  console.log(responses);
-  console.log("updated responses : ",updatedResponses);
+  // console.log(responses);
+  // console.log("updated responses : ",updatedResponses);
 
   return (
     <div className="bg-gradient-to-b from-gray-200 to-white  min-h-screen">

@@ -1,71 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../../../Components/Sidebar";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import MultipleChoiceQuestion from "./MultipleChoiceQuestions";
+
 
 const Quiz = () => {
   let Id = useParams();
   const navigate = useNavigate();
 
-  const [quizId, setQuizId] = useState("");
   const [modal, setShowModal] = useState(false);
-  const [QUESTIONS, setQUESTIONS] = useState();
+  const [questions, setQuestions] = useState([]);
+  const [allQuestions, setAllQuestions] = useState([]);
 
   const [quizData, setQuizData] = useState([]);
 
   const apiKey = process.env.REACT_APP_STUDYAI_API;
-  const quizKey = `${apiKey}/quiz/${Id.quizId}`;
+  const getAllQuizById = `${apiKey}/quiz/${Id.quizid}`;
   const quizDemo = `${apiKey}/quiz/63fa00bff48312e9af983087`;
 
+
+  const fetchQuizData = useCallback(async () => {
+    try {
+      const response = await axios.get(getAllQuizById);
+      const { data } = response.data;
+      const parsedData = JSON.parse(data);
+      setQuizData(parsedData);
+      setAllQuestions(parsedData.questions);
+      console.log("allquestions", allQuestions)
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+  
   useEffect(() => {
-    setQuizId(Id.quizid);
-  }, [quizDemo]);
-
-  console.log(Id.quizid);
-
-  console.log("quiz id : ", quizId);
+      fetchQuizData();
+  }, [fetchQuizData]);
 
   var teacherData = sessionStorage.getItem("teacher");
   const tdata = JSON.parse(teacherData);
 
   console.log("teacher id : ", tdata.teacher._id);
 
-
-  const [questions, setQuestions] = useState([]);
-
-  useEffect(() => {
-
-    axios
-      .get(quizDemo, {})
-      .then((res) => {
-        const data = res.data;
-        console.log("inside ", quizData);
-        const quizes = quizData.questions;
-        setQuizData(JSON.parse(data.data));
-        let options = [];
-
-        quizes.forEach((question) => {
-          options.push({
-            text: question.text,
-            answer: question.correctAnswer,
-            opt: question.options,
-          });
-        });
-
-        setQuestions(options);
-        console.log(questions);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  const handleSubmit = (event) => {
-    console.log(QUESTIONS);
-
-    event.preventDefault();
-  };
 
   const GetQuizResponses = () => {
     navigate(`/teacher/quiz/responses/${Id.quizid}`);
@@ -76,18 +53,11 @@ const Quiz = () => {
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [alert, setAlert] = useState("");
 
-  const handleQuestionChange = (e) => {
-    setQuestion(e.target.value);
-  };
 
   const handleOptionChange = (index, event) => {
     const newOptions = [...options];
     newOptions[index] = event.target.value;
     setOptions(newOptions);
-  };
-
-  const handleCorrectAnswerChange = (e) => {
-    setCorrectAnswer(e.target.value);
   };
 
   const handleaddQuestion = (event) => {
@@ -98,7 +68,7 @@ const Quiz = () => {
       // idhar bhi correct quizKey dalni hai
       axios
         .patch(
-          quizKey,
+          fetchQuizData,
           {
             text: questext,
             options: options,
@@ -136,10 +106,6 @@ const Quiz = () => {
     }
   };
 
-  console.log("=====================");
-  console.log(quizData.title);
-  console.log(quizData.questions);
-  console.log("=====================");
 
   return (
     <div>
@@ -245,19 +211,11 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
               <div className="bg-white rounded-lg  mb-8">
                 <div className="">
                   <div className="gap-5 space-y-3">
-                    {questions.map((question, index) => (
-                      <div className="space-y-3 border-y-4 py-2">
-                        <h1 className="bg-gray-100 block p-2" >{(index+1) + " : " +question.text}</h1>
-                        
-                        <ul className="space-y-auto">
-                          {question.opt.map((option) => (
-                            <li className="border mt-1">{option}</li>
-                          ))}
-                        </ul>
-                        <h1 className="bg-green-200 block p-2" >{"Correct answer : "+ question.answer}</h1>
-                      </div>
-                    ))}
-                    {console.log(quizData.questions)}
+                  <div>
+                  {allQuestions.map((question, index) => (
+                    <MultipleChoiceQuestion key={index} questionData={question} />
+                  ))}
+                </div>
                   </div>
                 </div>
               </div>
