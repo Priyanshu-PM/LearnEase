@@ -43,6 +43,7 @@ const QuizDetail = () => {
         responses.forEach((response) => {
 
 
+          console.log("for each loop k andar hu bhai");
           resStudents.push({
             student: response.student,
             answers: response.answers
@@ -76,17 +77,14 @@ const QuizDetail = () => {
           </div>
 
           <div className="min-w-full pt-10 pb-10 pl-5 pr-5 space-y-10">
-
-          {
-            console.log(updatedResponses.student)}
           {
             
             updatedResponses.length > 0 ? (
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-7 mt-8">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-7 mt-8">
             {updatedResponses.map((response)=> (
               <div className="flex flex-row justify-start items-start
-              gap-4 bg-white bg-opacity-20 rounded-lg shadow-md p-4" key={updatedResponses.student._id}>
+              gap-4 bg-white bg-opacity-20 rounded-lg shadow-md p-4" >
 
 
               <FaUserCircle className="text-gray-500 w-12 h-12 mb-4" />

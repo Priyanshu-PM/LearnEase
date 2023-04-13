@@ -79,7 +79,7 @@ const CreateRoom = () => {
         });
     };
   
-    console.log(selectedClassroom.label);
+    // console.log(selectedClassroom.label);
 
 
   const handleCreateSession = (event) => {

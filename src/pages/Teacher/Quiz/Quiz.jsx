@@ -49,7 +49,7 @@ const Quiz = () => {
           options.push({
             text: question.text,
             answer: question.correctAnswer,
-            opt: question.answers,
+            opt: question.options,
           });
         });
 
@@ -59,7 +59,7 @@ const Quiz = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [quizDemo]);
+  }, []);
 
   const handleSubmit = (event) => {
     console.log(QUESTIONS);
@@ -242,19 +242,19 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg  p-8 mb-8">
+              <div className="bg-white rounded-lg  mb-8">
                 <div className="">
-                  <div className="gap-5">
+                  <div className="gap-5 space-y-3">
                     {questions.map((question, index) => (
-                      <div className="space-y-3">
-                        <h1>{(index+1) + " : " +question.text}</h1>
+                      <div className="space-y-3 border-y-4 py-2">
+                        <h1 className="bg-gray-100 block p-2" >{(index+1) + " : " +question.text}</h1>
                         
-                        <ul>
+                        <ul className="space-y-auto">
                           {question.opt.map((option) => (
-                            <li>{option}</li>
+                            <li className="border mt-1">{option}</li>
                           ))}
                         </ul>
-                        <h1>{"Correct answer : "+ question.answer}</h1>
+                        <h1 className="bg-green-200 block p-2" >{"Correct answer : "+ question.answer}</h1>
                       </div>
                     ))}
                     {console.log(quizData.questions)}
