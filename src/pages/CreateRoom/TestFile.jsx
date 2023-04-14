@@ -163,7 +163,7 @@ const students = [
   },
 ];
 
-const TestFile = () => {
+const InitSession = () => {
   const {
     transcript,
     listening,
@@ -415,4 +415,4 @@ const TestFile = () => {
   );
 };
 
-export default TestFile;
+export default InitSession;

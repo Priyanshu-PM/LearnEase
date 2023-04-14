@@ -16,7 +16,7 @@ import LoginPage from './pages/Landingpage/Forms/pages/Login';
 import LoginStudent from './pages/Landingpage/Forms/pages/LoginStudent';
 import RegisterStudent from './pages/Landingpage/Forms/pages/RegisterStudent';
 
-import TestFile from './pages/Teacher/CreateRoom/TestFile';
+import InitSession from './pages/Teacher/CreateRoom/InitSession';
 import SelectProfile from './Components/SelectProfile';
 
 import About from './pages/Landingpage/About';
@@ -49,7 +49,7 @@ function App() {
             <Route path="quiz/:quizid" element={<Quiz />} />
             <Route path="quiz/responses/:quizid" element={<QuizDetail/>}/>
             <Route path="session" element={<SessionAnalytics />} />
-            <Route path="current/:id" element={<TestFile/>}/>
+            <Route path="current/:id" element={<InitSession/>}/>
             <Route path="lecture/:id" element= {<Session/>}/>
           </Route>
 

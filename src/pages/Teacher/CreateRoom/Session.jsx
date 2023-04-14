@@ -159,7 +159,7 @@ const Session = () => {
 
   console.log(tdata.teacher._id);
 
-  const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
+  const key = `${apiKey}/room/63fa00bff48312e9af983085`;
 
   const joinedTime = new Date().toLocaleTimeString();
 

@@ -158,7 +158,7 @@ const students = [
   },
 ];
 
-const TestFile = () => {
+const InitSession = () => {
   const { transcript, resetTranscript } = useSpeechRecognition();
 
   const [sessionID, setSessionID] = useState("");
@@ -592,4 +592,4 @@ overflow-hidden bg-gray-300"
   );
 };
 
-export default TestFile;
+export default InitSession;
