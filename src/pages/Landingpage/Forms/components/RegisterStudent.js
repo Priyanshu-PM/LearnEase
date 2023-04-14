@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { signupFields } from "../constants/formFields";
 import FormAction from "./FormAction";
 import Input from "./Input";
 
 import axios from "../../../../axios/axios";
 import { useNavigate } from "react-router-dom";
+
+
+import Select from "react-select";
 
 const fields = signupFields;
 let fieldsState = {};
@@ -17,6 +20,8 @@ export default function RegisterStudent() {
     
   const apiKey = process.env.REACT_APP_STUDYAI_API;
   const key = `${apiKey}/student/register`;
+  const getKey = `${apiKey}/common/new_registration`;
+
 
   const [signupState, setSignupState] = useState(fieldsState);
 
@@ -29,6 +34,50 @@ export default function RegisterStudent() {
     createAccount();
   };
 
+
+  const [classrooms, setClassrooms] = useState([]);
+  const [selectedClassroom, setSelectedClassroom] = useState();
+  const [clgs, setClgs] = useState([]);
+  const [selectedClg, setSelectedClg] = useState();
+  
+  const [collegeID, setCollegeID] = useState("");
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = () => {
+    axios
+      .get(getKey)
+      .then((res) => {
+        const data = res.data;
+        if (data.success) {
+          console.log("fetching details");
+          console.log(data.data);
+          let arrOfClgs = [];
+          data.data.forEach((college) => {
+            arrOfClgs.push({
+              label: college.name,
+              value: college.name,
+              id: college._id,
+              classrooms: college.classrooms,
+            });
+          });
+          setClgs(arrOfClgs);
+          console.log(arrOfClgs);
+        } else {
+          alert("error occured while fetching");
+        }
+      })
+      .catch((err) => {
+        alert("invalid");
+        console.log(err);
+      });
+  };
+
+
+
+
   //handle Signup API Integration here
   const createAccount = () => {
     axios
@@ -37,6 +86,9 @@ export default function RegisterStudent() {
         lastName: signupState["last-name"],
         emailID: signupState["email-address"],
         password: signupState.password,
+        clg: selectedClassroom.id,
+        classroom: selectedClassroom.label
+
       })
       .then((res) => {
         const data = res.data;
@@ -73,6 +125,29 @@ export default function RegisterStudent() {
             placeholder={field.placeholder}
           />
         ))}
+        <Select
+            value={selectedClg}
+            onChange={(op) => {
+              let arrOfCLassrooms = [];
+              op.classrooms.forEach((cl) => {
+                arrOfCLassrooms.push({
+                  label: cl,
+                  value: cl,
+                });
+              });
+              setSelectedClassroom();
+              setClassrooms(arrOfCLassrooms);
+              setSelectedClg(op);
+            }}
+            options={clgs}
+          />
+        </div>
+        <div>
+          <Select
+            value={selectedClassroom}
+            onChange={(op) => setSelectedClassroom(op)}
+            options={classrooms}
+          />
         <FormAction handleSubmit={handleSubmit} text="Signup" />
       </div>
     </form>

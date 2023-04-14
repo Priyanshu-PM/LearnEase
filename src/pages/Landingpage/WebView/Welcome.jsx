@@ -9,14 +9,15 @@ import Navbar from '../../../Components/Navbar';
 
 const Welcome = () => {
   return (
-    <div className='bg-gradient-to-r from-green-400 to-blue-500'>
+    <div className='max-w-[2000px] mx-auto px-12'>
         <Navbar/>
         <MainBody/>
         <BelowMain/>
+        <Footer/> 
+        {/* 
         <Features/>
         <CardsContainer/>
-        <CTA/>
-        <Footer/>
+        <CTA/>*/}
     </div>
   )
 }
