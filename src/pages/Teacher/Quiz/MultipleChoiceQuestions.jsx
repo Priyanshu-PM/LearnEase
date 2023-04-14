@@ -8,12 +8,12 @@ const MultipleChoiceQuestion = ({ questionData }) => {
         {questionData.options.map((option, index) => (
           <div key={index}>
             <label>
-              <p/>
+              <p />
               {option}
             </label>
-
           </div>
         ))}
+        <p>Correct answer: {questionData.correctAnswer}</p>
       </form>
     </div>
   );

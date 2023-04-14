@@ -61,7 +61,7 @@ const QuizDetail = () => {
       }).catch((err) => {
         console.log(err);
       });
-    }, [responseKey]);
+    }, [responseDemo]);
 
     
   // console.log(responses);

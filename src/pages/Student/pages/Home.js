@@ -18,18 +18,17 @@ const Home = () => {
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
+    const config = {
+      headers: {
+        // Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjFmNTY4ZjYzOWZlNjk4OTNlMTFjZSIsImlhdCI6MTY3OTEyNjQ4OX0.RY5JsGWOaQTUY6cQr3ZMrx6b4FShbDs44GVe1UaXJMY`,
+        Authorization: `${sdata.tokem}`,
+      },
+    };
+    const newData ={
+      classroom: "se11"
+    }
       axios
-      .get(key, {
-
-        params: {
-          classroom: "SE-11"
-        },
-
-        headers: {
-          Authorization: `${sdata.tokem}`
-        }
-
-      })
+      .get(key,newData,config)
       .then((res) => {
         const data = res.data;
         console.log(data.success);
@@ -85,8 +84,7 @@ const Home = () => {
         'from-yellow-500/10 to-gray-500/10',
         'from-blue-500/10 to-purple-500/10',
         'from-green-500/10 to-red-500/10',
-        'from-teal-500/10 to-blueGray-500'
-        
+        'from-teal-500/10 to-blueGray-500'        
       ];
 
       const navigate = useNavigate()

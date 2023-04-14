@@ -5,13 +5,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import MultipleChoiceQuestion from "./MultipleChoiceQuestions";
 
-
 const Quiz = () => {
   let Id = useParams();
   const navigate = useNavigate();
 
   const [modal, setShowModal] = useState(false);
-  const [questions, setQuestions] = useState([]);
   const [allQuestions, setAllQuestions] = useState([]);
 
   const [quizData, setQuizData] = useState([]);
@@ -20,7 +18,6 @@ const Quiz = () => {
   const getAllQuizById = `${apiKey}/quiz/${Id.quizid}`;
   const quizDemo = `${apiKey}/quiz/63fa00bff48312e9af983087`;
 
-
   const fetchQuizData = useCallback(async () => {
     try {
       const response = await axios.get(getAllQuizById);
@@ -28,21 +25,16 @@ const Quiz = () => {
       const parsedData = JSON.parse(data);
       setQuizData(parsedData);
       setAllQuestions(parsedData.questions);
-      console.log("allquestions", allQuestions)
+      // console.log("allquestions", allQuestions)
     } catch (error) {
       console.log(error);
     }
   }, []);
-  
-  useEffect(() => {
-      fetchQuizData();
-  }, [fetchQuizData]);
 
   var teacherData = sessionStorage.getItem("teacher");
   const tdata = JSON.parse(teacherData);
 
   console.log("teacher id : ", tdata.teacher._id);
-
 
   const GetQuizResponses = () => {
     navigate(`/teacher/quiz/responses/${Id.quizid}`);
@@ -53,7 +45,6 @@ const Quiz = () => {
   const [correctAnswer, setCorrectAnswer] = useState("");
   const [alert, setAlert] = useState("");
 
-
   const handleOptionChange = (index, event) => {
     const newOptions = [...options];
     newOptions[index] = event.target.value;
@@ -63,23 +54,23 @@ const Quiz = () => {
   const handleaddQuestion = (event) => {
     event.preventDefault();
 
+    const config = {
+      headers: {
+        Authorization: `${tdata.tokem}`,
+      },
+    };
+    const newQuiz = {
+      text: questext,
+      options: options,
+      correctAnswer: correctAnswer,
+    };
+
     if (options.includes(correctAnswer)) {
+      // const response = axios.patch(getAllQuizById, newQuiz)
 
       // idhar bhi correct quizKey dalni hai
       axios
-        .patch(
-          fetchQuizData,
-          {
-            text: questext,
-            options: options,
-            correctAnswer: correctAnswer,
-          },
-          {
-            headers: {
-              Authorization: `${tdata.tokem}`,
-            },
-          }
-        )
+        .patch(getAllQuizById, newQuiz, config)
         .then((res) => {
           const data = res.data;
           console.log(data);
@@ -93,7 +84,7 @@ const Quiz = () => {
             setAlert("");
             setShowModal(false);
 
-            // getQuizes();
+            fetchQuizData()
           } else {
             alert("Failed to add question");
           }
@@ -106,6 +97,9 @@ const Quiz = () => {
     }
   };
 
+  useEffect(() => {
+    fetchQuizData();
+  }, [fetchQuizData]);
 
   return (
     <div>
@@ -148,8 +142,7 @@ const Quiz = () => {
               ))}
             </div>
             <div className="my-4 ">
-            <h3 className="text-red-500">
-            {alert}</h3>
+              <h3 className="text-red-500">{alert}</h3>
               <label
                 htmlFor="correctAnswer"
                 className="block text-gray-700 font-medium mb-2"
@@ -211,11 +204,14 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
               <div className="bg-white rounded-lg  mb-8">
                 <div className="">
                   <div className="gap-5 space-y-3">
-                  <div>
-                  {allQuestions.map((question, index) => (
-                    <MultipleChoiceQuestion key={index} questionData={question} />
-                  ))}
-                </div>
+                    <div>
+                      {allQuestions.map((question, index) => (
+                        <MultipleChoiceQuestion
+                          key={index}
+                          questionData={question}
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

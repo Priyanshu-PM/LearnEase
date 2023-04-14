@@ -71,8 +71,6 @@ export default function LoginStudent() {
     // navigate("/teacher/home");
   };
 
-
-
   return (
     <form className=" space-y-6" onSubmit={handleSubmit}>
       {error && (
@@ -103,10 +101,7 @@ export default function LoginStudent() {
         text={
           isLoading ? (
             <div>
-              <Spinner
-                name="chasing-dots"
-                style={{ width: 20, height: 20 }}
-              />
+              <Spinner name="chasing-dots" style={{ width: 20, height: 20 }} />
             </div>
           ) : (
             "login"
