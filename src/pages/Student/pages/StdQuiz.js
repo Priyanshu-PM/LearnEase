@@ -4,72 +4,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 
-const quizDataa = [
-  {
-    id: 1,
-    question: "What is the capital of France?",
-    options: [
-      { id: 1, text: "Paris" },
-      { id: 2, text: "London" },
-      { id: 3, text: "Berlin" },
-      { id: 4, text: "Madrid" },
-    ],
-  },
-  {
-    id: 2,
-    question: "What is the largest planet in our solar system?",
-    options: [
-      { id: 1, text: "Jupiter" },
-      { id: 2, text: "Saturn" },
-      { id: 3, text: "Neptune" },
-      { id: 4, text: "Uranus" },
-    ],
-  },
-  {
-    id: 3,
-    question: "What is the capital of France?",
-    options: [
-      { id: 1, text: "Paris" },
-      { id: 2, text: "London" },
-      { id: 3, text: "Berlin" },
-      { id: 4, text: "Madrid" },
-    ],
-  },
-  {
-    id: 4,
-    question: "What is the largest planet in our solar system?",
-    options: [
-      { id: 1, text: "Jupiter" },
-      { id: 2, text: "Saturn" },
-      { id: 3, text: "Neptune" },
-      { id: 4, text: "Uranus" },
-    ],
-  },
-  {
-    id: 5,
-    question: "What is the capital of France?",
-    options: [
-      { id: 1, text: "Paris" },
-      { id: 2, text: "London" },
-      { id: 3, text: "Berlin" },
-      { id: 4, text: "Madrid" },
-    ],
-  },
-  {
-    id: 6,
-    question: "What is the largest planet in our solar system?",
-    options: [
-      { id: 1, text: "Jupiter" },
-      { id: 2, text: "Saturn" },
-      { id: 3, text: "Neptune" },
-      { id: 4, text: "Uranus" },
-    ],
-  },
-];
 
 const StdQuiz = () => {
+  
   let quizid = useParams();
-
   
   const {student} = JSON.parse(sessionStorage.getItem("student"))
   console.log("student", student._id)

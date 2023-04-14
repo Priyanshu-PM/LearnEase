@@ -1,8 +1,6 @@
 import React from "react";
-import {FaChalkboardTeacher} from 'react-icons/fa'
 import {FaPollH} from 'react-icons/fa'
 import {MdOutlineQuiz} from 'react-icons/md'
-import {MdQuiz} from 'react-icons/md'
 const BelowMain = () => {
   return (
     <div className="block mt-10 h-full w-full font-poppins">
