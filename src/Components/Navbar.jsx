@@ -7,8 +7,6 @@ const Navbar = () => {
 
   const navigate = useNavigate();
 
-  
-
 
   return (
     <div className="w-full h-14 flex items-center justify-between text-fontColor">
