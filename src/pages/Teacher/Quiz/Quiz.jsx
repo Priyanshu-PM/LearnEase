@@ -183,7 +183,7 @@ const Quiz = () => {
       <div className="bg-[#F3F8FF] min-h-screen ">
         <div className="grid grid-cols-11">
           <div
-            className="hidden bg-white sm:block col-start-1 col-end-3 
+            className="block bg-white msm:hidden col-start-1 col-end-3 
 text-[#9696a6] min-h-screen fixed w-[18%]"
           >
             <Sidebar />

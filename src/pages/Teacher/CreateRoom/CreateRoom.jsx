@@ -134,11 +134,11 @@ const CreateRoom = () => {
   return (
     <div className="bg-[#F3F8FF] min-h-screen">
       <div className="grid grid-cols-11">
-        <div className="hidden sm:block col-start-1 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%]">
+        <div className="block msm:hidden col-start-1 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%]">
           <Sidebar />
         </div>
 
-        <div className="col-start-1 sm:col-start-3 col-end-12">
+        <div className="col-start-3 msm:col-start-1 col-end-12">
           <div className="bg-gradient-to-b from-gray-200 to-white min-h-screen rounded-lg p-6">
             <h2 className="text-2xl font-semibold mb-4">
               Create a new session

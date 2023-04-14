@@ -11,7 +11,7 @@ export default function LoginPage() {
       <div className="grow h-screen w-1/2 flex justify-center items-center bg-gray-200 sm:hidden">
         Login Image
       </div>
-    <div className="grid h-screen items-center p-10 sm:mt-5">
+    <div className="grow h-screen items-center p-10 sm:mt-5">
       <Header
         heading="Login to your account"
         paragraph="Don't have an account yet? "

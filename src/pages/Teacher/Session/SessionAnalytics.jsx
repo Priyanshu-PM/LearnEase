@@ -94,11 +94,11 @@ const SessionAnalytics = () => {
   return (
     <div className="bg-gradient-to-b from-gray-200 to-white min-h-screen">
       <div className="grid grid-cols-11">
-        <div className="hidden sm:block col-start-1 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%]">
+        <div className="block msm:hidden col-start-1 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%]">
           <Sidebar />
         </div>
 
-        <div className="col-start-1 sm:col-start-3 col-end-12 min-w-full p-6">
+        <div className="col-start-3 msm:col-start-1 col-end-12 min-w-full p-6">
 
           <div>
       {rooms.length > 0 ? (
