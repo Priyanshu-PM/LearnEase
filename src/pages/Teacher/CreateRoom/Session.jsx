@@ -216,7 +216,6 @@ const Session = () => {
   //         if (data.success) {
   //           console.log("student fetch successfull");
 
-<<<<<<< HEAD
   //         } else {
   //           alert("Failed to fetch students");
   //         }
@@ -233,9 +232,6 @@ const Session = () => {
   // const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
 
   // console.log(tdata.teacher._id);
-=======
-  const key = `${apiKey}/room/63fa00bff48312e9af983085`;
->>>>>>> ac53c3646df598a92f5d93a3a693fcd677106f28
 
   const joinedTime = new Date().toLocaleTimeString();
 
