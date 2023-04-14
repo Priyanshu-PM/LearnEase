@@ -6,6 +6,8 @@ import Input from "./Input";
 import axios from "../../../../axios/axios";
 import { useNavigate } from "react-router-dom";
 
+import Select from "react-select";
+
 
 import Select from "react-select";
 
@@ -20,7 +22,7 @@ export default function RegisterStudent() {
     
   const apiKey = process.env.REACT_APP_STUDYAI_API;
   const key = `${apiKey}/student/register`;
-  const getKey = `${apiKey}/common/new_registration`;
+  const getKey = `${apiKey}/common/new-registration`;
 
 
   const [signupState, setSignupState] = useState(fieldsState);
@@ -76,19 +78,20 @@ export default function RegisterStudent() {
   };
 
 
-
-
-  //handle Signup API Integration here
   const createAccount = () => {
+
+  console.log(selectedClg.id);
+  console.log(selectedClassroom);
+
+
     axios
       .post(key, {
         firstName: signupState["first-name"],
         lastName: signupState["last-name"],
         emailID: signupState["email-address"],
         password: signupState.password,
-        clg: selectedClassroom.id,
+        clg: selectedClg.id,
         classroom: selectedClassroom.label
-
       })
       .then((res) => {
         const data = res.data;
@@ -96,7 +99,7 @@ export default function RegisterStudent() {
           console.log("student registered successfully");
           console.log(data);
 
-          navigate("/loginstudent");
+          navigate("/student/login");
         
         } else {
           alert("invalid");
@@ -108,6 +111,7 @@ export default function RegisterStudent() {
       });
   };
 
+
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="">
@@ -117,7 +121,7 @@ export default function RegisterStudent() {
             handleChange={handleChange}
             value={signupState[field.id]}
             labelText={field.labelText}
-            labelFor={field.labelFor}
+            labelFor={field.labelFor}                                                                                                                                                                                    
             id={field.id}
             name={field.name}
             type={field.type}
@@ -125,6 +129,8 @@ export default function RegisterStudent() {
             placeholder={field.placeholder}
           />
         ))}
+
+
         <Select
             value={selectedClg}
             onChange={(op) => {
@@ -148,6 +154,7 @@ export default function RegisterStudent() {
             onChange={(op) => setSelectedClassroom(op)}
             options={classrooms}
           />
+
         <FormAction handleSubmit={handleSubmit} text="Signup" />
       </div>
     </form>

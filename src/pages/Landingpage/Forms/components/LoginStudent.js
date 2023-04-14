@@ -101,10 +101,7 @@ export default function LoginStudent() {
         text={
           isLoading ? (
             <div>
-              <Spinner
-                name="chasing-dots"
-                style={{ width: 20, height: 20 }}
-              />
+              <Spinner name="chasing-dots" style={{ width: 20, height: 20 }} />
             </div>
           ) : (
             "login"
