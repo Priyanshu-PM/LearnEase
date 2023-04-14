@@ -109,6 +109,7 @@ const SessionAnalytics = () => {
               className={`bg-gradient-to-br h-[10rem] rounded-lg shadow-md p-6 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${gradientColors[index % gradientColors.length]}`}
               onClick={() => handleSessionClick(session._id)}
             >
+            {console.log("session", session)}
               <div className="flex justify-between mb-4">
                 <div className="text-black font-bold text-xl">{session.title}</div>
                 <div className="text-black text-sm pl-1">{new Date(session.createdAt).toLocaleDateString()}</div>

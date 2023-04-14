@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
-const instance = axios.create({
-    baseURL : process.env.STUDYAI_API
-})
-
-
-export default instance;
+export default axios.create({
+  baseURL: process.env.REACT_APP_STUDYAI_API,
+  headers: {
+    "Content-type": "application/json"
+  }
+});

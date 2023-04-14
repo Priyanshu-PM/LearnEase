@@ -105,8 +105,8 @@ const CreateRoom = () => {
           data.data.classrooms.forEach((clg) => {
 
             options.push({
-              value: tdata.teacher.clg,
-              label: clg
+              value: clg,
+              label: clg,
 
           });
           });
@@ -114,7 +114,7 @@ const CreateRoom = () => {
           console.log(options);
           setClassrooms(options);
   
-          setSelectedClassroom(options[0]);
+          setSelectedClassroom();
         })
         .catch((err) => {
           // alert("invalid");
