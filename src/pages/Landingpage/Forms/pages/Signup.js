@@ -11,7 +11,7 @@ export default function SignupPage() {
       <div className="grow h-screen w-1/2 flex justify-center items-center bg-gray-200 sm:hidden">
         Signup Image
       </div>
-      <div className="grid h-screen items-center p-10 sm:mt-5">
+      <div className="grow h-screen items-center p-10 sm:mt-5">
         <Header
           heading="Signup to create an account"
           paragraph="Already have an account? "

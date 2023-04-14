@@ -388,7 +388,7 @@ const TestFile = () => {
       <div className="bg-[#F3F8FF] min-h-screen">
         <div className="grid grid-cols-11">
           <div
-            className="hidden sm:block col-start-1 col-end-3 bg-white
+            className="block msm:hidden col-start-1 col-end-3 bg-white
 text-[#9696a6] min-h-screen fixed w-[18%]"
           >
             <Sidebar />
@@ -542,7 +542,7 @@ border-red-500 hover:border-transparent rounded"
         <p>{frameData}</p> */}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-7 mt-8">
+                <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-3 mxl:grid-cols-4 m2xl:grid-cols-5 gap-7 mt-8">
                   {students.map((student) => (
                     <div
                       className="flex flex-row justify-start items-start
