@@ -41,10 +41,7 @@ const Quiz = () => {
           <p>Session title: {data?.title}</p>
           
           {data.questions.map((question, index)=>
-            <MultipleChoiceQuestion
-                          key={index}
-                          questionData={question}
-            />
+            <MultipleChoiceQuestion key={index} questionData={question}/>
           )}
       </div>
       )
