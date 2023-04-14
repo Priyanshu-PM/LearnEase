@@ -8,9 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 import Select from "react-select";
 
-
-import Select from "react-select";
-
 const fields = signupFields;
 let fieldsState = {};
 
@@ -113,7 +110,8 @@ export default function RegisterStudent() {
 
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit}>
+
+        <form className="space-y-3" onSubmit={handleSubmit}>
       <div className="">
         {fields.map((field) => (
           <Input
@@ -158,5 +156,6 @@ export default function RegisterStudent() {
         <FormAction handleSubmit={handleSubmit} text="Signup" />
       </div>
     </form>
+    
   );
 }
