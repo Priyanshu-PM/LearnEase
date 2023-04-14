@@ -18,21 +18,32 @@ const Quiz = () => {
   const getAllQuizById = `${apiKey}/quiz/${Id.quizid}`;
   const quizDemo = `${apiKey}/quiz/63fa00bff48312e9af983087`;
 
-  const fetchQuizData = useCallback(async () => {
-    try {
-      const response = await axios.get(getAllQuizById);
-      const { data } = response.data;
-      const parsedData = JSON.parse(data);
-      setQuizData(parsedData);
-      setAllQuestions(parsedData.questions);
-      // console.log("allquestions", allQuestions)
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
   var teacherData = sessionStorage.getItem("teacher");
   const tdata = JSON.parse(teacherData);
+  console.log("teacher toekm" , tdata.tokem)
+
+  const fetchQuizData = useCallback(async () => {
+  
+    try {
+      console.log("before sending axios")
+      const response = await axios.get(getAllQuizById);
+      if(!response){
+        console.log("emtpy")
+        return
+      }
+      console.log("after sending axios", response)
+      const { data } = response.data;
+        const parsedData = JSON.parse(data);
+        setQuizData(parsedData);
+        setAllQuestions(parsedData.questions);
+        console.log("allquestions", allQuestions)
+    } catch (error) {
+      console.log("Error while fetching quiz data", error);
+    }
+
+  }, []);
+
+  
 
   console.log("teacher id : ", tdata.teacher._id);
 
@@ -56,9 +67,10 @@ const Quiz = () => {
 
     const config = {
       headers: {
-        Authorization: `${tdata.tokem}`,
-      },
-    };
+        'Authorization': `${tdata.tokem}`,
+        'Content-Type': 'application/json'
+      }
+    }
     const newQuiz = {
       text: questext,
       options: options,

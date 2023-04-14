@@ -70,11 +70,13 @@ const quizDataa = [
 const StdQuiz = () => {
   let quizid = useParams();
 
-  const [student, setStudent] = useState();
+  
+  const {student} = JSON.parse(sessionStorage.getItem("student"))
+  console.log("student", student._id)
   const [allQuestions, setAllQuestions] = useState([]);
   const [quizData, setQuizData] = useState([]);
   const [selectedAnswers, setSelectedAnswers] = useState({});
-  const [score, setScore] = useState();
+  const [score, setScore] = useState(null);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
 
   const apiKey = process.env.REACT_APP_STUDYAI_API;
@@ -89,7 +91,6 @@ const StdQuiz = () => {
       const parsedData = JSON.parse(data);
       setQuizData(parsedData);
       setAllQuestions(parsedData.questions);
-      console.log("allquestions", allQuestions);
     } catch (error) {
       console.log(error);
     }
@@ -117,17 +118,21 @@ const StdQuiz = () => {
 
   const validateAnswers = () => {
     const selectedQuestions = Object.keys(selectedAnswers);
-    if (selectedQuestions.length !== allQuestions.length) {
+    const selectedAns = Object.values(selectedAnswers)
+
+    if (selectedQuestions.length !== allQuestions.length || selectedAns.includes(null)) {
       alert("Please attempt all questions before submitting.");
       return false;
     }
     return true;
   };
 
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
+    // submit response to database and let user see the score
     event.preventDefault();
     
-    if (validateAnswers) {
+    if (validateAnswers()) {
       let totalScore = 0;
       allQuestions.forEach((question) => {
         const selectedAnswer = selectedAnswers[question._id];
@@ -136,8 +141,36 @@ const StdQuiz = () => {
         }
       });
       setScore(totalScore);
+
+      // formatting selectedAnswers to make it match backend api
+      const formattedAnswers = Object.keys(selectedAnswers).map((questionId) => ({
+        question: questionId,
+        answer: selectedAnswers[questionId],
+      }));
+      console.log(formattedAnswers)      
+      // sending selectedAnswers to database
+      try {
+        const {data} = await axios.post(submitQuizResponse,
+          {
+            student: student._id,
+            quiz: quizid.quizId,
+            "answers":formattedAnswers
+        } )
+        if(data.success === true){
+          alert("quiz response sent to backend")
+        }
+        // now show the score to user
+      } catch (error) {
+        console.log("Error while quiz response", error)
+      }
+      
+
+
+
+
     } else {
       alert("Please answer all questions before submitting.");
+      return
     }
   };
   const handleBeforeUnload = (event) => {
@@ -182,10 +215,10 @@ const StdQuiz = () => {
                 </li>
               ))}
             </ul>
-            <button onClick={() => handleClearResponse(question._id)}>Clear Response</button>
+            {isOptionSelected && <button onClick={() => handleClearResponse(question._id)}>Clear Response</button>}
           </div>
         ))}
-        {isOptionSelected ? <button onClick={handleSubmit}>Submit</button>:""}
+        <button onClick={handleSubmit}>Submit</button>
         {score !== null && (
           <p>
             Your score is {score} out of {allQuestions.length}

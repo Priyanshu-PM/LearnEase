@@ -102,7 +102,7 @@ const CreateRoom = () => {
         console.log(data);
         if (data.success) {
           console.log("Room Created successfully");
-          navigate(`/teacher/current/${data.data._id}`);
+          navigate(`/teacher/current/${data.data.quiz}`);
           // console.log(data);
         } else {
           alert("Error in creating room");
