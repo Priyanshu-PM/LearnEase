@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import Navbar from '../components/Navbar'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -7,38 +7,48 @@ const Home = () => {
 
   var studentData = sessionStorage.getItem("student");
   const sdata = (JSON.parse(studentData));
+  console.log()
 
-  console.log(sdata.student._id);
+  console.log(sdata.student.classroom);
 
-  const apiKey = process.env.REACT_APP_STUDYAI_API;
-  const key = `${apiKey}/student/rooms`;
+  const baseURL = process.env.REACT_APP_STUDYAI_API;
+  const getAllSession = `${baseURL}/student/rooms`;
 
   console.log(sdata.tokem);
 
   const [rooms, setRooms] = useState([]);
 
-  useEffect(() => {
+  const getStudentSessions = useCallback(async () => {
     const config = {
       headers: {
-        // Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZjFmNTY4ZjYzOWZlNjk4OTNlMTFjZSIsImlhdCI6MTY3OTEyNjQ4OX0.RY5JsGWOaQTUY6cQr3ZMrx6b4FShbDs44GVe1UaXJMY`,
-        Authorization: `${sdata.tokem}`,
-      },
+        Authorization: `${sdata.tokem}`
+      }
     };
     const newData ={
-      classroom: "se11"
+      classroom: `${sdata.student.classroom}`,
+      clg:`${sdata.student.clg}`
     }
-      axios
-      .get(key,newData,config)
-      .then((res) => {
-        const data = res.data;
-        console.log(data.success);
-        setRooms(JSON.parse(data.data))
-      })
-      .catch((err) => {
-        alert(err);
-        console.log(err);
-      });
-  }, [key]);
+    console.log(newData)
+  
+    try {
+      const response = await axios.get(getAllSession,  config, newData );
+      if(!response){
+        console.log("emtpy")
+        return
+      }
+      console.log("after sending axios", response)
+      const { data } = response.data;
+      const parsedData = JSON.parse(data);
+      console.log("data of session", parsedData)
+        
+    } catch (error) {
+      console.log("Error while fetching quiz data", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    getStudentSessions()
+  }, []);
 
   // console.log(rooms);
 
