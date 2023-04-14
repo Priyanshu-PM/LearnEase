@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+
 import Sidebar from "../../../Components/Sidebar";
 import { FaUserCircle } from "react-icons/fa";
-
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const students = [
@@ -10,6 +11,7 @@ const students = [
     name: "Tony Stark",
     email: "tony@example.com",
     attentiveness: 75,
+    // quizScore: 
   },
   {
     id: 2,
@@ -152,14 +154,88 @@ const students = [
 ];
 
 const Session = () => {
+
+
   const apiKey = process.env.REACT_APP_STUDYAI_API;
+  
+  const [tdata, setTdata] = useState();
+  const [sessionId, setSessionId] = useState("");
+  const [summary, setSummary] = useState([]);
+  const [token, setToken] = useState("");
 
-  var teacherData = sessionStorage.getItem("teacher");
-  const tdata = JSON.parse(teacherData);
+  let Id = useParams();
 
-  console.log(tdata.teacher._id);
+  console.log("session id is : ",Id.id);
+  
+  useEffect(() => {
+    
+    var teacherData = sessionStorage.getItem("teacher");
+    console.log(teacherData);
+    setTdata(JSON.parse(teacherData));
+    console.log("=======================");
+    setToken(tdata);
+    console.log(token);
+    console.log("=======================");
+    setSessionId(Id.id);
+  }, [])
+  
+  const summaryKey = `${apiKey}/room/${sessionId}/topics`;
+  // remove the demo key
+  const summaryDemo = `${apiKey}/room/643581c5b3dd9c4d7bb098e4/topics`;
 
-  const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
+  const studentsFetchKey = `${apiKey}/room/${Id.id}}`;
+  const studentFetchDemo = `${apiKey}/room/6419f7fbd1d6c3e6bec069`;
+
+
+
+  const fetchSummary = useCallback(async () => {
+    try {
+      const response = await axios.get(summaryDemo);
+      const { data } = response.data;
+      console.log("inside the try block");
+      console.log(data[0].topics);
+      setSummary(data[0].topics);
+      // console.log(summary[0]);
+      // console.log("allquestions", allQuestions)
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  const fetchStudents = useCallback(async () => {
+
+    const config = {
+
+      headers: {
+        Authorization: token
+      }
+
+    };
+    try {
+      const response = await axios.get(studentFetchDemo, {headers: {
+        Authorization: `${tdata.tokem}`,
+      }});
+      const { data } = response.data;
+      console.log("inside the try block");
+      console.log(data);
+      // setSummary(data[0].topics);
+      console.log(summary);
+      // console.log("allquestions", allQuestions)
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  useEffect(() => {
+
+    // fetchStudents();
+    fetchSummary();
+
+  }, [])
+  // const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
+  
+  // console.log(tdata.teacher._id);
+
 
   const joinedTime = new Date().toLocaleTimeString();
 
@@ -174,35 +250,25 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
         </div>
 
         <section className="col-start-3 col-end-12 min-h-screen px-8">
-            <div className="px-10 py-5">
+            <div className="px-5 py-5">
               <div className="flex flex-col justify-start items-start gap-10 ">
                 <div>
                       <p
                         className="mt-4 px-6 py-6
 rounded-md border-gray-700 bg-gray-200"
                       >
-                        summary dalna hai
+                        {summary[0]}
                       </p>
                 </div>
 
                 <div>
-                {/* 
-                  <button
-                    className="bg-transparent hover:bg-blue-500
-text-blue-700 font-semibold hover:text-white py-2 px-4 border
-border-blue-500 hover:border-transparent rounded"
-                    onClick={() => {}}
-                  >
-                    Quiz responses
-                  </button>
-                  */}
 
-                  <div className="  grid grid-cols-5 gap-4 pt-10">
-                    {students.map((student) => (
+                  <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-3 mxl:grid-cols-4 m2xl:grid-cols-5 gap-7 mt-5 pt-10">
+                    {students.map((student, index) => (
                       <div
                         className="flex flex-row justify-start
 items-start gap-4 bg-white bg-opacity-20 rounded-lg shadow-md p-4"
-                        key={student.email}
+                        key={index + 1}
                       >
                         <FaUserCircle
                           className="text-gray-500 w-12
