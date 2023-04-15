@@ -58,7 +58,6 @@ const QuizDetail = () => {
         
       console.log(resStudents.students);
       setUpdatedResponses(resStudents);
-
       
       }).catch((err) => {
         console.log(err);
@@ -66,7 +65,6 @@ const QuizDetail = () => {
     }, [responseDemo]);
 
     const saveData = () => {
-
       navigate("/teacher/home");
     }
 

@@ -55,7 +55,7 @@ export default function LoginStudent() {
           navigate("/student/home");
         } else {
           setIsLoading(false);
-          alert("invalid");
+          alert("invalid from loginstudent");
         }
       })
       .catch((err) => {

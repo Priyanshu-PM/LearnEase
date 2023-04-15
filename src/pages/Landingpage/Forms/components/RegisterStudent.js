@@ -69,7 +69,7 @@ export default function RegisterStudent() {
         }
       })
       .catch((err) => {
-        alert("invalid");
+        alert("invalid from registerstudent");
         console.log(err);
       });
   };
@@ -99,11 +99,11 @@ export default function RegisterStudent() {
           navigate("/student/login");
         
         } else {
-          alert("invalid");
+          alert("invalid from student");
         }
       })
       .catch((err) => {
-        alert("invalid");
+        alert("invali  from stduentd");
         console.log(err);
       });
   };

@@ -92,7 +92,7 @@ useEffect(()=> {
           console.log(data);
           navigate("/teacher/login");
         } else {
-          alert("invalid");
+          alert("invalid signup");
         }
       })
       .catch((err) => {

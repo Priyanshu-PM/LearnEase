@@ -114,7 +114,14 @@ const Quiz = () => {
   }, [fetchQuizData]);
 
   return (
-    <div>
+    <div className="bg-[#F3F8FF] min-h-screen ">
+      <div className="grid grid-cols-11">
+        <div
+          className="block msm:hidden col-start-1 col-end-3 bg-white
+text-[#9696a6] min-h-screen fixed w-[18%]"
+        >
+          <Sidebar />
+        </div>
       {modal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <form
@@ -231,6 +238,7 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

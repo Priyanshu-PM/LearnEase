@@ -45,7 +45,7 @@ const ChartBar = () => {
         setRooms(JSON.parse(data.data));
       })
       .catch((err) => {
-        alert("invalid");
+        alert("invalid from chart");
         console.log(err);
       });
   }, [key]);

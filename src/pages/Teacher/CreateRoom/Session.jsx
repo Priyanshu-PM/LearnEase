@@ -2,8 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 
 import Sidebar from "../../../Components/Sidebar";
 import { FaUserCircle } from "react-icons/fa";
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import { Link, useParams } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getSessionSummary } from "../../../axios/apiCalls";
+import Moment from "react-moment";
 
 const students = [
   {
@@ -154,86 +156,24 @@ const students = [
 ];
 
 const Session = () => {
-  const apiKey = process.env.REACT_APP_STUDYAI_API;
+  const { id: sessionId } = useParams();
+  const queryClient = useQueryClient();
+  const sessionDetails = queryClient.getQueriesData(["room", sessionId]);
 
-  const [tdata, setTdata] = useState();
-  const [sessionId, setSessionId] = useState("");
-  const [summary, setSummary] = useState([]);
-  const [token, setToken] = useState("");
+  const {
+    isLoading: isSummaryLoading,
+    error,
+    data: summaryData,
+  } = useQuery({
+    queryKey: ["summary", sessionId],
+    queryFn: getSessionSummary(sessionId),
+  });
 
-  let Id = useParams();
+  if (!sessionDetails) return <h1>Loading...</h1>;
 
-  console.log("session id is : ", Id.id);
-
-  useEffect(() => {
-    var teacherData = sessionStorage.getItem("teacher");
-    console.log(teacherData);
-    let teacher = JSON.parse(teacherData);
-    setTdata(teacher);
-    console.log("=======================");
-    console.log(tdata);
-    setToken(tdata);
-    console.log("token id is : ", token);
-    console.log("=======================");
-    setSessionId(Id.id);
-  }, []);
-
-  const summaryKey = `${apiKey}/room/${sessionId}/topics`;
-  // remove the demo key
-  const summaryDemo = `${apiKey}/room/643581c5b3dd9c4d7bb098e4/topics`;
-
-  const studentsFetchKey = `${apiKey}/room/${Id.id}}`;
-  const studentFetchDemo = `${apiKey}/room/6419f7fbd1d6c3e6bec069`;
-
-  const fetchSummary = useCallback(async () => {
-    try {
-      const response = await axios.get(summaryDemo);
-      const { data } = response.data;
-      console.log("inside the try block of fetchsummary");
-
-      console.log(data);
-      setSummary(data[0].topics);
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
-  // const fetchStudents = useCallback(async () => {
-
-  //   const config = {
-  //     headers: {
-  //       Authorization: token,
-  //     }
-
-  //   };
-
-  //   axios
-  //       .patch(studentFetchDemo, config)
-  //       .then((res) => {
-  //         const data = res.data;
-  //         console.log(data);
-
-  //         if (data.success) {
-  //           console.log("student fetch successfull");
-
-  //         } else {
-  //           alert("Failed to fetch students");
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  // }, []);
-
-  useEffect(() => {
-    // fetchStudents();
-    fetchSummary();
-  }, []);
-  // const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
-
-  // console.log(tdata.teacher._id);
-
-  const joinedTime = new Date().toLocaleTimeString();
+  if (isSummaryLoading) return <p className="text-2xl">loading...</p>;
+  if (error) return <h1 className="text-center">{error.message}</h1>;
+  // console.log("sessiondetails in session", sessionDetails[0][1]);
 
   return (
     <div className="bg-[#F3F8FF] min-h-screen ">
@@ -246,69 +186,56 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
         </div>
 
         <section className="col-start-3 col-end-12 min-h-screen px-8">
-          <div className="px-5 py-5">
+          
+          <div className="px-5 py-2">
             <div className="flex flex-col justify-start items-start gap-10 ">
-              <div className="border-b-2 py-5">
-                <p
-                  className=" px-5 py-5
-rounded-md border-gray-700 bg-gray-200"
-                >
-                  {summary[0]}
+              <div>
+                <p className="text-4xl font-poppins">
+                  Session on:{"  "}
+                  {sessionDetails[0][1].title}
                 </p>
               </div>
-
               <div>
-
-              <div>
-                <p className="text-gray-500 text-xl font-serif">Attented Students</p>
+                <p className="text-2xl font-poppins">
+                  Conducted by: {summaryData[0].creator.firstName}
+                </p>{" "}
+                <Link
+                  to={`/teacher/quiz/${summaryData[0].quiz}`}
+                  className="underline text-babyPink hover:text-pink-800 visited:text-pink-600"
+                >
+                  see generated quizes
+                </Link>
+              </div>
+              <div className="border-b-2 py-5">
+                <p className="text-xl font-semibold font-poppins">
+                  Topics covered:
+                </p>
+                {summaryData[0].topics.map((topic, index) => (
+                  <p
+                    key={index}
+                    className="mt-2 px-5 py-5
+rounded-md border-gray-700 bg-gray-200"
+                  >
+                    {topic}
+                  </p>
+                ))}
               </div>
 
-                <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-3 mxl:grid-cols-4 m2xl:grid-cols-5 gap-7 mt-5 pt-5">
-                  {students.map((student, index) => (
-                    <div
-                      className="flex flex-row justify-start
-items-start gap-4 bg-white bg-opacity-20 rounded-lg shadow-md p-5"
-                      key={index + 1}
-                    >
-                      <FaUserCircle
-                        className="text-gray-500 w-12
-h-12 mb-4"
-                      />
-                      <div>
-                        <h2 className="text-lg font-medium">{student.name}</h2>
-                        <p className="text-gray-500 mb-2">{student.email}</p>
-                        <p className="text-sm text-gray-400">
-                          Joined at {joinedTime}
-                        </p>
-                        <div
-                          className="flex items-center
-justify-between mt-4"
-                        >
-                          <div
-                            className="w-32 h-3 rounded-lg
-overflow-hidden bg-gray-300"
-                          >
-                            <div
-                              className={`h-full rounded-lg ${
-                                student.attentiveness >= 80
-                                  ? "bg-green-400"
-                                  : student.attentiveness >= 60
-                                  ? "bg-yellow-400"
-                                  : "bg-red-400"
-                              }`}
-                              style={{ width: `${student.attentiveness}%` }}
-                            ></div>
-                          </div>
-                          <div className="text-sm text-gray-500 ml-4">
-                            {student.attentiveness}%
-                          </div>
-                        </div>
-                      </div>
+              <div>
+                <div>
+                  <p className="text-gray-500 text-xl font-serif">
+                    Attented Students
+                  </p>
+                </div>
+                <div>
+                  {sessionDetails[0][1].members.map((member, index) => (
+                    
+                    <div key={index} className="flex flex-col">
+                      <p>No: {index+1}</p>
+                     <p> Email: {member.emailID}</p>
+                     <p> Email: {member.firstName}</p>
                     </div>
                   ))}
-                  {/* <div className="absolute top-0 right-6 p-2 text-gray-500">
-                      Class Started at {joinedTime}
-                    </div> */}
                 </div>
               </div>
             </div>

@@ -6,7 +6,7 @@ import { Routes, Route} from 'react-router-dom';
 import Dashboard from './pages/Teacher/Dashboard/Dashboard';
 import CreateRoom from './pages/Teacher/CreateRoom/CreateRoom.jsx';
 
-import Quiz from './pages/Teacher/Quiz/Quiz.jsx';
+import Quiz from './pages/Teacher/Quiz/Quiz3.jsx';
 import SessionAnalytics from './pages/Teacher/Session/SessionAnalytics.jsx';
 import QuizDetail from './pages/Teacher/Quiz/QuizDetail';
 import Welcome from './pages/Landingpage/WebView/Welcome';

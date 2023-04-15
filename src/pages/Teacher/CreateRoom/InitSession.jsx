@@ -494,7 +494,7 @@ overflow-hidden bg-gray-300"
                       <div className=" bg-slate-200 p-3 rounded-lg mb-10">
                         <h1 className=" bg-slate-200 text-black">
                           {`${apiKey}/room_id=${sessionID}&redirect_url=`}
-                          <button onClick={() => copyToClipboard(sessionID)}>
+                          <button onClick={() => copyToClipboard(`${apiKey}/room_id=${sessionID}&redirect_url=`)}>
                             <FaCopy />
                           </button>
                         </h1>
