@@ -31,7 +31,7 @@ const Home = () => {
     console.log(newData)
   
     try {
-      const response = await axios.get(getAllSession,  config, newData );
+      const response = await axios.get(getAllSession, config, newData );
       if(!response){
         console.log("emtpy")
         return

@@ -493,7 +493,7 @@ overflow-hidden bg-gray-300"
                       <br />
                       <div className=" bg-slate-200 p-3 rounded-lg mb-10">
                         <h1 className=" bg-slate-200 text-black">
-                          {`${apiKey}/room_id=${sessionID}&redirect_url=`}
+                          {`${apiKey}/room_id=${sessionID}&redirect_url=https://meet.google.com/ixv-jtbr-zgi?pli=1`}
                           <button onClick={() => copyToClipboard(sessionID)}>
                             <FaCopy />
                           </button>

@@ -208,7 +208,7 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center mx-3"
                     onClick={GetQuizResponses}
                   >
-                    Get Responses
+                    let student have quiz
                   </button>
                 </div>
               </div>

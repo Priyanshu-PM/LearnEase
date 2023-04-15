@@ -159,7 +159,7 @@ const Session = () => {
   const [tdata, setTdata] = useState();
   const [sessionId, setSessionId] = useState("");
   const [summary, setSummary] = useState([]);
-  const [token, setToken]  = useState("");
+  const [token, setToken] = useState("");
 
   let Id = useParams();
 
@@ -216,22 +216,6 @@ const Session = () => {
   //         if (data.success) {
   //           console.log("student fetch successfull");
 
-  //         } else {
-  //           alert("Failed to fetch students");
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  // }, []);
-
-  useEffect(() => {
-    // fetchStudents();
-    fetchSummary();
-  }, []);
-  // const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
-
-  // console.log(tdata.teacher._id);
   const key = `${apiKey}/room/63fa00bff48312e9af983085`;
 
   const joinedTime = new Date().toLocaleTimeString();
