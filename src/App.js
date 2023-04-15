@@ -8,7 +8,7 @@ import CreateRoom from './pages/Teacher/CreateRoom/CreateRoom.jsx';
 
 import Quiz from './pages/Teacher/Quiz/Quiz.jsx';
 import SessionAnalytics from './pages/Teacher/Session/SessionAnalytics.jsx';
-import QuizDetail from './pages/Teacher/Quiz/QuizDetail';
+import QuizResponses from './pages/Teacher/Quiz/QuizResponses';
 import Welcome from './pages/Landingpage/WebView/Welcome';
 
 import SignupPage from './pages/Landingpage/Forms/pages/Signup';
@@ -47,7 +47,7 @@ function App() {
             <Route path="home" element={<Dashboard />} />
             <Route path="create-room" element={<CreateRoom />} />
             <Route path="quiz/:quizid" element={<Quiz />} />
-            <Route path="quiz/responses/:quizid" element={<QuizDetail/>}/>
+            <Route path="quiz/responses/:quizid" element={<QuizResponses/>}/>
             <Route path="session" element={<SessionAnalytics />} />
             <Route path="current/:id" element={<InitSession/>}/>
             <Route path="lecture/:id" element= {<Session/>}/>

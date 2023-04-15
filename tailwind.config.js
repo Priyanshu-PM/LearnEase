@@ -4,6 +4,10 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    content: [
+      // ...
+      'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
+  ],
     extend: {
       fontFamily:{
         lily: "'Lily Script One', cursive",
@@ -26,9 +30,6 @@ module.exports = {
   
         'sm': {'max': '639px'},
         // => @media (max-width: 639px) { ... }
-
-
-
 
         'msm': {'min': '640px', 'max': '767px'},
       // => @media (min-width: 640px and max-width: 767px) { ... }
@@ -57,9 +58,9 @@ module.exports = {
           "0 0px 20px rgba(0, 234, 66, 0.35)",
           "0 0px 65px rgba(0, 234, 66, 0.2)",
         ],
-    
+  
       }
     },
   },
-  plugins: [],
+  plugins: [require('flowbite/plugin')],
 }

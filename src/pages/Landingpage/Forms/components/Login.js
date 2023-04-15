@@ -57,7 +57,7 @@ export default function Login() {
           navigate("/teacher/home");
         } else {
           setIsLoading(false);
-          alert("invalid");
+          alert("invalid from login");
         }
       })
       .catch((err) => {

@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../../../Components/Sidebar";
 import { useNavigate } from 'react-router-dom';
+import SessionCard from "./SessionCard";
 
 const SessionAnalytics = () => {
-
+  const sessionData = sessionStorage.getItem("teacher");
+  const { tokem } = JSON.parse(sessionData);
 
   const apiKey = process.env.REACT_APP_STUDYAI_API;
 
@@ -18,21 +20,20 @@ const SessionAnalytics = () => {
 
   const [rooms, setRooms] = useState([]);
 
+  const getAllTeacherSessions = useCallback(async()=>{
+    try {
+      const {data} = await axios.get(key)
+      const parsedData = JSON.parse(data.data)
+      console.log("from sessionanalystics",parsedData)
+      setRooms(parsedData)  
+    } catch (error) {
+      console.log("Error from session analyitcs", error.message)
+    }
+  },[])
+
   useEffect(() => {
-      axios
-      .get(key, {
-        
-      })
-      .then((res) => {
-        const data = res.data;
-        console.log(data.success);
-        setRooms(JSON.parse(data.data))
-      })
-      .catch((err) => {
-        alert("invalid");
-        console.log(err);
-      });
-  }, [key]);
+      getAllTeacherSessions()
+  }, [getAllTeacherSessions]);
 
   console.log(rooms);
 
@@ -99,22 +100,20 @@ const SessionAnalytics = () => {
         </div>
 
         <div className="col-start-3 msm:col-start-1 col-end-12 min-w-full p-6">
-
+          <p className="text-2xl font-bold font-poppins text-center">All sessions</p>
           <div>
       {rooms.length > 0 ? (
-        <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-3 mlg:grid-cols-4 mxl:grid-cols-5 m2xl:grid-cols-6 gap-6 mt-8">
+        <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-2 mxl:grid-cols-5 m2xl:grid-cols-6 gap-6 mt-8 h-full">
           {rooms.map((session, index) => (
             <div
               key={session._id}
-              className={`bg-gradient-to-br h-[10rem] rounded-lg shadow-md p-6 flex flex-col justify-between transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${gradientColors[index % gradientColors.length]}`}
-              onClick={() => handleSessionClick(session._id)}
+              className={`bg-gradient-to-br rounded-lg shadow-md px-6 py-10 flex flex-col justify-between hover:shadow-lg ${gradientColors[index % gradientColors.length]}`}
+             
             >
-            {console.log("session", session)}
-              <div className="flex justify-between mb-4">
-                <div className="text-black font-bold text-xl">{session.title}</div>
-                <div className="text-black text-sm pl-1">{new Date(session.createdAt).toLocaleDateString()}</div>
-              </div>
-              <div className="text-black">{session.id}</div>
+             {console.log("session", session)}
+              
+              <SessionCard session={session} tokem={tokem}/>
+              <button className="mt-4 bg-transparent hover:bg-babyPink text-pink-700 font-semibold hover:text-white py-2 px-4 border border-babyPink hover:border-transparent rounded" onClick={() => handleSessionClick(session._id)}>See session summary</button>
             </div>
           ))}
         </div>

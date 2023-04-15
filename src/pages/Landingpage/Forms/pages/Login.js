@@ -4,7 +4,7 @@ import Login from "../components/Login";
 export default function LoginPage() {
   return (
     <div  className="flex flex-row flex-grow grid-flow-row items-center justify-center">
-      <p className="absolute left-2 top-2 text-2xl font-righteous font-bold ">
+        <p className="absolute left-5 top-5 text-2xl font-righteous font-bold ">
           Learn<span className="text-babyPink">Ease</span>
         </p>
       

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-const MultipleChoiceQuestion = ({ questionData }) => {
+const MultipleChoiceQuestion = ({ key, questionData }) => {
+  console.log(key)
   return (
     <div>
-      <p className="text-xl">Question: {questionData.text}</p>
+      <p className="text-xl">Question:{  questionData.text}</p>
       <form>
         {questionData.options.map((option, index) => (
           <div  key={index}>
