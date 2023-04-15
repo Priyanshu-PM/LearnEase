@@ -6,9 +6,16 @@ import axios from "axios";
 import MultipleChoiceQuestion from "./MultipleChoiceQuestions";
 
 const Quiz = () => {
+  // conditional rendering of add question 
+  const searchParams = new URLSearchParams(window.location.search);
+  const showAddQBtn = searchParams.get('addquestion');
+
   let Id = useParams();
   const navigate = useNavigate();
 
+  let teacherData = sessionStorage.getItem("teacher");
+  const tdata = JSON.parse(teacherData);
+  
   const [modal, setShowModal] = useState(false);
   const [allQuestions, setAllQuestions] = useState([]);
 
@@ -16,39 +23,27 @@ const Quiz = () => {
 
   const apiKey = process.env.REACT_APP_STUDYAI_API;
   const getAllQuizById = `${apiKey}/quiz/${Id.quizid}`;
-  const quizDemo = `${apiKey}/quiz/63fa00bff48312e9af983087`;
-
-  var teacherData = sessionStorage.getItem("teacher");
-  const tdata = JSON.parse(teacherData);
-  console.log("teacher toekm" , tdata.tokem)
 
   const fetchQuizData = useCallback(async () => {
-  
     try {
-      console.log("before sending axios")
       const response = await axios.get(getAllQuizById);
-      if(!response){
-        console.log("emtpy")
-        return
+      if (!response) {
+        console.log("emtpy");
+        return;
       }
-      console.log("after sending axios", response)
       const { data } = response.data;
-        const parsedData = JSON.parse(data);
-        setQuizData(parsedData);
-        setAllQuestions(parsedData.questions);
-        console.log("allquestions", allQuestions)
+      const parsedData = JSON.parse(data);
+      setQuizData(parsedData);
+      setAllQuestions(parsedData.questions);
     } catch (error) {
       console.log("Error while fetching quiz data", error);
     }
-
   }, []);
-
-  
 
   console.log("teacher id : ", tdata.teacher._id);
 
   const GetQuizResponses = () => {
-    navigate(`/teacher/quiz/responses/${Id.quizid}`);
+    navigate(`/teacher/quiz/responses/${Id.quizid}?addquestion=false`);
   };
 
   const [questext, setQuestion] = useState("");
@@ -67,10 +62,10 @@ const Quiz = () => {
 
     const config = {
       headers: {
-        'Authorization': `${tdata.tokem}`,
-        'Content-Type': 'application/json'
-      }
-    }
+        Authorization: `${tdata.tokem}`,
+        "Content-Type": "application/json",
+      },
+    };
     const newQuiz = {
       text: questext,
       options: options,
@@ -96,7 +91,7 @@ const Quiz = () => {
             setAlert("");
             setShowModal(false);
 
-            fetchQuizData()
+            fetchQuizData();
           } else {
             alert("Failed to add question");
           }
@@ -114,14 +109,7 @@ const Quiz = () => {
   }, [fetchQuizData]);
 
   return (
-    <div className="bg-[#F3F8FF] min-h-screen ">
-      <div className="grid grid-cols-11">
-        <div
-          className="block msm:hidden col-start-1 col-end-3 bg-white
-text-[#9696a6] min-h-screen fixed w-[18%]"
-        >
-          <Sidebar />
-        </div>
+    <>
       {modal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <form
@@ -205,17 +193,20 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
                   </h1>
                 </div>
                 <div className="">
-                  <button
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center mx-3"
-                    onClick={() => setShowModal(true)}
-                  >
-                    Add Question
-                  </button>
+                {
+                  showAddQBtn ? <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center mx-3"
+                  onClick={() => setShowModal(true)}
+                >
+                  Add Question
+                </button>: null
+                }
+                  
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full float-center mx-3"
                     onClick={GetQuizResponses}
                   >
-                    Get Responses
+                    View Responses
                   </button>
                 </div>
               </div>
@@ -238,8 +229,7 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
           </div>
         </div>
       </div>
-    </div>
-    </div>
+    </>
   );
 };
 

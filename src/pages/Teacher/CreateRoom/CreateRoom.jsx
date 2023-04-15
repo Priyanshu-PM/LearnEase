@@ -103,11 +103,9 @@ const CreateRoom = () => {
           let options = [] ;
   
           data.data.classrooms.forEach((clg) => {
-
             options.push({
               value: clg,
               label: clg,
-
           });
           });
           
@@ -132,7 +130,8 @@ const CreateRoom = () => {
         {
           title: sessionName,
           clg: tdata.teacher.clg,
-          classroom: selectedClassroom.label
+          classroom: selectedClassroom.label,
+          redirect_url:meetURL  
         },
         {
           headers: {
@@ -142,11 +141,10 @@ const CreateRoom = () => {
       )
       .then((res) => {
         const data = res.data;
-        console.log(data);
+        console.log("data from createroom", data);
         if (data.success) {
           console.log("Room Created successfully");
-          navigate(`/teacher/current/${data.data.quiz}`);
-          // console.log(data);
+          navigate(`/teacher/current/${data.data.quiz}`); 
         } else {
           alert("Error in creating room");
         }
@@ -172,7 +170,7 @@ const CreateRoom = () => {
     "The responses of the students will be displayed on the screen as they submit the quiz.",
   ];
 
-  const isCreateSessionDisabled = !sessionName || !selectedClassroom;
+  const isCreateSessionDisabled = !sessionName || !selectedClassroom || !meetURL;
 
   return (
 

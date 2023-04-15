@@ -8,7 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { showSuccessToast, showErrorToast } from "../../../helpers/toasters";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-const Quiz = () => {
+const Quiz3 = () => {
   const navigate = useNavigate();
   const [modal, setShowModal] = useState(false);
   const queryClient = useQueryClient();
@@ -223,12 +223,15 @@ const Quiz = () => {
       <div className="w-full px-auto ">
         <p>Session title: {data?.title}</p>
 
-        {data.questions.map((question, index) => (
-          <MultipleChoiceQuestion key={index} questionData={question} />
-        ))}
+        {data.questions.map((question, index) => {
+          console.log(question, index)
+          return(
+            <MultipleChoiceQuestion key={index} questionData={question} />
+          )
+        })}
       </div>
     </>
   );
 };
 
-export default Quiz;
+export default Quiz3;

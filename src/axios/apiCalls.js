@@ -41,6 +41,13 @@ export const getSessionSummary=(sessionId)=>async()=>{
   return newData.data
 }
 
+// for QuizResponse.jsx
+export const getQuizResponses=(quizid)=>async()=>{
+  const response = await apiClient.get(`/quiz/${quizid}/response`)
+  const newdata = response.data
+  const newdata2 = newdata.data
+  return formatResponse(newdata2)
+}
 
 
 

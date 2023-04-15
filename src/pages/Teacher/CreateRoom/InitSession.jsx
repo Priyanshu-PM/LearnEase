@@ -179,9 +179,7 @@ const InitSession = () => {
   // const [transcript, setTranscript] = useState("");
 
   const [recording, setRecording] = useState(false);
-
   const [stopRecord, setStopRecord] = useState(false);
-
   const [closebtn, displayclosebtn] = useState(false);
 
   useEffect(() => {
@@ -263,7 +261,7 @@ const InitSession = () => {
 
   const handleGenerateQuiz = () => {
     console.log(`/teacher/quiz/${sessionID}`);
-    navigate(`/teacher/quiz/${sessionID}`);
+    navigate(`/teacher/quiz/${sessionID}?addquestion=true`);
   };
 
   const [question, setQuestion] = useState("");
@@ -322,7 +320,7 @@ const InitSession = () => {
   }
 
   return (
-    <div>
+    <div className="border-2 border-red-500 border-solid">
       {showModal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <form
