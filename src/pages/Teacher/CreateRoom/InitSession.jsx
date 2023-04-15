@@ -159,6 +159,9 @@ const students = [
 ];
 
 const InitSession = () => {
+  const searchParams = new URLSearchParams(window.location.search);
+  const redirect_url = searchParams.get('redirect_url');
+
   const { transcript, resetTranscript } = useSpeechRecognition();
 
   const [sessionID, setSessionID] = useState("");
@@ -194,7 +197,7 @@ const InitSession = () => {
     if (recording) {
       intervalId = setInterval(() => {
         sendTranscriptionToServer();
-      }, 60000); // repeat every 5 minutes
+      }, 1000 * 2); // repeat every 5 minutes
     }
     return () => clearInterval(intervalId);
   }, [recording]);
@@ -205,7 +208,45 @@ const InitSession = () => {
 
   const sendTranscriptionToServer = () => {
     //sending data to server and reseting the transript;
+
+    let data =
+      "The Waterfall Model was the first Process Model to be introduced. It is also referred to as a linear-sequential life cycle model. It is very simple to understand and use. In a waterfall model, each phase must be completed before the next phase can begin and there is no overlapping in the phases.The Waterfall model is the earliest SDLC approach that was used for software development.The waterfall Model illustrates the software development process in a linear sequential flow. This means that any phase in the development process begins only if the previous phase is complete. In this waterfall model, the phases do not overlap.Waterfall approach was first SDLC Model to be used widely in Software Engineering to ensure success of the project. In The Waterfall approach, the whole process of software development is divided into separate phases. In this Waterfall model, typically, the outcome of one phase acts as the input for the next phase sequentially.The advantages of waterfall development are that it allows for departmentalization and control. A schedule can be set with deadlines for each stage of development and a product can proceed through the development process model phases one by one.Development moves from concept, through design, implementation, testing, installation, troubleshooting, and ends up at operation and maintenance. Each phase of development proceeds in strict order.";
     resetTranscript();
+
+    console.log("Axios called");
+
+    const config = {
+      headers: {
+        Authorization: `${tdata.tokem}`,
+      },
+    };
+
+    axios
+      .post("https://summary-api.onrender.com/api/v1/summerize", { text: data })
+      .then((response) => {
+        console.log(response.data);
+
+        axios
+          .patch(
+            `${apiKey}/room/${Id.id}/topics`,
+            {
+              summary: response.data.summary,
+              quiz: response.data.quiz,
+            },
+            config
+          )
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log("while creating question error occured");
+            console.log(error);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    stopRecording();
   };
 
   const startRecording = () => {
@@ -318,11 +359,13 @@ const InitSession = () => {
   if (loading) {
     return <h1>loading</h1>;
   }
-
+  const shareLink =`${apiKey}/room_id=${sessionID}&redirect_url=${redirect_url}`
   return (
     <div className="border-2 border-red-500 border-solid">
       {showModal ? (
-        <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+        <div className="justify-center items-center flex
+overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none
+focus:outline-none">
           <form
             onSubmit={handleSubmit}
             className="max-w-md mx-auto bg-gray-200 shadow-2xl p-10 rounded-md"
@@ -336,7 +379,9 @@ const InitSession = () => {
               </label>
               <textarea
                 id="question"
-                className="w-full border-gray-300 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="w-full border-gray-300 rounded-lg
+focus:border-indigo-500 focus:ring focus:ring-indigo-200
+focus:ring-opacity-50"
                 value={question}
                 onChange={(e) => setQuestion(e.target.value)}
               />
@@ -349,7 +394,9 @@ const InitSession = () => {
                 <input
                   key={index}
                   type="text"
-                  className="w-full border-gray-300 rounded-lg mb-2 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  className="w-full border-gray-300 rounded-lg mb-2
+focus:border-indigo-500 focus:ring focus:ring-indigo-200
+focus:ring-opacity-50"
                   placeholder={`Option ${index + 1}`}
                   value={option}
                   onChange={(e) => handleOptionChange(index, e.target.value)}
@@ -366,7 +413,9 @@ const InitSession = () => {
               <input
                 id="correctAnswer"
                 type="text"
-                className="w-full border-gray-300 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                className="w-full border-gray-300 rounded-lg
+focus:border-indigo-500 focus:ring focus:ring-indigo-200
+focus:ring-opacity-50"
                 value={correctAnswer}
                 onChange={(e) => setCorrectAnswer(e.target.value)}
               />
@@ -374,7 +423,8 @@ const InitSession = () => {
             <div>
               <button
                 type="submit"
-                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors duration-300"
+                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700
+text-white font-medium rounded-lg transition-colors duration-300"
               >
                 Submit
               </button>
@@ -394,7 +444,8 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
           <section className="  col-start-3 col-end-12 min-h-screen px-8">
             {stopRecord ? (
               <div className="px-10 py-5">
-                <div className="flex flex-col justify-start items-start gap-10 ">
+                <div className="flex flex-col justify-start
+items-start gap-10 ">
                   <div>
                     <form onSubmit={submitTranscript}>
                       <button
@@ -425,7 +476,8 @@ border-blue-500 hover:border-transparent rounded"
                       Quiz responses
                     </button>
 
-                    <div className="flex-1 w-full md:w-1/4 flex flex-col flex-grow flex-wrap flex-shrink grid-flow-row gap-5 pt-10">
+                    <div className="flex-1 w-full md:w-1/4 flex
+flex-col flex-grow flex-wrap flex-shrink grid-flow-row gap-5 pt-10">
                       {students.map((student) => (
                         <div
                           className="w-full md:w-1/3 flex flex-row justify-start
@@ -491,8 +543,14 @@ overflow-hidden bg-gray-300"
                       <br />
                       <div className=" bg-slate-200 p-3 rounded-lg mb-10">
                         <h1 className=" bg-slate-200 text-black">
-                          {`${apiKey}/room_id=${sessionID}&redirect_url=`}
-                          <button onClick={() => copyToClipboard(`${apiKey}/room_id=${sessionID}&redirect_url=`)}>
+                          {`${apiKey}/room_id=${sessionID}&redirect_url=${redirect_url}`}
+                          <button
+                            onClick={() =>
+                              copyToClipboard(
+                                `${apiKey}/room_id=${sessionID}&redirect_url=${redirect_url}`
+                              )
+                            }
+                          >
                             <FaCopy />
                           </button>
                         </h1>
@@ -540,7 +598,9 @@ border-red-500 hover:border-transparent rounded"
         <p>{frameData}</p> */}
                 </div>
 
-                <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-3 mxl:grid-cols-4 m2xl:grid-cols-5 gap-7 mt-8">
+                <div className="grid grid-cols-1 msm:grid-cols-2
+mmd:grid-cols-2 mlg:grid-cols-3 mxl:grid-cols-4 m2xl:grid-cols-5 gap-7
+mt-8">
                   {students.map((student) => (
                     <div
                       className="flex flex-row justify-start items-start
@@ -549,7 +609,8 @@ gap-4 bg-white bg-opacity-20 rounded-lg shadow-md p-4"
                     >
                       <FaUserCircle className="text-gray-500 w-12 h-12 mb-4" />
                       <div>
-                        <h2 className="text-lg font-medium">{student.name}</h2>+{" "}
+                        <h2 className="text-lg
+font-medium">{student.name}</h2>+{" "}
                         <p className="text-gray-500 mb-2">{student.email}</p>
                         <p className="text-sm text-gray-400">
                           Joined at {joinedTime}

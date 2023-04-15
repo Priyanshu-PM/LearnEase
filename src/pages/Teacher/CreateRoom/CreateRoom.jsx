@@ -8,8 +8,6 @@ import axios from "axios";
 
 import Select from "react-select";
 
-
-
 const apiKey = process.env.REACT_APP_STUDYAI_API;
 
 const CreateRoom = () => {
@@ -40,10 +38,8 @@ const CreateRoom = () => {
         .patch(addClassKey, body, config)
         .then((res) => {
           const data = res.data;
-          console.log(data);
 
           if (data.success) {
-            console.log(data);
             console.log("Class added successfully");
 
           } else {
@@ -57,11 +53,7 @@ const CreateRoom = () => {
     
   };
 
-  console.log(tdata.teacher.clg);
-  console.log(tdata.tokem);
-
   const postKey = `${apiKey}/teacher/room`;
-  console.log(tdata.teacher.clg);
   const getKey = `${apiKey}/common/get-classrooms-clg?clg_id=${tdata.teacher.clg}`;
 
   const navigate = useNavigate();
@@ -74,8 +66,8 @@ const CreateRoom = () => {
   };
 
   const handleMeetChange = (e) => {
-
     setMeetURL(e.target.value);
+    
   };
 
   const [classrooms, setClassrooms] = useState([]);
@@ -97,8 +89,6 @@ const CreateRoom = () => {
         )
         .then((res) => {
           const data = res.data;
-          console.log(data.success);
-          console.log(data.data.classrooms);
   
           let options = [] ;
   
@@ -108,8 +98,6 @@ const CreateRoom = () => {
               label: clg,
           });
           });
-          
-          console.log(options);
           setClassrooms(options);
   
           setSelectedClassroom();
@@ -120,9 +108,6 @@ const CreateRoom = () => {
         });
     };
   
-    // console.log(selectedClassroom.label);
-
-
   const handleCreateSession = (event) => {
     axios
       .post(
@@ -144,14 +129,13 @@ const CreateRoom = () => {
         console.log("data from createroom", data);
         if (data.success) {
           console.log("Room Created successfully");
-          navigate(`/teacher/current/${data.data.quiz}`); 
+          navigate(`/teacher/current/${data.data._id}?redirect_url=${data.redirect_url}`); 
         } else {
           alert("Error in creating room");
         }
       })
       .catch((err) => {
         alert(err);
-        console.log(sessionName);
         console.log(err);
       });
   };
@@ -289,8 +273,8 @@ const CreateRoom = () => {
               <h2 className="text-2xl font-semibold mb-4">Steps to follow :</h2>
               <div>
                 <ul className="space-y-3">
-                  {steps.map((step) => (
-                    <li className="text-xl text-gray">{step}</li>
+                  {steps.map((step, index) => (
+                    <li key={index} className="text-xl text-gray">{step}</li>
                   ))}
                 </ul>
               </div>

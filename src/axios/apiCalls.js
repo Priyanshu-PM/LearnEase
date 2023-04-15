@@ -51,17 +51,14 @@ export const getQuizResponses=(quizid)=>async()=>{
 
 
 
-
-// this is for student
-export const getAllSession=(token, student)=>async()=>{
+// *********************Student api side******************************************//
+export const getAllRoomsForStudent=(token, studData)=>async()=>{
     const config = {
         headers: {
           Authorization: `${token}`,
         }
       };
-      const newData ={
-        classroom: `${student.classroom}`,
-      }
-    const { data } = await apiClient.get(`/student/rooms`,newData, config)
-    return formatResponse(data.data)
+      console.log("studedata", studData)
+    const response = await apiClient.get(`/student/rooms`,config, studData)
+    return response
 }

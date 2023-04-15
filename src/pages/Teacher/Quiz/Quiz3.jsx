@@ -35,22 +35,22 @@ const Quiz3 = () => {
   const sessionData = sessionStorage.getItem("teacher");
   const { tokem } = JSON.parse(sessionData);
   // console.log("teacher token", tokem)
-  // const createQuestionMutation = useMutation({
-  //   mutationFn: (tokem, newQuiz) => {
-  //     addQuestionToQuiz(tokem, newQuiz);
-  //   },
-  //   onSuccess: (data) => {
-  //     console.log(data)
-  //     setQuestion("");
-  //     setOptions([3]);
-  //     setCorrectAnswer("");
-  //     setExplanation("");
-  //     setShowModal(false);
-  //   },
-  //   onSettled: () => {
-  //     queryClient.invalidateQueries('quiz');
-  //   }
-  // });
+  const createQuestionMutation = useMutation({
+    mutationFn: (tokem, newQuiz) => {
+      addQuestionToQuiz(tokem, newQuiz);
+    },
+    onSuccess: (data) => {
+      console.log(data)
+      setQuestion("");
+      setOptions([3]);
+      setCorrectAnswer("");
+      setExplanation("");
+      setShowModal(false);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries('quiz');
+    }
+  });
 
   const handleOptionChange = (index, event) => {
     const newOptions = [...options];
