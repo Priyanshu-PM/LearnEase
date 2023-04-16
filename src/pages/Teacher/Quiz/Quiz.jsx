@@ -12,6 +12,7 @@ const Quiz = () => {
 
   let Id = useParams();
   const navigate = useNavigate();
+  console.log(Id)
 
   let teacherData = sessionStorage.getItem("teacher");
   const tdata = JSON.parse(teacherData);

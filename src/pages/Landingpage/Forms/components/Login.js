@@ -8,6 +8,8 @@ import Spinner from "react-spinkit";
 import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import { showErrorToast } from "../../../../helpers/toasters";
 
 const fields = loginFields;
 let fieldsState = {};
@@ -70,6 +72,10 @@ export default function Login() {
 
   return (
     <form className=" space-y-6" onSubmit={handleSubmit}>
+      <div>
+      {showErrorToast(error)}
+        <ToastContainer/>
+      </div>
       {error && (
         <div>
           <h5 className="text-center">{error}</h5>

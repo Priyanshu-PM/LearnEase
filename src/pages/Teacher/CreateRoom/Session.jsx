@@ -83,7 +83,6 @@ rounded-md border-gray-700 bg-gray-200"
                 </div>
                 <div>
                   {sessionDetails[0][1].members.map((member, index) => (
-                    
                     <div key={index} className="flex flex-col">
                       <p>No: {index+1}</p>
                      <p> Email: {member.emailID}</p>
