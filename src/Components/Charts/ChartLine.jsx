@@ -123,7 +123,7 @@ const ChartLine = () => {
           <Line data={data} options={options} />
         </div>
       ) : (
-        <div>Not Enough Data</div>
+        <div>Loading...</div>
       )}
     </div>
   );

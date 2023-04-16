@@ -29,7 +29,7 @@ const Quiz = () => {
     try {
       const response = await axios.get(getAllQuizById);
       if (!response) {
-        console.log("emtpy");
+        console.log("empty");
         return;
       }
       const { data } = response.data;
