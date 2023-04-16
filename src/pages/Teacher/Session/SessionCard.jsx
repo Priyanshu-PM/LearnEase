@@ -7,15 +7,15 @@ import axios from "../../../axios/axios";
 import Moment from "react-moment";
 
 const SessionCard = ({ session, tokem }) => {
-  console.log("sessioncard", session);
-  console.log("token", tokem);
+  // console.log("sessioncard", session);
+  // console.log("token", tokem);
 
   const { isLoading, error, data:sessionDetails } = useQuery({
       queryKey:["room", session._id],
       queryFn: getSessionById(session._id, tokem)
   })
 
-  console.log("data from getAllSessions", sessionDetails)
+  // console.log("data from getAllSessions", sessionDetails)
 
   if(isLoading)return <div>Loading...</div>
   if(error)return <div>{showErrorToast(error.message)}<ToastContainer/></div>

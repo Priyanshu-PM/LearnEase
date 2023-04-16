@@ -46,9 +46,10 @@ const Quiz3 = () => {
       setCorrectAnswer("");
       setExplanation("");
       setShowModal(false);
+      queryClient.invalidateQueries('quiz');
     },
     onSettled: () => {
-      queryClient.invalidateQueries('quiz');
+      
     }
   });
 

@@ -174,6 +174,7 @@ const InitSession = () => {
   const apiKey = process.env.REACT_APP_STUDYAI_API;
 
   console.log(sessionID);
+  console.log("teacher data", tdata);
 
   const quizkey = `${apiKey}/quiz/${sessionID}`;
   const quizDemo = `${apiKey}/quiz/63fa00bff48312e9af983087`;
@@ -282,20 +283,6 @@ const InitSession = () => {
     } catch (err) {
       setCopySuccess("Failed to copy");
     }
-  };
-
-  const [quizequestion, quizesetQuestion] = useState("");
-  const [quizeoptions, quizesetOptions] = useState(["", "", "", ""]);
-
-  const quizehandleSubmit = (event) => {
-    event.preventDefault();
-    // handle form submission logic here
-  };
-
-  const quizehandleOptionChange = (event, index) => {
-    const newOptions = [...options];
-    newOptions[index] = event.target.value;
-    setOptions(newOptions);
   };
 
   const [showModal, setShowModal] = useState(false);
