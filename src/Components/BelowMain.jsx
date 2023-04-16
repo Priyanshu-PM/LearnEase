@@ -15,7 +15,7 @@ const BelowMain = () => {
           <p className="text-2xl text-[#888692]  px-8">Real time session summary</p>
         </div>
         <div className="w-full h-screen flex flex-row px-2 ">
-          <div className="w-1.5 h-80  bg-gradient-to-tl rounded-lg from-orngColor"></div>
+          <div className="w-1.5 h-relative  bg-gradient-to-tl rounded-lg from-orngColor"></div>
           <div className="flex flex-col">
           <p className="text-5xl font-bold font-rubik p-10 text-[#231a48]">Efficiently recap and <span className="text-orngColor">highlight key point</span> covered during online classes</p>
           <p className="text-2xl text-[#888692]  px-8">Get the most out of your online classes with our real-time session summaries. Our powerful summarization tools help you efficiently recap and highlight key points covered during lectures, ensuring you never miss important information.</p>
