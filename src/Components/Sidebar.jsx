@@ -35,9 +35,10 @@ const Sidebar = () => {
       </div>
     );
   }
+  
   return (
-    <div className="p-0 sm:block z-30  relative">
-      <div className="px-5 py-3">
+    <div className="p-0 sm:block z-30  relative border-r-black">
+      <div className="px-5 py-3 border-r-black">
         <Link
           className="flex items-center justify-between text-gray-900  border-b-2"
           to="/teacher/home"

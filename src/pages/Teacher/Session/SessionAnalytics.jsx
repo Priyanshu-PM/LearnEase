@@ -3,8 +3,24 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Sidebar from "../../../Components/Sidebar";
 import { useNavigate } from "react-router-dom";
-import SessionCard from "./SessionCard";
+// import SessionCard from "./SessionCard";
+
+import SessionCard from "../../../Components/SessionComponents/SessionCard";
 import Pagination from "./Pagination";
+import Banner1 from "../../../Components/SessionComponents/Banner";
+
+import lecture1 from "../../../assets/classImages/lecture1.jpg";
+import lecture2 from "../../../assets/classImages/lecture2.jpg";
+import lecture3 from "../../../assets/classImages/lecture3.jpg";
+import lecture4 from "../../../assets/classImages/lecture4.jpg";
+import lecture5 from "../../../assets/classImages/lecture5.jpg";
+import lecture6 from "../../../assets/classImages/lecture6.jpg";
+import lecture7 from "../../../assets/classImages/lecture7.jpg";
+import lecture8 from "../../../assets/classImages/lecture8.jpg";
+import lecture9 from "../../../assets/classImages/lecture9.jpg";
+import lecture10 from "../../../assets/classImages/lecture10.jpg";
+import lecture11 from "../../../assets/classImages/lecture11.jpg";
+import lecture12 from "../../../assets/classImages/lecture12.jpg";
 
 const SessionAnalytics = () => {
   const sessionData = sessionStorage.getItem("teacher");
@@ -107,38 +123,31 @@ const SessionAnalytics = () => {
     "from-teal-500/10 to-blueGray-500",
   ];
 
+  const images = [lecture1, lecture2, lecture3, lecture4, lecture5, lecture6, lecture7, lecture8, lecture9, lecture10, lecture11, lecture12];
+
   return (
-    <div className="bg-gradient-to-b from-gray-200 to-white min-h-screen">
+    <div className="bg-gray-100 min-h-full pb-5">
       <div className="grid grid-cols-11">
-        <div className="block msm:hidden col-start-1 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%]">
+        <div className="block msm:hidden col-start-1 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%] border-r-black">
           <Sidebar />
         </div>
 
         <div className="col-start-3 msm:col-start-1 col-end-12 min-w-full p-6">
-          <p className="text-2xl font-bold font-poppins text-center">
-            All sessions
-          </p>
-          <div>
+          <Banner1/>
+          <div className="mb-5 mt-5 flex flex-col justify-between px-4 md:flex-row md:items-start">
+          <h4 className="ml-1 text-3xl font-bold text-navy-700 dark:text-white">
+            Recent Sessions
+          </h4>
+        </div>
+          <div className="">
             {rooms.length > 0 ? (
-              <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-2 mxl:grid-cols-3 m2xl:grid-cols-4 gap-6 mt-8 h-full">
+              <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-2 mxl:grid-cols-3 m2xl:grid-cols-4 gap-6 mt-8 h-full py-5">
                 {rooms.map((session, index) => (
-                  <div
-                    key={session._id}
-                    className={`bg-gradient-to-br rounded-lg shadow-md px-6 py-10 flex flex-col justify-between hover:shadow-lg ${
-                      gradientColors[index % gradientColors.length]
-                    }`}
-                  >
-                    <SessionCard session={session} tokem={tokem} />
-                    <button
-                      className="mt-4 bg-transparent hover:bg-babyPink text-pink-700 font-semibold hover:text-white py-2 px-4 border border-babyPink hover:border-transparent rounded"
-                      onClick={() => handleSessionClick(session._id)}
-                    >
-                      See session summary
-                    </button>
-                  </div>
+                    <SessionCard session={session} tokem={tokem} image = {images[index % rooms.length]} />
                 ))}
+
                 {/* Pagniation starts */}
-                <div className="flex flex-col items-center">
+                <div className="  flex gap-x-5 items-center">
                   <span className="text-sm text-gray-700 dark:text-gray-400">
                     Showing{" "}
                     <span className="font-semibold text-gray-900 dark:text-white">
@@ -166,7 +175,7 @@ const SessionAnalytics = () => {
                 {/* Pagination ends */}
               </div>
             ) : (
-              <div className="bg-gray-200 rounded-md p-4 mt-8">
+              <div className="bg-gray-100 rounded-md p-4 mt-8">
                 <p className="text-gray-800 text-lg font-bold">
                   No sessions available. Please create a new session.
                 </p>
