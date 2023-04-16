@@ -103,7 +103,7 @@ const SessionAnalytics = () => {
           <p className="text-2xl font-bold font-poppins text-center">All sessions</p>
           <div>
       {rooms.length > 0 ? (
-        <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-2 mxl:grid-cols-5 m2xl:grid-cols-6 gap-6 mt-8 h-full">
+        <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-2 mxl:grid-cols-3 m2xl:grid-cols-4 gap-6 mt-8 h-full">
           {rooms.map((session, index) => (
             <div
               key={session._id}

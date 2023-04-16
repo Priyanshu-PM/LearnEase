@@ -29,9 +29,9 @@ const SelectProfile = () => {
         </h5>
 
         <div className="my-5 flex flex-row flex-grow flex-wrap  grid-flow-row  gap-6 justify-around align-center p-5">
-          <label>
+          <label className="">
           <div
-            className={`relative border w-40 h-35 p-5 justify-center items-center rounded-lg hover:bg-pink-100 hover:border-babyPink hover:cursor-pointer ${
+            className={` relative border w-40 h-35 p-5 justify-center items-center rounded-lg hover:bg-pink-100 hover:border-babyPink hover:cursor-pointer ${
               selectedValue === "teacher"
                 ? "bg-pink-100 border-babyPink"
                 : "bg-white"

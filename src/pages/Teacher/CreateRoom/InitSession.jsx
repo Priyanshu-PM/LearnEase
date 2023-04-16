@@ -361,7 +361,7 @@ const InitSession = () => {
   }
   const shareLink =`${apiKey}/room_id=${sessionID}&redirect_url=${redirect_url}`
   return (
-    <div className="border-2 border-red-500 border-solid">
+    <div className="">
       {showModal ? (
         <div className="justify-center items-center flex
 overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none
@@ -541,10 +541,10 @@ overflow-hidden bg-gray-300"
                       <br />
                       <h1>Share this link with the students </h1>
                       <br />
-                      <div className=" bg-slate-200 p-3 rounded-lg mb-10">
+                      <div className=" bg-slate-200 p-3 rounded-lg mb-10 overflow-hidden">
                         <h1 className=" bg-slate-200 text-black">
                           {`${apiKey}/room_id=${sessionID}&redirect_url=https://meet.google.com/ixv-jtbr-zgi?pli=1${redirect_url}`}
-                          <button
+                          {"  "}<button
                             onClick={() =>
                               copyToClipboard(
                                 `${apiKey}/room_id=${sessionID}&redirect_url=${redirect_url}`

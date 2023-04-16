@@ -209,13 +209,16 @@ const CreateRoom = () => {
         
         <button className="text-white text-2xl" onClick={()=> showModal(true)}><div className="absolute right-5 top-5 p-2 stroke-5 text-white bg-babyPink rounded-full flex justify-center items-center  hover:top-4 transition-all"><MdAdd/></div></button>
 
-        <div className="col-start-3 msm:col-start-1 col-end-12">
-          <div className="bg-gradient-to-b from-gray-200 to-white min-h-screen rounded-lg p-6">
-            <h2 className="text-2xl font-semibold mb-4">
+        <div className="font-serif col-start-3 msm:col-start-1 col-end-12 bg-gradient-to-b from-gray-200 to-white min-h-screen">
+          <div className=" rounded-lg p-6">
+          <div className="">
+          <h2 className="px-2 text-3xl font-semibold mb-4">
               Create a new session
             </h2>
-            <form className="flex flex-col gap-4">
-              <div className="flex flex-col gap-1">
+          </div>
+            
+            <form className="flex flex-col gap-4 ">
+              <div className="flex flex-col gap-1 px-2">
                 <label htmlFor="session-name" className="text-lg font-medium">
                   Enter Session Name
                 </label>
@@ -230,12 +233,13 @@ const CreateRoom = () => {
               </div>
 
 
-              <div className=" w-full flex flex-row justify-between ">
-                <div className="col-start-3 col-end-6 p-2  w-5/12">
-                  <label htmlFor="session-name" className="mt-1 mb-1 text-lg font-medium">
+              <div className=" w-full flex flex-row justify-between px-2">
+                <div className="col-start-3 col-end-6 py-2  w-5/12">
+                  <label htmlFor="classname" className=" text-lg font-medium">
                     Select the classroom
                   </label>
                   <Select
+                  id="classname"
                   value={selectedClassroom}
                   onChange={(op) => setSelectedClassroom(op)}
                   options={classrooms}
@@ -260,21 +264,22 @@ const CreateRoom = () => {
                 type="button"
                 onClick={handleCreateSession}
                 disabled={isCreateSessionDisabled}
-                className={`px-4 py-2 rounded-md bg-green-500 text-white font-medium ${
+                className={`mx-2 px-4 py-2 rounded-md bg-blue-600 text-white font-medium ${
                   isCreateSessionDisabled && "opacity-50 cursor-not-allowed"
                 }`}
               >
                 <FaPlus className="inline-block mr-2" />
                 Create Session
               </button>
+              
             </form>
             {/*============================================================================================================  */}
-            <div className="mt-10">
+            <div className="mt-10 px-2">
               <h2 className="text-2xl font-semibold mb-4">Steps to follow :</h2>
-              <div>
+              <div >
                 <ul className="space-y-3">
-                  {steps.map((step, index) => (
-                    <li key={index} className="text-xl text-gray">{step}</li>
+                  {steps.map((step, index) => ( 
+                    <li key={index} className="text-md text-gray border-b-2 block">{index+1}{")   "}{step}</li>
                   ))}
                 </ul>
               </div>

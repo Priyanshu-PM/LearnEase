@@ -45,7 +45,7 @@ const ChartBar = () => {
         setRooms(JSON.parse(data.data));
       })
       .catch((err) => {
-        alert("invalid from chart");
+        alert("invalid from bar chart");
         console.log(err);
       });
   }, [key]);
@@ -118,7 +118,7 @@ const ChartBar = () => {
           <Bar options={options} data={data} />
         </div>
       ) : (
-        <div>Not Enough data</div>
+        <div>Loading...</div>
       )}
     </div>
   );
