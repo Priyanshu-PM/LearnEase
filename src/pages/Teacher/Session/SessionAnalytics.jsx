@@ -78,51 +78,6 @@ const SessionAnalytics = () => {
   }, [getAllTeacherSessions,pageNumber]);
 
 
-  const gradientColors = [
-    "from-purple-500/10 to-indigo-500/10",
-    "from-green-500/10 to-teal-500/10",
-    "from-yellow-500/10 to-green-500/10",
-    "from-pink-500/10 to-red-500/10",
-    "from-blue-500/10 to-gray-500/10",
-    "from-red-500/10 to-orange-500/10",
-    "from-teal-500/10 to-green-500/10",
-    "from-indigo-500/10 to-purple-500/10",
-    "from-gray-500/10 to-blue-500/10",
-    "from-red-500/10 to-pink-500/10",
-    "from-blue-500/10 to-teal-500/10",
-    "from-yellow-500/10 to-orange-500/10",
-    "from-purple-500/10 to-red-500/10",
-    "from-green-500/10 to-blueGray-500/10",
-    "from-pink-500/10 to-purple-500/10",
-    "from-gray-500/10 to-teal-500/10",
-    "from-blue-500/10 to-yellow-500/10",
-    "from-red-500/10 to-gray-500/10",
-    "from-teal-500/10 to-orange-500/10",
-    "from-indigo-500/10 to-blue-500/10",
-    "from-blue-500/10 to-gray-500/10",
-    "from-purple-500/10 to-red-500/10",
-    "from-green-500/10 to-yellow-500/10",
-    "from-teal-500/10 to-blue-500/10",
-    "from-pink-500/10 to-orange-500/10",
-    "from-yellow-500/10 to-red-500/10",
-    "from-gray-500/10 to-blue-500/10",
-    "from-purple-500/10 to-green-500/10",
-    "from-blue-500/10 to-indigo-500/10",
-    "from-red-500/10 to-pink-500/10",
-    "from-teal-500/10 to-green-500/10",
-    "from-orange-500/10 to-yellow-500/10",
-    "from-gray-500/10 to-red-500/10",
-    "from-blue-500/10 to-teal-500/10",
-    "from-purple-500/10 to-gray-500/10",
-    "from-green-500/10 to-blue-500/10",
-    "from-pink-500/10 to-teal-500/10",
-    "from-red-500/10 to-orange-500/10",
-    "from-yellow-500/10 to-gray-500/10",
-    "from-blue-500/10 to-purple-500/10",
-    "from-green-500/10 to-red-500/10",
-    "from-teal-500/10 to-blueGray-500",
-  ];
-
   const images = [lecture1, lecture2, lecture3, lecture4, lecture5, lecture6, lecture7, lecture8, lecture9, lecture10, lecture11, lecture12];
 
   return (
@@ -133,7 +88,7 @@ const SessionAnalytics = () => {
         </div>
 
         <div className="col-start-3 msm:col-start-1 col-end-12 min-w-full p-6">
-          <Banner1/>
+          <Banner1 bannerName={"Get sessions summary and students' responses quickly"}/>
           <div className="mb-5 mt-5 flex flex-col justify-between px-4 md:flex-row md:items-start">
           <h4 className="ml-1 text-3xl font-bold text-navy-700 dark:text-white">
             Recent Sessions

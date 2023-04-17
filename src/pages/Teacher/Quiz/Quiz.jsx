@@ -6,6 +6,7 @@ import axios from "axios";
 import MultipleChoiceQuestion from "./MultipleChoiceQuestions";
 
 const Quiz = () => {
+
   // conditional rendering of add question 
   const searchParams = new URLSearchParams(window.location.search);
   const showAddQBtn = searchParams.get('addquestion');
@@ -109,13 +110,14 @@ const Quiz = () => {
     fetchQuizData();
   }, [fetchQuizData]);
 
+
   return (
     <>
       {modal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <form
             onSubmit={handleaddQuestion}
-            className="max-w-md mx-auto bg-gray-100 shadow-2xl p-10 rounded-md"
+            className="max-w-md mx-auto bg-white shadow-2xl p-10 rounded-md"
           >
             <div className="p-0 flex justify-end items-end">
               <button onClick={() => setShowModal(false)}>cross</button>
@@ -212,15 +214,16 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
                 </div>
               </div>
 
-              <div className="bg-white rounded-lg  mb-8">
+              <div className=" rounded-lg  mb-8">
                 <div className="">
                   <div className="gap-5 space-y-3">
-                    <div>
+                    <div className="space-y-5">
                       {allQuestions.map((question, index) => (
                         <MultipleChoiceQuestion
                           key={index}
                           questionData={question}
                         />
+                        
                       ))}
                     </div>
                   </div>
