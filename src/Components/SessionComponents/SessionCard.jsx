@@ -50,6 +50,16 @@ const SessionCard = ({session, tokem,  image, extra }) => {
 
         <div className="mb-3 flex items-center justify-between px-1 md:justify-between lg:flex-row lg:justify-between xl:flex-row xl:justify-between 2xl:flex-row 2xl:justify-between 3xl:flex-row 3xl:justify-between">
           <div className="mb-2">
+          <div className="my-2 w-full h-full flex flex-row  justify-between space-x-24">
+            <p className=" text-sm w-fit font-medium text-gray-600 bg-blue-100 py-1 px-3 rounded-lg">
+              {sessionDetails.classroom}{" "}
+            </p>
+            <p className=" text-sm font-medium text-gray-600 dark:text-white py-1 ">
+              {" "}
+              <Moment interval={0} format='MMMM Do YYYY'>{sessionDetails.createdAt}</Moment>
+              {" "}
+            </p>
+          </div> 
             <div className=" flex h-full w-full flex-row justify-between xl:justify-between">
               <p className="text-xl font-bold text-navy-700 dark:text-white">
                 {" "}
@@ -57,19 +67,11 @@ const SessionCard = ({session, tokem,  image, extra }) => {
               </p>
             </div>
             <div className="flex flex-col justify-between">
-              <p className="mt-2 text-md font-bold  text-gray-600 ">
+            
+             
+            <p className="mt-1 text-md text-gray-600 ">
               Created by {sessionDetails?.creator.firstName}{" "}
               </p>
-              <div className="mt-2 w-full h-full flex flex-row  justify-between space-x-28">
-                <p className=" text-sm w-fit font-medium text-gray-600 ">
-                  {sessionDetails.classroom}{" "}
-                </p>
-                <p className=" text-sm font-medium text-gray-600 dark:text-white ">
-                  {" "}
-                  <Moment interval={0} format='MMMM Do YYYY'>{sessionDetails.createdAt}</Moment>
-                  {" "}
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -77,7 +79,7 @@ const SessionCard = ({session, tokem,  image, extra }) => {
         <div className="flex items-center justify-center md:flex-col md:items-center lg:flex-row lg:justify-center xl:flex-col 2xl:items-center 3xl:flex-row 3xl:items-center 3xl:justify-center">
           <button
             onClick={()=> {handleSessionClick(session._id)}}
-            className="linear rounded-[20px] bg-brand-900 px-4 py-2 text-base font-medium text-white bg-blue-600 transition duration-200 hover:bg-brand-800 active:bg-brand-700 dark:bg-brand-400 dark:hover:bg-brand-300 dark:active:opacity-90"
+            className="linear rounded-[20px] bg-brand-900 px-4 py-2 text-base font-medium text-white bg-[#3912E6] transition duration-200 hover:bg-brand-800 active:bg-brand-700 dark:bg-brand-400 dark:hover:bg-brand-300 dark:active:opacity-90"
           >
             View Details
           </button>

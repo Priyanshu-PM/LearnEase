@@ -113,7 +113,7 @@ const Dashboard = () => {
         <div className="col-start-3 msm:col-start-1 col-end-12 min-w-full">
         </div>
 
-          <button className="text-white text-2xl" onClick={()=> showModal(true)}><div className="absolute right-5 top-5 p-2 stroke-5 text-white bg-babyPink rounded-full flex justify-center items-center  hover:top-4 transition-all"><MdAdd/></div></button>
+          <button className="text-white text-2xl" onClick={()=> showModal(true)}><div className="absolute right-5 top-5 p-2 stroke-5 text-white bg-blue-600 rounded-full flex justify-center items-center  hover:top-4 transition-all"><MdAdd/></div></button>
         <div className="col-start-3 msm:col-start-1 col-end-12 min-w-full ">
           <div className="p-10 col-start-3 sm:col-start-3 mt-15 min-w-full   flex flex-row justify-between flex-grow flex-wrap  grid-flow-row gap-10 mx-autobg-gradient-to-b from-gray-200 to-white  min-h-screen">
             <div className="min-w-[45%] rounded-lg bg-white shadow-xl">
