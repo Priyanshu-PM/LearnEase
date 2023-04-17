@@ -1,8 +1,8 @@
 import apiClient from "./axios";
 
 const formatResponse = (data) => {
-    return JSON.parse(data);
-  };
+  return JSON.parse(data);
+};
 
 // Teachers api calls
 export const getAllQuizById=(quizid)=>async () => {
@@ -49,6 +49,25 @@ export const getQuizResponses=(quizid)=>async()=>{
   return formatResponse(newdata2)
 }
 
+// creating room/session for teacher
+export const createRoom = async ({ roomdata, tokem }) => {
+  const config = {
+    headers: {
+      'Authorization': `${tokem}`,
+    }
+  };
+  return await apiClient.post(`/teacher/room`, roomdata, config);
+  // const response = await apiClient.post(`/teacher/room`, roomdata, config);
+  // const newdata = response.data
+  // const newData2 = newdata.data
+  // return newData2;
+};
+
+// get classroom of each college for teacher at the room creation time
+export const getClasses=(clgid)=>async() => {
+    const { data } = await apiClient.get(`/common/get-classrooms-clg?clg_id=${clgid}`);
+    return data;
+};
 
 
 // *********************Student api side******************************************//

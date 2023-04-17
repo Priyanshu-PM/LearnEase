@@ -23,7 +23,7 @@ const SelectProfile = () => {
       <Link to={'/'} className="absolute left-2 top-2 text-2xl font-righteous font-bold">
           Learn<span className="text-babyPink">Ease</span>
         </Link>
-      <div class="w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-50">
+      <div className="w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-50">
         <h5 className="pt-5 text-xl text-center font-serif tracking-tight text-gray-900">
           Continue as a Teacher or Student
         </h5>
@@ -67,8 +67,8 @@ const SelectProfile = () => {
             </label>
         </div>
 
-        <div class="px-5 pb-5 space-y-5">
-          <div class="flex items-center justify-center">
+        <div className="px-5 pb-5 space-y-5">
+          <div className="flex items-center justify-center">
             <button
               onClick={() => navigate(`/${selectedValue}/signup`)}
               disabled={isSignupDisabled}

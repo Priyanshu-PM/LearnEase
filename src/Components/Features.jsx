@@ -29,7 +29,7 @@ const Features = () => {
             </div>
             <div className="w-full sm:w-1/2 p-6 shadow-xl">
               <img
-                class="w-full md:w-5/5 z-50"
+                className="w-full md:w-5/5 z-50"
                 src={onlinestudy}
                 alt="e-learning"
               />
@@ -38,7 +38,7 @@ const Features = () => {
           <div className="flex flex-wrap flex-col-reverse sm:flex-row shadow-xl">
             <div className="w-full sm:w-1/2 p-6 mt-0 shadow-xl">
               <img
-                class="w-full md:w-5/5 z-50"
+                className="w-full md:w-5/5 z-50"
                 src={image1}
                 alt="attentiveness"
               />

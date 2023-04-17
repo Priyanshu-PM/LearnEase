@@ -347,6 +347,7 @@ const InitSession = () => {
     return <h1>loading</h1>;
   }
   const shareLink =`${apiKey}/room_id=${sessionID}&redirect_url=${redirect_url}`
+  const MAX_LINK_LENGTH = 56
   return (
     <div className="">
       {showModal ? (
@@ -530,8 +531,8 @@ overflow-hidden bg-gray-300"
                       <br />
                       <div className=" bg-slate-200 p-3 rounded-lg mb-10 overflow-hidden">
                         <h1 className=" bg-slate-200 text-black">
-                          {`${apiKey}/room_id=${sessionID}&redirect_url=https://meet.google.com/ixv-jtbr-zgi?pli=1${redirect_url}`}
-                          {"  "}<button
+                        {shareLink?.length > MAX_LINK_LENGTH ?`${shareLink.substring(0, MAX_LINK_LENGTH)}...`: shareLink}
+                          <button
                             onClick={() =>
                               copyToClipboard(
                                 `${apiKey}/room_id=${sessionID}&redirect_url=${redirect_url}`

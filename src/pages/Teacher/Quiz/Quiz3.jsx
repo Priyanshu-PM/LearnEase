@@ -14,13 +14,11 @@ const Quiz3 = () => {
   const queryClient = useQueryClient();
 
   let { quizid } = useParams();
-  console.log(quizid);
   // Fetching data from api
   const { isLoading, error, data } = useQuery({
     queryKey: ["quiz", quizid],
     queryFn: getAllQuizById(quizid),
   });
-  console.log("getAllQuizByid ", data);
   // End of data fetching from api
 
   // start of creating new quiz

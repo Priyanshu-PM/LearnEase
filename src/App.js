@@ -28,6 +28,7 @@ import StudentRoutes from './pages/Student/StudentRoutes';
 import TeacherRoute from './pages/Teacher/TeacherRoute';
 import Session from './pages/Teacher/CreateRoom/Session';
 import Summary from './pages/Student/pages/Summary';
+import LoadingModal from './helpers/LoadingModal';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
             <Route path="session" element={<SessionAnalytics />} />
             <Route path="current/:id" element={<InitSession/>}/>
             <Route path="lecture/:id" element= {<Session/>}/>
+            <Route path="loading" element={<LoadingModal msg={"We are creating meet for you"}/>}/>
           </Route>
 
           {/* _________________Students Routes____________________________ */}

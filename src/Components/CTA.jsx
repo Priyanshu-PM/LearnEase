@@ -5,14 +5,14 @@ const CTA = () => {
   return (
     <div>
       <svg
-        class="wave-top"
+        className="wave-top"
         viewBox="0 0 1439 147"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-          <g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
-            <g class="wave" fill="#f8fafc">
+        <g stroke="none" stroke-width="1" fill="none" fillRule="evenodd">
+          <g transform="translate(-1.000000, -14.000000)" fillRule="nonzero">
+            <g className="wave" fill="#f8fafc">
               <path d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z"></path>
             </g>
             <g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
@@ -35,18 +35,18 @@ const CTA = () => {
         </g>
       </svg>
       <div className="flex flex-column">
-        <section class=" mx-auto text-center py-6 mb-12">
-          <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
+        <section className=" mx-auto text-center py-6 mb-12">
+          <h2 className="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
             Start Now
           </h2>
-          <div class="w-full mb-4">
-            <div class="h-1 mx-auto bg-white w-1/6 opacity-100 my-0 py-0 rounded-t"></div>
+          <div className="w-full mb-4">
+            <div className="h-1 mx-auto bg-white w-1/6 opacity-100 my-0 py-0 rounded-t"></div>
           </div>
-          <h3 class="my-4 text-3xl leading-tight pl-20 pr-20">
+          <h3 className="my-4 text-3xl leading-tight pl-20 pr-20">
           Transform the way you learn with our cutting-edge online platform that adapts to your unique needs and learning style
           </h3>
-          <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-          <Link to="/select"  class="">
+          <button className="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+          <Link to="/select"  className="">
           Get Started
         </Link>
           </button>
