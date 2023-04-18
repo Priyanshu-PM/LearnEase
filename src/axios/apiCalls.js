@@ -71,14 +71,3 @@ export const getClasses=(clgid)=>async() => {
 };
 
 
-// *********************Student api side******************************************//
-export const getAllRoomsForStudent=(token, studData)=>async()=>{
-    const config = {
-        headers: {
-          Authorization: `${token}`,
-        }
-      };
-      console.log("studedata", studData)
-    const response = await apiClient.get(`/student/rooms`,config, studData)
-    return response
-}

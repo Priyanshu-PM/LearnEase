@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { getAllRoomsForStudent } from "../../../axios/apiCalls";
+import {
+  getAllRoomsForStudent,
+  getRoomsForStud,
+} from "../../../axios/studentApiCalls";
 
 import lecture1 from "../../../assets/classImages/lecture1.jpg";
 import lecture2 from "../../../assets/classImages/lecture2.jpg";
@@ -19,116 +21,128 @@ import lecture11 from "../../../assets/classImages/lecture11.jpg";
 import lecture12 from "../../../assets/classImages/lecture12.jpg";
 import LectureCard from "../components/LectureCard";
 import Banner1 from "../../../Components/SessionComponents/Banner";
+import axios from "../../../axios/axios";
 
 const Home = () => {
-
   var studentData = sessionStorage.getItem("student");
-  const {student, tokem} = JSON.parse(studentData);
+  const { student, tokem } = JSON.parse(studentData);
 
-  console.log(student.clg);
-  console.log(student.classroom);
-  console.log(tokem);
+  // console.log(student.clg);
+  // console.log(student.classroom);
+  // console.log(tokem);
 
-const lectures = [
-  {
-    creator: "sdgdsg",
-    title: "Session 1",
-    _id: "65846",
-    createdAt: "20/11/2023"
-  },
-  {
-    creator: "sdsdgds",
-    title: "Session 1",
-    _id: "65846",
-    createdAt: "20/11/2023"
-  },
-  {
-    creator: "sdgsdg",
-    title: "Session 1",
-    _id: "65846",
-    createdAt: "20/11/2023"
-  },
-  {
-    creator: "sdgsdg",
-    title: "Session 1",
-    _id: "65846",
-    createdAt: "20/11/2023"
-  },
-  {
-    creator: "sdgsdg",
-    title: "Session 1",
-    _id: "65846",
-    createdAt: "20/11/2023"
-  },
-  {
-    creator: "sdgsdg",
-    title: "Session 1",
-    _id: "65846",
-    createdAt: "20/11/2023"
-  }
+  const lectures = [
+    {
+      creator: "sdgdsg",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+    {
+      creator: "sdsdgds",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+    {
+      creator: "sdgsdg",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+    {
+      creator: "sdgsdg",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+    {
+      creator: "sdgsdg",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+    {
+      creator: "sdgsdg",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+  ];
 
-];
+  const classImages = [
+    lecture1,
+    lecture2,
+    lecture3,
+    lecture4,
+    lecture5,
+    lecture6,
+    lecture7,
+    lecture8,
+    lecture9,
+    lecture10,
+    lecture11,
+    lecture12,
+  ];
 
-const classImages = [lecture1, lecture2, lecture3, lecture4, lecture5, lecture6, lecture7, lecture8, lecture9, lecture10, lecture11, lecture12];
+  // const baseURL = process.env.REACT_APP_STUDYAI_API;
+  // const getAllSession = `${baseURL}/student/rooms`;
 
-  const baseURL = process.env.REACT_APP_STUDYAI_API;
-  const getAllSession = `${baseURL}/student/rooms`;
-
-  console.log("student token",tokem);
+  console.log("student token", tokem);
 
   const [rooms, setRooms] = useState([]);
-
-  const getStudentSessions = useCallback(async () => {
-
-    const config = {
-      headers: {
-        Authorization: `${student.tokem}`,
-      }
-    };
-    const newData ={
-      classroom: `${student.classroom}`,
-      clg:`${student.clg}`
-    }
-    
-    try {
-      console.log("inside trycatch student classroom",student.classroom)
-      const response = await axios.get(getAllSession, newData , config);
-      if(!response){
-        console.log("empty")
-        return
-      }
-      console.log("after sending axios", response)
-      // const { data } = response.data;
-      // const parsedData = JSON.parse(data);
-      // console.log("data of session", parsedData)
-
-    } catch (error) {
-      console.log("Error while fetching classrooms", error);
-    }
-  }, []);
-
-  useEffect(() => {
-    getStudentSessions()
-  }, [getStudentSessions]);
-
-  console.log(rooms);
+  // console.log(rooms);
 
   const newData = {
-    classroom: `${student.classroom}`,
-    clg: `${student.clg}`,
+    classroom: `${student.classroom}`
+    // clg: `${student.clg}`,
   };
+
+  // const getStudentSessions = useCallback(async () => {
+
+  //   const config = {
+  //     headers: {
+  //       Authorization: `${student.tokem}`,
+  //     }
+  //   };
+  //   const newData ={
+  //     classroom: `${student.classroom}`,
+  //     clg:`${student.clg}`
+  //   }
+
+  //   try {
+  //     console.log("inside trycatch student classroom",student.classroom)
+  //     const response = await axios.get("/student/rooms", newData , config);
+  //     if(!response){
+  //       console.log("empty")
+  //       return
+  //     }
+  //     console.log("after sending axios", response)
+  //     // const { data } = response.data;
+  //     // const parsedData = JSON.parse(data);
+  //     // console.log("data of session", parsedData)
+
+  //   } catch (error) {
+  //     console.log("Error while fetching classrooms", error);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   getStudentSessions()
+  // }, [getStudentSessions]);
 
   const {
     isLoading,
     error,
-    data: allRooms,
+    data,
   } = useQuery({
-    queryKey: ["student-rooms"],
-    queryFn: getAllRoomsForStudent(tokem, newData),
+    queryKey: ["studentrooms"],
+    queryFn: getAllRoomsForStudent({
+      classroom: `${student.classroom}`
+    }, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Mzk2MGZkYzY2NmJkMjE4YTg4MmYyNiIsImlhdCI6MTY4MTgyMDczOX0.JWv_qOUQjq0U6gcrnVEHz0bFbtCwr0SojiierKAtN6c"),
   });
 
-
-  console.log("allrooms", allRooms);
+  console.log("allrooms", data);
 
   const navigate = useNavigate();
 
@@ -140,13 +154,17 @@ const classImages = [lecture1, lecture2, lecture3, lecture4, lecture5, lecture6,
     <div className="bg-gradient-to-b from-gray-200 to-white min-h-screen">
       <Navbar />
       <div className="w-full px-[3rem] pt-[3rem]">
-      <Banner1 bannerName={"Lectures taken throughout the classroom"}/>
+        <Banner1 bannerName={"Lectures taken throughout the classroom"} />
       </div>
       <div className="px-[3rem]">
         {lectures.length > 0 ? (
           <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-3 mxl:grid-cols-4 m2xl:grid-cols-4 gap-6 mt-8 h-full py-5">
             {lectures.map((lecture, index) => (
-              <LectureCard lecture= {lecture} tokem = {tokem} image={classImages[index % lectures.length]}/>
+              <LectureCard
+                lecture={lecture}
+                tokem={tokem}
+                image={classImages[index % lectures.length]}
+              />
             ))}
           </div>
         ) : (

@@ -30,6 +30,7 @@ import Session from './pages/Teacher/CreateRoom/Session';
 import Summary from './pages/Student/pages/Summary';
 import LoadingModal from './helpers/LoadingModal';
 import LoadingScreen from './helpers/LoadingScreen';
+import TWElement from './pages/TWElement';
 
 function App() {
   
@@ -42,7 +43,7 @@ function App() {
           <Route path="/student/signup" element={<RegisterStudent/>}/>
           <Route path="/about" element={<About/>}/>
           <Route path="/select" element={<SelectProfile/>}/>
-
+          <Route path="/test" element={<TWElement/>}/>
 
           
           {/* _________________Teacher Routes____________________________ */}

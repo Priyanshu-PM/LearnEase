@@ -36,6 +36,7 @@ const StdQuiz = () => {
   useEffect(() => {
     fetchQuizData();
   }, [fetchQuizData]); 
+  console.log("student quiz data" ,quizData)
   
   const handleClearResponse = (questionId) => {
     setSelectedAnswers((prevSelectedAnswers) => ({
@@ -92,7 +93,9 @@ const StdQuiz = () => {
           {
             student: student._id,
             quiz: quizid.quizId,
-            "answers":formattedAnswers
+            "answers":formattedAnswers,
+            score,
+            total: allQuestions.length
         } )
         if(data.success === true){
           alert("quiz response sent to backend")
@@ -101,11 +104,7 @@ const StdQuiz = () => {
       } catch (error) {
         console.log("Error while quiz response", error)
       }
-      
-
-
-
-
+    
     } else {
       alert("Please answer all questions before submitting.");
       return
@@ -130,6 +129,7 @@ const StdQuiz = () => {
   return (
     <div className="bg-gray-100 min-h-screen py-8">
       <h3>Quiz started</h3>
+      <h3>Quiz on: {quizData.title}</h3>
       <div>
         <h2>Totol questions: {allQuestions.length}</h2>
         {allQuestions.map((question, index) => (
