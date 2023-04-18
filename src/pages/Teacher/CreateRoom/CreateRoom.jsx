@@ -10,6 +10,7 @@ import Select from "react-select";
 import { createRoom, getClasses, useCreateRoom } from "../../../axios/apiCalls";
 import { ToastContainer, toast } from "react-toastify";
 import LoadingModal from "../../../helpers/LoadingModal";
+import {ImCross} from "react-icons/im";
 
 const apiKey = process.env.REACT_APP_STUDYAI_API;
 
@@ -156,15 +157,15 @@ const CreateRoom = () => {
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
       <form
         onSubmit={handleAddClass}
-        className="w-1/3 mx-auto bg-gray-100 shadow-2xl p-5 rounded-md"
+        className="w-1/3 mx-auto bg-gray-100 shadow-2xl rounded-md p-1"
       >
-        <div className="p-0 flex justify-end items-end">
-          <button onClick={() => showModal(false)}>cross</button>
+        <div className="p-1 flex justify-end items-end">
+          <button onClick={() => showModal(false)} className="p-2 rounded-lg bg-red-500"><ImCross className="text-white"/></button>
         </div>
-        <div className="my-4">
+        <div className="my-2 px-5 space-y-3">
           <label
             htmlFor="question"
-            className="block text-gray-700 font-medium mb-2"
+            className="block text-gray-700 font-bold text-2xl mb-2"
           >
             Create New Classroom
           </label>
@@ -172,6 +173,7 @@ const CreateRoom = () => {
             id="question"
             className="w-full border-gray-300 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             value={className}
+            placeholder="Classroom name"
             onChange={(e) => setClassName(e.target.value)}
           />
         </div>
@@ -193,7 +195,7 @@ const CreateRoom = () => {
 
     ): (null)}
 
-    <div className="bg-[#F3F8FF] min-h-screen">
+    <div className="bg-purplebg min-h-screen">
       <div className="grid grid-cols-11">
         <div className="block msm:hidden col-start-1 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%]">
           <Sidebar />
@@ -202,7 +204,7 @@ const CreateRoom = () => {
         
         <button className="text-white text-2xl" onClick={()=> showModal(true)}><div className="absolute right-5 top-5 p-2 stroke-5 text-white bg-blue-600 rounded-full flex justify-center items-center  hover:top-4 transition-all"><MdAdd/></div></button>
 
-        <div className="font-serif col-start-3 msm:col-start-1 col-end-12 bg-gradient-to-b from-gray-200 to-white min-h-screen">
+        <div className="font-serif col-start-3 msm:col-start-1 col-end-12  min-h-screen">
           <div className=" rounded-lg p-6">
           <div className="">
           <h2 className="px-2 text-3xl font-semibold mb-4">
