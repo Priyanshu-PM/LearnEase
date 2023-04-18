@@ -28,15 +28,15 @@ const Navbar = () => {
   
   return (
     <div>
-      <header className=" border-b-[0.1px]  border-gray-400">
-        <div className=" mx-auto flex flex-row p-5 sm:flex-col md:flex-row justify-between items-center">
+      <header className=" border-b-[0.1px]  border-gray-400 p-4">
+        <div className=" mx-auto flex flex-row sm:flex-col md:flex-row justify-between items-center">
           <Link
             to={"/student/home"}
             className=" no-underline hover:no-underline font-bold lg:text-3xl"
           >
-            <span className="ml-3 text-3xl">
-            <div className="flex-start">
-            <p className="text-2xl font-righteous font-bold">
+            <span className="ml-3 flex flex-row text-3xl justify-center items-center">
+            <div className="  flex-start justify-center items-center ">
+            <p className="text-3xl font-righteous font-bold">
               Learn<span className="text-babyPink">Ease</span>
             </p>
           </div>
@@ -52,7 +52,7 @@ const Navbar = () => {
             </Link>
           </nav>
           <button
-            className="inline-flex items-center text-white bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0 "
+            className="inline-flex items-center text-white bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base  md:mt-0 "
             onClick={() => {
               sessionStorage.setItem("student", null);
               navigate("/");

@@ -60,39 +60,38 @@ const Room = () => {
 
   const lectureSummary = {
     title: "Introduction to React",
-    duration: "1 hour",
+    time: "11 march 2023",
     instructor: "John Doe"
   };
+
+  const summary = [
+    "skjfhkshfjisduvfbksdjbvkjsdbvzsdvujbvdsdjvlasssssssssssssssssssssssssssssssssssssssssssvsadjvblsjbdlvjbsdlvbldbvjzxmzxbvmkjbcvsdflaslfjbasljfblaskbfsahfksahflhlaskfhlashfmasckjsvmsdjghdajhgihusdghfsdghuigisggisdugsiduggjsdgisdghjsdghishdsdghuhsdgjhsdivsdjvbnsjdg9dgejfewgweogi",
+    
+    "skjfhkshfjisduvfbksdjbvkjsdbvzsdvujbvdsdjvlasssssssssssssssssssssssssssssssssssssssssssvsadjvblsjbdlvjbsdlvbldbvjzxmzxbvmkjbcvsdflaslfjbasljfblaskbfsahfksahflhlaskfhlashfmasckjsvmsdjghdajhgihusdghfsdghuigisggisdugsiduggjsdgisdghjsdghishdsdghuhsdgjhsdivsdjvbnsjdg9dgejfewgweogi",
+    
+    "skjfhkshfjisduvfbksdjbvkjsdbvzsdvujbvdsdjvlasssssssssssssssssssssssssssssssssssssssssssvsadjvblsjbdlvjbsdlvbldbvjzxmzxbvmkjbcvsdflaslfjbasljfblaskbfsahfksahflhlaskfhlashfmasckjsvmsdjghdajhgihusdghfsdghuigisggisdugsiduggjsdgisdghjsdghishdsdghuhsdgjhsdivsdjvbnsjdg9dgejfewgweogi",
+
+    "skjfhkshfjisduvfbksdjbvkjsdbvzsdvujbvdsdjvlasssssssssssssssssssssssssssssssssssssssssssvsadjvblsjbdlvjbsdlvbldbvjzxmzxbvmkjbcvsdflaslfjbasljfblaskbfsahfksahflhlaskfhlashfmasckjsvmsdjghdajhgihusdghfsdghuigisggisdugsiduggjsdgisdghjsdghishdsdghuhsdgjhsdivsdjvbnsjdg9dgejfewgweogi"
+  ]
 
   let attentiveness = 90;
 
   return (
     <div>
-      <div className="bg-gradient-to-b from-gray-300 to-white min-h-screen">
+      <div className="bg-gradient-to-b from-gray-200 to-white min-h-screen">
         <Navbar />
-        <div className="px-[5rem]">
-          <div className="p-4">
-            <div className="flex justify-between items-start">
-              <div className="w-1/2">
-                <h1 className="text-3xl font-bold">{lectureSummary.title}</h1>
-                <p className="text-gray-700 mt-2">
-                  {lectureSummary.duration} | {lectureSummary.instructor}
-                </p>
-
-                <p className="text-gray-700 mt-4">
-                  {roomdetail.length > 0 ? (
-                    roomdetail
-                  ) : (
-                    <div className="bg-gray-200 rounded-md p-4 mt-8">
-                      <p className="text-gray-800 text-lg font-bold">
-                        No data available.
-                      </p>
-                    </div>
-                  )}
-                </p>
+        <div className="px-[2rem] p-4">
+              
+              <div className="w-full p-2 flex flex-row justify-between bg-white rounded-lg shadow-lg">
+ 
+              <div>
+              <h1 className="text-4xl font-bold">{lectureSummary.title}</h1>
+              <p className="text-gray-700 mt-2">
+                {lectureSummary.time} | {lectureSummary.instructor}
+              </p>
               </div>
 
-              <div className="flex flex-col items-start justify-end gap-4">
+                <div className="flex flex-col items-start justify-end gap-2">
                 <div className="flex items-center mt-4">
                   <span className="pr-4">Attentiveness </span>
                   <div className="w-32 h-3 rounded-lg overflow-hidden bg-gray-300">
@@ -112,22 +111,33 @@ const Room = () => {
                   </div>
                 </div>
 
-                <div>
+
+                <div className="p-3 w-full flex flex-row justify-between ">
+                <div className="mt-1">
                   <span>Your Score - 00</span>
                 </div>
                 <div>
                   <button
                     onClick={handleQuiz}
-                    className=" inline-flex items-center text-white bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0"
+                    className=" inline-flex items-center text-white bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base  md:mt-0"
                   >
                     Take a Quiz
                   </button>
                 </div>
+                </div>
+
               </div>
+            </div>
+
+            <div>
+            {summary.map((topic, index) => {
+              <div key={index}>
+              {topic}
+              </div>
+            })}
             </div>
           </div>
         </div>
-      </div>
     </div>
   );
 };

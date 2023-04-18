@@ -8,6 +8,7 @@ import { FiHeart, FiUser, FiLogOut } from "react-icons/fi";
 import Spinner from "react-spinkit";
 
 import { useLocation } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 
 const Sidebar = () => {
   let params = useLocation();
@@ -44,8 +45,9 @@ const Sidebar = () => {
           to="/teacher/home"
         >
 
-          <div className="flex justify-center items-center w-full h-[7rem]">
-            <h1 className="font-serif text-xl font-bold">{ teacher.teacher.emailID.length < 15 ? teacher.teacher.emailID: `${teacher.teacher.emailID.substring(0, 15)}...`}</h1>
+          <div className="flex gap-4 justify-center items-center w-full h-[7rem]">
+            <FaUserCircle className="text-gray-400 h-10 w-10"/>
+            <h1 className="font-serif text-xl font-bold">{ teacher.teacher.emailID.length < 15 ? teacher.teacher.emailID: `${teacher.teacher.emailID.substring(0, 10)}...`}</h1>
           </div>
         </Link>
       </div>

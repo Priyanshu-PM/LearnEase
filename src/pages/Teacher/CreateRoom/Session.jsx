@@ -48,12 +48,12 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
                 <p className="text-3xl font-serif">
                   Conducted by: {summaryData[0].creator.firstName}
                 </p>{" "}
-                <button className="bg-pink-500 text-white p-3 hover:bg-babyPink rounded-xl">
+                <button className="bg-blue-600 text-white p-3 hover:bg-blue-700 rounded-xl">
                 <Link
                   to={`/teacher/quiz/${summaryData[0].quiz}`}
                   className="visited:text-white text-lg"
                 >
-                  see generated quizes
+                  see quiz
                 </Link>
                 </button>
               </div>

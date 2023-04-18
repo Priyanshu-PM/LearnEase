@@ -67,7 +67,7 @@ const Dashboard = () => {
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
       <form
         onSubmit={handleAddClass}
-        className="max-w-md mx-auto bg-gray-100 shadow-2xl p-5 rounded-md"
+        className="w-1/3 mx-auto bg-gray-100 shadow-2xl p-5 rounded-md"
       >
         <div className="p-0 flex justify-end items-end">
           <button onClick={() => showModal(false)}>cross</button>
@@ -81,7 +81,7 @@ const Dashboard = () => {
           </label>
           <textarea
             id="question"
-            className="w-50 border-gray-300 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+            className="w-full border-gray-300 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             value={className}
             onChange={(e) => setClassName(e.target.value)}
           />
@@ -94,7 +94,7 @@ const Dashboard = () => {
         <div className="flex justify-center items-center">
           <button
             type="submit"
-            className="w-2/3 px-4 py-2  bg-pink-500 hover:bg-babyPink text-white font-medium rounded-full transition-colors duration-300"
+            className="w-2/3 px-4 py-2  bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-full transition-colors duration-300"
           >
             Submit
           </button>

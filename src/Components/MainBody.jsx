@@ -8,7 +8,7 @@ const MainBody = () => {
   return (
     <div className="w-full h-screen rounded-xl">
       <div className="relative flex flex-col sm:flex-col  h-full w-full overflow-hidden ">
-        <div className="ml-2 absolute  w-2/4 backdrop-blur-lg h-full z-10">
+        <div className="ml-2 absolute  w-2/4 backdrop-blur-sm h-full z-10">
           <div className="flex flex-col items-start p-10">
             <p className="text-6xl font-righteous text-fontColor font-bold">
               Elevate Learning with One Click
@@ -28,7 +28,7 @@ const MainBody = () => {
         <img
           src={bg}
           alt="background"
-          className="object-right absolute h-full w-full object-contain"
+          className="object-right absolute h-full w-full object-contain backdrop-blur-sm"
         />
       </div>
     </div>
