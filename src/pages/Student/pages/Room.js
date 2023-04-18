@@ -80,7 +80,7 @@ const Room = () => {
     <div>
       <div className="bg-gradient-to-b from-gray-200 to-white min-h-screen">
         <Navbar />
-        <div className="px-[2rem] p-4">
+        <div className="px-[2rem] p-4 flex flex-col">
               
               <div className="w-full p-2 flex flex-row justify-between bg-white rounded-lg shadow-lg">
  
@@ -111,7 +111,6 @@ const Room = () => {
                   </div>
                 </div>
 
-
                 <div className="p-3 w-full flex flex-row justify-between ">
                 <div className="mt-1">
                   <span>Your Score - 00</span>
@@ -132,7 +131,7 @@ const Room = () => {
             <div>
             {summary.map((topic, index) => {
               <div key={index}>
-              {topic}
+              <p>{topic}</p>
               </div>
             })}
             </div>

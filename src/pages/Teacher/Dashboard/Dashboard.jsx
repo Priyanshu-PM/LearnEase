@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
 import Sidebar from "../../../Components/Sidebar";
 
-import ChartLine from "../../../Components/Charts/ChartLine";
-import ChartBar from "../../../Components/Charts/ChartBar";
 import {MdAdd} from "react-icons/md";
 import axios from "axios";
+import Attentiveness from "../../../Components/Charts/Attentiveness";
+import Attendance from "../../../Components/Charts/Attendance";
+import {ImCross} from "react-icons/im"
+// import RxCross2 from "react-icons/rx";
 
 
 const Dashboard = () => {
@@ -69,13 +71,13 @@ const Dashboard = () => {
         onSubmit={handleAddClass}
         className="w-1/3 mx-auto bg-gray-100 shadow-2xl p-5 rounded-md"
       >
-        <div className="p-0 flex justify-end items-end">
-          <button onClick={() => showModal(false)}>cross</button>
+        <div className="p-1 flex justify-end items-end">
+          <button onClick={() => showModal(false)} className="p-2 rounded-lg bg-red-500 hover:bg-red-600"><ImCross className="text-white"/></button>
         </div>
-        <div className="my-4">
+        <div className="my-2 px-5 space-y-3">
           <label
             htmlFor="question"
-            className="block text-gray-700 font-medium mb-2"
+            className="block text-gray-700 font-bold text-2xl mb-2"
           >
             Create New Classroom
           </label>
@@ -83,6 +85,7 @@ const Dashboard = () => {
             id="question"
             className="w-full border-gray-300 rounded-lg focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
             value={className}
+            placeholder="Classroom name"
             onChange={(e) => setClassName(e.target.value)}
           />
         </div>
@@ -104,7 +107,7 @@ const Dashboard = () => {
 
     ): (null)}
 
-    <div className="bg-gradient-to-b from-gray-200 to-white  min-h-screen">
+    <div className="bg-purplebg  min-h-screen">
       <div className="grid grid-cols-11">
         <div className="block msm:hidden col-start-3 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%]">
           <Sidebar />
@@ -114,19 +117,13 @@ const Dashboard = () => {
         </div>
 
           <button className="text-white text-2xl" onClick={()=> showModal(true)}><div className="absolute right-5 top-5 p-2 stroke-5 text-white bg-blue-600 rounded-full flex justify-center items-center  hover:top-4 transition-all"><MdAdd/></div></button>
-        <div className="col-start-3 msm:col-start-1 col-end-12 min-w-full ">
-          <div className="p-10 col-start-3 sm:col-start-3 mt-15 min-w-full   flex flex-row justify-between flex-grow flex-wrap  grid-flow-row gap-10 mx-autobg-gradient-to-b from-gray-200 to-white  min-h-screen">
-            <div className="min-w-[45%] rounded-lg bg-white shadow-xl">
-              <ChartLine />
+        <div className="col-start-3 msm:col-start-1 col-end-12 w-full p-5 ">
+          <div className="mt-14 grid sm:grid-cols-1 md:grid-cols-1 grid-cols-2 gap-5 md:grid-cols-2 ">
+            <div className=" rounded-lg bg-white shadow-lg">
+              <Attentiveness/>
             </div>
-            <div className="min-w-[45%] rounded-lg bg-white shadow-xl">
-              <ChartBar />
-            </div>
-            <div className="min-w-[45%] rounded-lg bg-white shadow-xl">
-              <ChartLine />
-            </div>
-            <div className="min-w-[45%] rounded-lg bg-white shadow-xl">
-              <ChartBar />
+            <div className=" rounded-lg bg-white shadow-lg">
+              <Attendance/>
             </div>
           </div>
         </div>

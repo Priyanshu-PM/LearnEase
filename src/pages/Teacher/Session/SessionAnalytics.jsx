@@ -82,7 +82,7 @@ const SessionAnalytics = () => {
   const images = [lecture1, lecture2, lecture3, lecture4, lecture5, lecture6, lecture7, lecture8, lecture9, lecture10, lecture11, lecture12];
 
   return (
-    <div className="bg-gray-100 min-h-full pb-5">
+    <div className="bg-purplebg min-h-full pb-5">
       <div className="grid grid-cols-11">
         <div className="block msm:hidden col-start-1 col-end-3 bg-white text-[#9696a6] min-h-screen fixed w-[18%] border-r-black">
           <Sidebar />

@@ -525,15 +525,15 @@ overflow-hidden bg-gray-300"
             ) : (
               <div>
                 <br />
-                <div className="  px-10">
+                <div className="  px-5">
                   {closebtn === false && (
                     <div className="">
                       <h1>The session has been created successfully</h1>
                       <br />
                       <h1>Share this link with the students </h1>
                       <br />
-                      <div className=" bg-slate-200 p-3 rounded-lg mb-10 overflow-hidden">
-                        <h1 className=" bg-slate-200 text-black">
+                      <div className=" bg-purplebg  rounded-lg mb-10 overflow-hidden">
+                        <h1 className=" bg-slate-200 text-black p-2">
                         {shareLink?.length > MAX_LINK_LENGTH ?`${shareLink.substring(0, MAX_LINK_LENGTH)}...`: shareLink}
                           <button
                             onClick={() =>
@@ -609,7 +609,7 @@ font-medium">{student.name}</h2>+{" "}
                         <div className="flex items-center justify-between mt-4">
                           <div
                             className="w-32 h-3 rounded-lg
-overflow-hidden bg-gray-300"
+overflow-hidden bg-purplebg"
                           >
                             <div
                               className={`h-full rounded-lg ${
