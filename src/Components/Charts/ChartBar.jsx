@@ -28,8 +28,6 @@ const ChartBar = () => {
 
   const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms`;
 
-  console.log(tdata.tokem);
-
   const [rooms, setRooms] = useState([]);
 
   useEffect(() => {

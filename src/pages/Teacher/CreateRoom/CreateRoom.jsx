@@ -2,15 +2,20 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "../../../Components/Sidebar";
 import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {MdAdd} from "react-icons/md";
 import axios from "axios";
 
 import Select from "react-select";
+import { createRoom, getClasses, useCreateRoom } from "../../../axios/apiCalls";
+import { ToastContainer, toast } from "react-toastify";
+import LoadingModal from "../../../helpers/LoadingModal";
 
 const apiKey = process.env.REACT_APP_STUDYAI_API;
 
 const CreateRoom = () => {
+
+  const queryClient = useQueryClient()
   var teacherData = sessionStorage.getItem("teacher");
   const tdata = JSON.parse(teacherData);
 
@@ -18,7 +23,6 @@ const CreateRoom = () => {
   const [modal, showModal] = useState(false);
   const [className, setClassName] = useState("");
 
-  
   const addClassKey = `${apiKey}/teacher/${tdata.teacher._id}/add-new-classroom`;
 
   const handleAddClass = (event) => {
@@ -30,7 +34,6 @@ const CreateRoom = () => {
       }
     }
     const body = {
-
       clg_id: tdata.teacher.clg,
       classroom: className
     }
@@ -53,7 +56,6 @@ const CreateRoom = () => {
     
   };
 
-  const postKey = `${apiKey}/teacher/room`;
   const getKey = `${apiKey}/common/get-classrooms-clg?clg_id=${tdata.teacher.clg}`;
 
   const navigate = useNavigate();
@@ -61,7 +63,7 @@ const CreateRoom = () => {
   const [sessionName, setSessionName] = useState("");
   const [meetURL, setMeetURL] = useState("");
 
-  const handleSessionNameChange = (e) => {
+  const handleSessionNameChange = (e) => {  
     setSessionName(e.target.value);
   };
 
@@ -73,73 +75,64 @@ const CreateRoom = () => {
   const [classrooms, setClassrooms] = useState([]);
   const [selectedClassroom, setSelectedClassroom] = useState();
 
-  useEffect(()=> {
-
-    fetchClassrooms();
-
-  }, []);
-  
-    const fetchClassrooms = () => {
-  
-      axios
-        .get(
-          getKey, {
-            clg_id: tdata.teacher.clg
-          }
-        )
-        .then((res) => {
-          const data = res.data;
-  
-          let options = [] ;
-  
-          data.data.classrooms.forEach((clg) => {
-            options.push({
-              value: clg,
-              label: clg,
-          });
-          });
-          setClassrooms(options);
-  
-          setSelectedClassroom();
+  //Start of fetching classrooms
+  let options = []
+  const clgid = tdata?.teacher?.clg;
+  const {isLoading:isClassesLoading, error:getClassesError, data} = useQuery({
+    queryKey:["clgs", clgid],
+    queryFn: getClasses(clgid),
+    onSettled: (data, error) => {
+      const {classrooms} = data.data
+      classrooms.forEach((clg)=>{
+        options.push({
+          value: clg,
+          label: clg
         })
-        .catch((err) => {
-          // alert("invalid");
-          console.log(err);
-        });
-    };
-  
-  const handleCreateSession = (event) => {
-    axios
-      .post(
-        postKey,
-        {
-          title: sessionName,
-          clg: tdata.teacher.clg,
-          classroom: selectedClassroom.label,
-          redirect_url:meetURL  
-        },
-        {
-          headers: {
-            Authorization: `${tdata.tokem}`,
-          },
-        }
-      )
-      .then((res) => {
-        const data = res.data;
-        console.log("data from createroom", data);
-        if (data.success) {
-          console.log("Room Created successfully");
-          navigate(`/teacher/current/${data.data._id}?redirect_url=${data.redirect_url}`); 
-        } else {
-          alert("Error in creating room");
-        }
       })
-      .catch((err) => {
-        alert(err);
-        console.log(err);
-      });
-  };
+      setClassrooms(options)
+    },
+    refetchOnMount: "always"
+  })
+  //end of fetching classrooms
 
+    
+    // Start of Creating room api
+    const {mutate:postRoomData, isLoading:roomCreating, error } = useMutation(createRoom, {
+      onSuccess: ({data}) => {
+        queryClient.invalidateQueries('posts');
+        toast.success("Created room.", {
+          description: "We've created a new session room for you.",
+          duration: 5000,
+          closeButton: true,
+        });
+        // console.log("createroomdata" ,data)
+        // console.log("createroomdata.data" ,data.data)
+        // console.log("createroomdata.data.quiz" ,data.quiz)
+
+        // here data.data._id is sessionid
+        navigate(`/teacher/current/${data.data._id}?quizid=${data.data.quiz}&redirect_url=${data.redirect_url}`); 
+      }
+    });
+    const handleCreateSession =(event) => {
+      event.preventDefault();
+      const roomdata =  {
+        title: sessionName,
+        clg: tdata?.teacher?.clg,
+        classroom: selectedClassroom?.value,
+        redirect_url:meetURL  
+      }
+      const {tokem} = JSON.parse(teacherData);
+      postRoomData({ roomdata, tokem });
+    };
+    if (roomCreating) {
+      return <LoadingModal msg={"Sit tight! we are creating session room for you"}/>
+    }
+  
+    if (error) {
+      return <div>Error adding post: {error.message}</div>;
+    }
+    // End of creating room api
+    if(isClassesLoading) return <p>loading...</p>
 
   const steps = [
     "Click the 'Create Session' button and enter the name of the session in the provided field.",
@@ -155,10 +148,10 @@ const CreateRoom = () => {
   ];
 
   const isCreateSessionDisabled = !sessionName || !selectedClassroom || !meetURL;
-
   return (
 
     <div>
+      
     {modal ? (
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
       <form

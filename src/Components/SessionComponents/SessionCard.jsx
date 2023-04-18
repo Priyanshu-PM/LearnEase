@@ -1,14 +1,13 @@
-import { isError, useQuery } from "@tanstack/react-query";
+import {useQuery } from "@tanstack/react-query";
 
-import React, {useCallback, useEffect, useState} from "react";
 import { getSessionById } from "../../axios/apiCalls";
 import { showErrorToast } from "../../helpers/toasters";
 import { ToastContainer } from "react-toastify";
-import axios from "../../axios/axios";
 import Moment from "react-moment";
 import { useNavigate } from "react-router-dom";
 
 import Card from ".";
+import LoadingScreen from "../../helpers/LoadingScreen";
 
 const SessionCard = ({session, tokem,  image, extra }) => {
 
@@ -20,8 +19,8 @@ const SessionCard = ({session, tokem,  image, extra }) => {
 
     const { isLoading, error, data:sessionDetails} = useQuery({
         queryKey: ["room", session._id],
-        queryFn: getSessionById(session._id, tokem)
-
+        queryFn: getSessionById(session._id, tokem),
+        refetchOnMount:true
     })
 
     
@@ -30,14 +29,14 @@ const SessionCard = ({session, tokem,  image, extra }) => {
     // navigate("/test");
   };
 
-    if(isLoading)return <div>Loading...</div>
+    if(isLoading)return <LoadingScreen/>
     if(error) return <div>{showErrorToast(error.message)}<ToastContainer/></div>
 
   return (
+    <>
     <Card
       extra={`flex flex-col w-full h-full !p-4 3xl:p-![18px] bg-white ${extra}`}
-    >{
-        isLoading ? (<div>Loading...</div>): (
+    >
 
             <div className="h-full w-full">
         <div className="relative w-full">
@@ -85,10 +84,9 @@ const SessionCard = ({session, tokem,  image, extra }) => {
           </button>
         </div>
       </div>
-        )
-    }
       
     </Card>
+    </>
   );
 };
 

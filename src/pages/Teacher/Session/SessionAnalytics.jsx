@@ -34,6 +34,7 @@ const SessionAnalytics = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const key = `${apiKey}/teacher/${tdata.teacher._id}/rooms?page=${pageNumber}`;
   const [rooms, setRooms] = useState([]);
+  const [loading, setLoading] = useState(true)
 
   const getAllTeacherSessions = useCallback(async (page) => {
     try {
@@ -41,6 +42,7 @@ const SessionAnalytics = () => {
       const parsedData = JSON.parse(data.data);
       console.log("from sessionanalystics", parsedData);
       setRooms(parsedData);
+      setLoading(false)
     } catch (error) {
       console.log("Error from session analyitcs", error.message);
     }
@@ -68,14 +70,13 @@ const SessionAnalytics = () => {
 
   }
   const goToNextPage=()=>{
-    console.log("next", pageNumber)
     setPageNumber(nxt => nxt+1);
     getAllTeacherSessions()
   }
 
   useEffect(() => {
     getAllTeacherSessions(pageNumber);
-  }, [getAllTeacherSessions,pageNumber]);
+  }, [getAllTeacherSessions, pageNumber, setPageNumber]);
 
 
   const images = [lecture1, lecture2, lecture3, lecture4, lecture5, lecture6, lecture7, lecture8, lecture9, lecture10, lecture11, lecture12];
@@ -95,7 +96,7 @@ const SessionAnalytics = () => {
           </h4>
         </div>
           <div className="">
-            {rooms.length > 0 ? (
+            {(rooms?.length > 0 && !loading) ? (
               <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-2 mxl:grid-cols-3 m2xl:grid-cols-4 gap-6 mt-8 h-full py-5">
                 {rooms.map((session, index) => (
                     <SessionCard session={session} tokem={tokem} image = {images[index % rooms.length]} />

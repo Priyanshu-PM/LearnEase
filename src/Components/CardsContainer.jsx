@@ -27,15 +27,15 @@ const CardsContainer = () => {
 
   return (
     <div>
-      <section class="bg-white py-8">
-        <div class="container mx-auto flex flex-wrap pt-4 pb-12">
-          <h2 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+      <section className="bg-white py-8">
+        <div className="container mx-auto flex flex-wrap pt-4 pb-12">
+          <h2 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
             What we offer
           </h2>
-          <div class="w-full mb-4">
-            <div class="h-1 mx-auto bg-gradient-to-r from-green-400 to-blue-500 w-64 opacity-75 my-0 py-0 rounded-t"></div>
+          <div className="w-full mb-4">
+            <div className="h-1 mx-auto bg-gradient-to-r from-green-400 to-blue-500 w-64 opacity-75 my-0 py-0 rounded-t"></div>
           </div>
-          <div class="w-full md:w-1/3 p-10 flex flex-row flex-grow flex-wrap  grid-flow-row space-y-10 gap-10">
+          <div className="w-full md:w-1/3 p-10 flex flex-row flex-grow flex-wrap  grid-flow-row space-y-10 gap-10">
             {FeaturesList.map((Feature, index) => (
               <Cards
                 title={Feature.title}
