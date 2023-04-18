@@ -136,16 +136,24 @@ const CreateRoom = () => {
     if(isClassesLoading) return <p>loading...</p>
 
   const steps = [
-    "Click the 'Create Session' button and enter the name of the session in the provided field.",
-    "The session ID will be generated automatically, which you should share with students so they can join the session",
-    "To begin recording the lecture, click on the Start Recording button.",
-    "The microphone will be turned on once you click the start recording",
-    "When you are finished with the lecture, click on the End Session button to stop the recording.",
-    "The Generate Quiz button will appear after you click the End Session button.",
-    "Click on the Generate Quiz button to generate an automated quiz.",
-    "You can also add custom questions in the quiz for better performance",
-    "The generated quiz will then be shared with the students.",
-    "The responses of the students will be displayed on the screen as they submit the quiz.",
+    "Enter the session name, select the classroom, and provide the meeting URL for the students.",
+
+"Click the 'Create Session' button to generate the session ID.",
+
+"Share the session ID or the link with students to join the online lecture.",
+
+"Click on the 'Start Recording' button to begin recording the lecture.",
+
+"The microphone will be turned on automatically once recording starts.",
+
+"Click on the 'End Session' button to stop the recording when finished with the lecture.",
+
+"After clicking on the 'End Session' button, the 'Generate Quiz' button will appear.",
+"Click on the 'Generate Quiz' button to automatically generate a quiz.",
+
+"Optionally, you can add custom questions to the quiz for better performance.",
+
+"The generated quiz will be shared with the students, and their responses will be displayed on the screen as they submit the quiz"
   ];
 
   const isCreateSessionDisabled = !sessionName || !selectedClassroom || !meetURL;
@@ -274,7 +282,7 @@ const CreateRoom = () => {
               <div >
                 <ul className="space-y-3">
                   {steps.map((step, index) => ( 
-                    <li key={index} className="text-md text-gray border-b-2 block">{index+1}{")   "}{step}</li>
+                    <li key={index} className="text-md text-gray border-b-2 block">{index+1}{")"}{"  "}{step}</li>
                   ))}
                 </ul>
               </div>
