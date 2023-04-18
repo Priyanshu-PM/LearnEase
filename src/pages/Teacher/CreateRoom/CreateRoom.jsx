@@ -105,7 +105,12 @@ const CreateRoom = () => {
           duration: 5000,
           closeButton: true,
         });
-        navigate(`/teacher/current/${data?.data?._id}?redirect_url=${data?.redirect_url}`); 
+        // console.log("createroomdata" ,data)
+        // console.log("createroomdata.data" ,data.data)
+        // console.log("createroomdata.data.quiz" ,data.quiz)
+
+        // here data.data._id is sessionid
+        navigate(`/teacher/current/${data.data._id}?quizid=${data.data.quiz}&redirect_url=${data.redirect_url}`); 
       }
     });
     const handleCreateSession =(event) => {

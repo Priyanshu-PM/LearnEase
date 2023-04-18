@@ -161,6 +161,7 @@ const students = [
 const InitSession = () => {
   const searchParams = new URLSearchParams(window.location.search);
   const redirect_url = searchParams.get('redirect_url');
+  const quizid = searchParams.get('quizid')
 
   const { transcript, resetTranscript } = useSpeechRecognition();
 
@@ -169,16 +170,17 @@ const InitSession = () => {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-  let Id = useParams();
+  let {id} = useParams();
+  console.log("initsession url", id)
 
   const apiKey = process.env.REACT_APP_STUDYAI_API;
 
   console.log(sessionID);
   console.log("teacher data", tdata);
 
-  const quizkey = `${apiKey}/quiz/${sessionID}`;
+  const quizkey = `${apiKey}/quiz/${id}`;
   const quizDemo = `${apiKey}/quiz/63fa00bff48312e9af983087`;
-  const getresKey = `${apiKey}/quiz/${sessionID}/response`;
+  const getresKey = `${apiKey}/quiz/${id}/response`;
 
   // const [transcript, setTranscript] = useState("");
 
@@ -189,7 +191,7 @@ const InitSession = () => {
   useEffect(() => {
     var teacherData = sessionStorage.getItem("teacher");
     setTdata(JSON.parse(teacherData));
-    setSessionID(Id.id);
+    setSessionID(id);
     setLoading(false);
   }, []);
 
@@ -229,7 +231,7 @@ const InitSession = () => {
 
         axios
           .patch(
-            `${apiKey}/room/${Id.id}/topics`,
+            `${apiKey}/room/${id}/topics`,
             {
               summary: response.data.summary,
               quiz: response.data.quiz,
@@ -288,8 +290,9 @@ const InitSession = () => {
   const [showModal, setShowModal] = useState(false);
 
   const handleGenerateQuiz = () => {
-    console.log(`/teacher/quiz/${sessionID}`);
-    navigate(`/teacher/quiz/${sessionID}?addquestion=true`);
+    console.log(`/teacher/quiz/${quizid}?addquestion=true`);
+    
+    navigate(`/teacher/quiz/${quizid}?addquestion=true`);
   };
 
   const [question, setQuestion] = useState("");
@@ -346,7 +349,7 @@ const InitSession = () => {
   if (loading) {
     return <h1>loading</h1>;
   }
-  const shareLink =`${apiKey}/room_id=${sessionID}&redirect_url=${redirect_url}`
+  const shareLink =`${apiKey}/room_id=${id}&redirect_url=${redirect_url}`
   const MAX_LINK_LENGTH = 56
   return (
     <div className="">
@@ -535,7 +538,7 @@ overflow-hidden bg-gray-300"
                           <button
                             onClick={() =>
                               copyToClipboard(
-                                `${apiKey}/room_id=${sessionID}&redirect_url=${redirect_url}`
+                                `${apiKey}/room_id=${id}&redirect_url=${redirect_url}`
                               )
                             }
                           >

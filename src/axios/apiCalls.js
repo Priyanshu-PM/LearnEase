@@ -10,16 +10,6 @@ export const getAllQuizById=(quizid)=>async () => {
     return formatResponse(data.data);
 };
 
-export const addQuestionToQuiz=(token, newQuiz)=>async()=>{
-  const config = {
-    headers: {
-      'Authorization': `${token}`
-    }
-  }
-  const {data} = apiClient.patch(getAllQuizById, newQuiz, config)
-  return formatResponse(data)
-}
-
 
 export const getSessionById=(sessionid, token)=> async()=>{
   const config = {
@@ -62,6 +52,17 @@ export const createRoom = async ({ roomdata, tokem }) => {
   // const newData2 = newdata.data
   // return newData2;
 };
+
+export const addQuestionToQuiz=async ({quizid, token, newQuizData})=>{
+  const config = {
+    headers: {
+      'Authorization': `${token}`
+    }
+  }
+  const res = await apiClient.patch(`/quiz/${quizid}`, newQuizData, config)
+  return res;   
+}
+
 
 // get classroom of each college for teacher at the room creation time
 export const getClasses=(clgid)=>async() => {

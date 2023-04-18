@@ -4,19 +4,22 @@ import Sidebar from "../../../Components/Sidebar";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import MultipleChoiceQuestion from "./MultipleChoiceQuestions";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {  getAllQuizById, addQuestionToQuiz } from "../../../axios/apiCalls";
+
 
 const Quiz = () => {
 
   // conditional rendering of add question 
   const searchParams = new URLSearchParams(window.location.search);
   const showAddQBtn = searchParams.get('addquestion');
-
-  let Id = useParams();
+  let {quizid} = useParams();
+  // console.log("from parameters quiz", quizid)
+  // console.log("from parameters showbtn", showAddQBtn)
   const navigate = useNavigate();
-  console.log(Id)
-
   let teacherData = sessionStorage.getItem("teacher");
-  const tdata = JSON.parse(teacherData);
+  const {tokem} = JSON.parse(teacherData);
+  // console.log("teacher token from quiz", tokem);
   
   const [modal, setShowModal] = useState(false);
   const [allQuestions, setAllQuestions] = useState([]);
@@ -24,33 +27,41 @@ const Quiz = () => {
   const [quizData, setQuizData] = useState([]);
 
   const apiKey = process.env.REACT_APP_STUDYAI_API;
-  const getAllQuizById = `${apiKey}/quiz/${Id.quizid}`;
+  // const getAllQuizById = `${apiKey}/quiz/${quizid}`;
 
-  const fetchQuizData = useCallback(async () => {
-    try {
-      const response = await axios.get(getAllQuizById);
-      if (!response) {
-        console.log("empty");
-        return;
-      }
-      const { data } = response.data;
-      const parsedData = JSON.parse(data);
-      setQuizData(parsedData);
-      setAllQuestions(parsedData.questions);
-    } catch (error) {
-      console.log("Error while fetching quiz data", error);
-    }
-  }, []);
+  const queryClient = useQueryClient();
+  // Fetching data from api
+  const { isLoading, error, data:allQuizes } = useQuery({
+    queryKey: ["quiz", quizid],
+    queryFn: getAllQuizById(quizid),
+  });
+  console.table("All quizies", allQuizes)
+  // End of data fetching from api
+  // const fetchQuizData = useCallback(async () => {
+  //   try {
+  //     const response = await axios.get(getAllQuizById);
+  //     if (!response) {
+  //       console.log("empty");
+  //       return;
+  //     }
+  //     const { data } = response.data;
+  //     const parsedData = JSON.parse(data);
+  //     setQuizData(parsedData);
+  //     setAllQuestions(parsedData.questions);
+  //   } catch (error) {
+  //     console.log("Error while fetching quiz data", error);
+  //   }
+  // }, []);
 
-  console.log("teacher id : ", tdata.teacher._id);
+  // console.log("teacher id : ", tdata.teacher._id);
 
   const GetQuizResponses = () => {
-    navigate(`/teacher/quiz/responses/${Id.quizid}?addquestion=false`);
+    navigate(`/teacher/quiz/responses/${quizid}?addquestion=false`);
   };
 
-  const [questext, setQuestion] = useState("");
-  const [options, setOptions] = useState(["", "", "", ""]);
-  const [correctAnswer, setCorrectAnswer] = useState("");
+  const [questext, setQuestion] = useState("question");
+  const [options, setOptions] = useState(["op1", "op2", "op3", "op4"]);
+  const [correctAnswer, setCorrectAnswer] = useState("op2");
   const [alert, setAlert] = useState("");
 
   const handleOptionChange = (index, event) => {
@@ -59,64 +70,37 @@ const Quiz = () => {
     setOptions(newOptions);
   };
 
-  const handleaddQuestion = (event) => {
-    event.preventDefault();
-
-    const config = {
-      headers: {
-        Authorization: `${tdata.tokem}`,
-        "Content-Type": "application/json",
-      },
-    };
-    const newQuiz = {
+  // start of adding question to quiz api
+  const {mutate:addQuestionMutation, isLoading:addingQuestionToDB, error:errorWhilePatchingQuestion} = useMutation(addQuestionToQuiz, {
+    onSuccess:(data)=>{
+      queryClient.invalidateQueries(["quiz"])
+      setQuestion("");
+      setOptions(["", "", "", ""]);
+      setCorrectAnswer("");
+      setAlert("");
+      setShowModal(false);
+      console.log("successfully created question", data)
+    }
+  })
+  const handleAddquestion = (e)=>{
+    e.preventDefault()
+    const newQuizData = {
       text: questext,
       options: options,
       correctAnswer: correctAnswer,
     };
-
-    if (options.includes(correctAnswer)) {
-      // const response = axios.patch(getAllQuizById, newQuiz)
-
-      // idhar bhi correct quizKey dalni hai
-      axios
-        .patch(getAllQuizById, newQuiz, config)
-        .then((res) => {
-          const data = res.data;
-          console.log(data);
-
-          if (data.success) {
-            console.log("Question added successfully");
-
-            setQuestion("");
-            setOptions(["", "", "", ""]);
-            setCorrectAnswer("");
-            setAlert("");
-            setShowModal(false);
-
-            fetchQuizData();
-          } else {
-            alert("Failed to add question");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      setAlert("Correct Answer should match any one of the options");
-    }
-  };
-
-  useEffect(() => {
-    fetchQuizData();
-  }, [fetchQuizData]);
-
+    console.log("newQuiz",newQuizData) 
+    addQuestionMutation({quizid, tokem, newQuizData})
+    
+  }
+  // end of adding question to quiz api
 
   return (
     <>
       {modal ? (
         <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
           <form
-            onSubmit={handleaddQuestion}
+            onSubmit={handleAddquestion}
             className="max-w-md mx-auto bg-white shadow-2xl p-10 rounded-md"
           >
             <div className="p-0 flex justify-end items-end">
@@ -172,7 +156,7 @@ const Quiz = () => {
                 type="submit"
                 className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg transition-colors duration-300"
               >
-                Submit
+                {addingQuestionToDB ? "submitting...":"submit"}
               </button>
             </div>
           </form>
@@ -218,7 +202,7 @@ text-[#9696a6] min-h-screen fixed w-[18%]"
                 <div className="">
                   <div className="gap-5 space-y-3">
                     <div className="space-y-5">
-                      {allQuestions.map((question, index) => (
+                      {allQuizes?.questions.map((question, index) => (
                         <MultipleChoiceQuestion
                           key={index}
                           questionData={question}
