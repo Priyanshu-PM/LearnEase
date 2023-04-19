@@ -114,6 +114,7 @@ export const lineChartDataTotalSpent = [
       name: "Attentiveness",
       data: [50, 64, 48, 30, 49, 30, 78],
       color: "#4318FF",
+      
     },
     // {
     //   name: "Profit",

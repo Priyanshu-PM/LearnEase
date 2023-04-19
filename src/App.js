@@ -31,6 +31,7 @@ import Summary from './pages/Student/pages/Summary';
 import LoadingModal from './helpers/LoadingModal';
 import LoadingScreen from './helpers/LoadingScreen';
 import TWElement from './pages/TWElement';
+import Quizui from './pages/Student/Quizui';
 
 function App() {
   
@@ -66,6 +67,7 @@ function App() {
             <Route path='room/:roomId' element={<Room/>} />
             <Route path='summary/:roomId' element={<Summary/>}/>
             <Route path='quiz/:quizId' element={<StdQuiz/>} />
+            <Route path='quiz/ui' element={<Quizui/>}/>
           </Route>
       </Routes>
   );

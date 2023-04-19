@@ -15,7 +15,7 @@ module.exports = {
       fontFamily:{
         lily: "'Lily Script One', cursive",
         poppins:['Poppins'],
-        rubik:"'Rubik', sans-serif",
+        rubik:"Rubik",
         righteous:"'Righteous', cursive;"
       },
       screens: {
@@ -48,7 +48,6 @@ module.exports = {
 
       'm2xl': {'min': '1536px'},
       // => @media (min-width: 1536px) { ... }
-
       },
       colors: {
         fontColor:'#142D65',
