@@ -101,11 +101,7 @@ const CreateRoom = () => {
     const {mutate:postRoomData, isLoading:roomCreating, error } = useMutation(createRoom, {
       onSuccess: ({data}) => {
         queryClient.invalidateQueries('posts');
-        toast.success("Created room.", {
-          description: "We've created a new session room for you.",
-          duration: 5000,
-          closeButton: true,
-        });
+        
         // console.log("createroomdata" ,data)
         // console.log("createroomdata.data" ,data.data)
         // console.log("createroomdata.data.quiz" ,data.quiz)
