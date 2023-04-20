@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import {
-  getAllRoomsForStudent,
-  getRoomsForStud,
-} from "../../../axios/studentApiCalls";
+import { getAllRoomsForStudent } from "../../../axios/apiCalls";
 
 import lecture1 from "../../../assets/classImages/lecture1.jpg";
 import lecture2 from "../../../assets/classImages/lecture2.jpg";
@@ -21,7 +19,6 @@ import lecture11 from "../../../assets/classImages/lecture11.jpg";
 import lecture12 from "../../../assets/classImages/lecture12.jpg";
 import LectureCard from "../components/LectureCard";
 import Banner1 from "../../../Components/SessionComponents/Banner";
-import axios from "../../../axios/axios";
 
 const Home = () => {
   var studentData = sessionStorage.getItem("student");
@@ -34,6 +31,7 @@ const Home = () => {
   // console.log(student.clg);
   // console.log(student.classroom);
   // console.log(tokem);
+  // console.log("home");
 
   const lectures = [
     {
@@ -148,52 +146,57 @@ const Home = () => {
   // console.log("allrooms", allRooms);
 =======
 
-  // const baseURL = process.env.REACT_APP_STUDYAI_API;
-  // const getAllSession = `${baseURL}/student/rooms`;
+  const baseURL = process.env.REACT_APP_STUDYAI_API;
+  const getAllSession = `${baseURL}/student/rooms`;
+  // const getAllSession = `http://localhost:5000/api/v1/student/rooms`;
 
   console.log("student token", tokem);
 
   const [rooms, setRooms] = useState([]);
-  // console.log(rooms);
 
-  const newData = {
-    classroom: `${student.classroom}`
-    // clg: `${student.clg}`,
-  };
+  const getStudentSessions = useCallback(async () => {
 
-  // const getStudentSessions = useCallback(async () => {
+    const newData = {
+      classroom: `${student.classroom}`,
+      clg: `${student.clg}`,
+    };
 
-  //   const config = {
-  //     headers: {
-  //       Authorization: `${student.tokem}`,
-  //     }
-  //   };
-  //   const newData ={
-  //     classroom: `${student.classroom}`,
-  //     clg:`${student.clg}`
-  //   }
+    try {
+      console.log("inside trycatch student classroom", student.classroom);
+      const response = await axios.post(getAllSession, newData, {
+        headers: {
+          Authorization: `${tokem}`,
+        },
+      });
+      if (!response) {
+        console.log("empty");
+        return;
+      }
+      console.log("after sending axios", response);
+      const { data } = response.data;
+      const parsedData = JSON.parse(data);
+      console.log("data of session", parsedData)
+      setRooms(parsedData)
 
-  //   try {
-  //     console.log("inside trycatch student classroom",student.classroom)
-  //     const response = await axios.get("/student/rooms", newData , config);
-  //     if(!response){
-  //       console.log("empty")
-  //       return
-  //     }
-  //     console.log("after sending axios", response)
-  //     // const { data } = response.data;
-  //     // const parsedData = JSON.parse(data);
-  //     // console.log("data of session", parsedData)
+    } catch (error) {
+      console.log("Error while fetching classrooms", error);
+    }
+  }, []);
 
-  //   } catch (error) {
-  //     console.log("Error while fetching classrooms", error);
-  //   }
-  // }, []);
+  useEffect(() => {
+    getStudentSessions();
+  }, [getStudentSessions]);
 
-  // useEffect(() => {
-  //   getStudentSessions()
-  // }, [getStudentSessions]);
+  // const {
+  //   isLoading,
+  //   error,
+  //   data: allRooms,
+  // } = useQuery({
+  //   queryKey: ["student-rooms"],
+  //   queryFn: getAllRoomsForStudent(tokem, newData),
+  // });
 
+<<<<<<< HEAD
   const {
     isLoading,
     error,
@@ -207,6 +210,9 @@ const Home = () => {
 
   console.log("allrooms", data);
 >>>>>>> fbd6ec98c56c7e9c189c4469f5b5ab918048ff72
+=======
+  // console.log("allrooms", allRooms);
+>>>>>>> 089b35503c1b0dc66c669c8b724a6dd202f9fe83
 
   const navigate = useNavigate();
 
@@ -218,9 +224,10 @@ const Home = () => {
     <div className="bg-gradient-to-b from-gray-200 to-white min-h-screen">
       <Navbar />
       <div className="w-full px-[3rem] pt-[3rem]">
-        <Banner1 bannerName={"Lectures taken throughout the classroom"} />
+        <Banner1 bannerName={"Lectures"} />
       </div>
       <div className="px-[3rem]">
+<<<<<<< HEAD
 <<<<<<< HEAD
         {responses.length > 0 ? (
           <div className="grid grid-cols-1 msm:grid-cols-2
@@ -237,12 +244,29 @@ mt-8 h-full py-5">
           <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-3 mxl:grid-cols-4 m2xl:grid-cols-4 gap-6 mt-8 h-full py-5">
             {lectures.map((lecture, index) => (
               <LectureCard
+=======
+        {rooms.length > 0 ? (
+          <div className="grid grid-cols-1 msm:grid-cols-2
+mmd:grid-cols-2 mlg:grid-cols-3 mxl:grid-cols-4 m2xl:grid-cols-4 gap-6
+mt-8 h-full py-5">
+            {rooms.map((lecture, index) => 
+              {
+                  console.log(lecture)
+              
+              return(<LectureCard
+>>>>>>> 089b35503c1b0dc66c669c8b724a6dd202f9fe83
                 lecture={lecture}
-                tokem={tokem}
+                key={index}
                 image={classImages[index % lectures.length]}
+<<<<<<< HEAD
 >>>>>>> fbd6ec98c56c7e9c189c4469f5b5ab918048ff72
               />
             ))}
+=======
+                />)
+            }
+            )}
+>>>>>>> 089b35503c1b0dc66c669c8b724a6dd202f9fe83
           </div>
         ) : (
           <div className="bg-gray-200 rounded-md p-4 mt-8">

@@ -5,7 +5,10 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { BiTime } from "react-icons/bi";
 import { BsCalendar2Date } from "react-icons/bs";
-import Questions from "./QuizComponents/Questions";
+import ShowScore from "./QuizComponents/ShowScore";
+import { ToastContainer, toast } from "react-toastify";
+import { showErrorToast } from "../../../helpers/toasters";
+import LoadingModal from "../../../helpers/LoadingModal";
 
 
 const StdQuiz = () => {
@@ -19,6 +22,8 @@ const StdQuiz = () => {
   const [selectedAnswers, setSelectedAnswers] = useState({});
   const [score, setScore] = useState(null);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
+  const [isQuizSubmitted, setIsQuizSubmitted] = useState(false)
+  const [isQuizSubmitting, setIsQuizSubmitting] = useState(false)
 
   const apiKey = process.env.REACT_APP_STUDYAI_API;
   const getAllQuizById = `${apiKey}/quiz/${quizid.quizId}`;
@@ -63,7 +68,6 @@ const StdQuiz = () => {
     const selectedAns = Object.values(selectedAnswers)
 
     if (selectedQuestions.length !== allQuestions.length || selectedAns.includes(null)) {
-      alert("Please attempt all questions before submitting.");
       return false;
     }
     return true;
@@ -83,6 +87,7 @@ const StdQuiz = () => {
         }
       });
       setScore(totalScore);
+      setIsQuizSubmitting(true)
 
       // formatting selectedAnswers to make it match backend api
       const formattedAnswers = Object.keys(selectedAnswers).map((questionId) => ({
@@ -100,8 +105,10 @@ const StdQuiz = () => {
             score,
             total: allQuestions.length
         } )
-        if(data.success === true){
-          alert("quiz response sent to backend")
+        if(data.success){
+          console.log("quiz response sent to backend")
+          setIsQuizSubmitted(true)
+          setIsQuizSubmitting(false)
         }
         // now show the score to user
       } catch (error) {
@@ -109,8 +116,8 @@ const StdQuiz = () => {
       }
     
     } else {
-      alert("Please answer all questions before submitting.");
-      return
+      alert("select all")
+      return 
     }
   };
   const handleBeforeUnload = (event) => {
@@ -128,6 +135,8 @@ const StdQuiz = () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
+  if(isQuizSubmitting)return <LoadingModal msg="Submitting quiz..." />
+  if(isQuizSubmitted) return <ShowScore score={score} />
 
   // return (
   //   <div className="bg-gray-100 min-h-screen py-8">
@@ -171,7 +180,7 @@ const StdQuiz = () => {
 
   return (
     <>
-      <div className="w-4/6 flex flex-col mx-auto">
+      <div className="w-4/6 flex flex-col mx-auto mb-8">
         {/* info card for quiz */}
         <div className="p-4">
           <div className="flex items-center font-rubik font-normal">
@@ -217,12 +226,42 @@ const StdQuiz = () => {
         <div className="px-6">
           {
             allQuestions.map((question, index)=>{
-              return <Questions key={index} question={question}/>
+              return <div key={index} className="pb-8">
+              <h3 className="text-xl font-poppins tracking-wide mb-4 font-medium text-gray-900 dark:text-white">
+              {question.text}
+              </h3>
+              <ul className=" items-center flex-col w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+              {question.options.map((option, index) => (
+                <li key={index} className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
+                  <div className="flex items-center pl-3">
+                  <input
+                      type="radio"
+                      name={`question-${question._id}`}
+                      value={option}
+                      checked={selectedAnswers[question._id] === option}
+                      onChange={(event) =>
+                        handleAnswerSelect(event, question._id)
+                      }
+                  />
+                    <label id={`question-${question._id}`}
+                      htmlFor="horizontal-list-radio-license"
+                      className="w-full py-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300 hover:cursor-pointer"
+                    >
+                      {option}
+                    </label>
+                  </div>
+                </li>
+              ))}
+                
+              </ul>
+              {isOptionSelected && <button className="px-2 py-1 rounded-md bg-red-50 text-red-500 mt-4"onClick={() => handleClearResponse(question._id)}>Clear Response</button>}
+            </div>
             })
           }
+        <button className="w-full px-2 py-1 rounded-md bg-green-100 text-green-500 mt-4 hover:text-white hover:bg-green-500 transition-all" onClick={handleSubmit}>Submit</button>
         </div>
         {/* end of parent div for all questions */}
-        
+        {isQuizSubmitted && <ShowScore score={score}/>}
       </div>
     </>
   );

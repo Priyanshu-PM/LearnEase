@@ -10,7 +10,12 @@ import { useNavigate } from "react-router-dom";
 
 import Card from "."; 
 
+<<<<<<< HEAD
 const LectureCard = ({lecture, tokem ,image, extra}) => {
+=======
+const LectureCard = ({lecture,image}) => {
+
+>>>>>>> 089b35503c1b0dc66c669c8b724a6dd202f9fe83
   
   const handleSessionClick = (sessionId) => {
     navigate(`/student/room/${sessionId}`);
@@ -31,7 +36,7 @@ const LectureCard = ({lecture, tokem ,image, extra}) => {
 
   return (
     <Card
-      extra={`flex flex-col w-full h-full !p-4 3xl:p-![18px] bg-white ${extra}`}
+      extra={`flex flex-col w-full h-full !p-4 3xl:p-![18px] bg-white `}
     >{
         isLoading ? (<div>Loading...</div>): (
 
