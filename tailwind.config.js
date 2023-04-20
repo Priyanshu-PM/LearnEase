@@ -8,13 +8,14 @@ module.exports = {
   theme: {
     content: [
       // ...
-      'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
+      'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
+      "node_modules/tw-elements/dist/js/**/*.js"
   ],
     extend: {
       fontFamily:{
         lily: "'Lily Script One', cursive",
         poppins:['Poppins'],
-        rubik:"'Rubik', sans-serif",
+        rubik:"Rubik",
         righteous:"'Righteous', cursive;"
       },
       screens: {
@@ -47,7 +48,6 @@ module.exports = {
 
       'm2xl': {'min': '1536px'},
       // => @media (min-width: 1536px) { ... }
-
       },
       colors: {
         fontColor:'#142D65',
@@ -66,5 +66,5 @@ module.exports = {
       }
     },
   },
-  plugins: [require('flowbite/plugin')],
+  plugins: [require('flowbite/plugin'), require("tw-elements/dist/plugin.cjs")],
 }

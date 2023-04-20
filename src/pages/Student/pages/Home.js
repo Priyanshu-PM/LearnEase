@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { getAllRoomsForStudent } from "../../../axios/apiCalls";
+import {
+  getAllRoomsForStudent,
+  getRoomsForStud,
+} from "../../../axios/studentApiCalls";
 
 import lecture1 from "../../../assets/classImages/lecture1.jpg";
 import lecture2 from "../../../assets/classImages/lecture2.jpg";
@@ -19,13 +21,60 @@ import lecture11 from "../../../assets/classImages/lecture11.jpg";
 import lecture12 from "../../../assets/classImages/lecture12.jpg";
 import LectureCard from "../components/LectureCard";
 import Banner1 from "../../../Components/SessionComponents/Banner";
+import axios from "../../../axios/axios";
 
 const Home = () => {
   var studentData = sessionStorage.getItem("student");
   const { student, tokem } = JSON.parse(studentData);
 
+<<<<<<< HEAD
   const [responses, setResponses] = useState([]);
 
+=======
+  // console.log(student.clg);
+  // console.log(student.classroom);
+  // console.log(tokem);
+
+  const lectures = [
+    {
+      creator: "sdgdsg",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+    {
+      creator: "sdsdgds",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+    {
+      creator: "sdgsdg",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+    {
+      creator: "sdgsdg",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+    {
+      creator: "sdgsdg",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+    {
+      creator: "sdgsdg",
+      title: "Session 1",
+      _id: "65846",
+      createdAt: "20/11/2023",
+    },
+  ];
+
+>>>>>>> fbd6ec98c56c7e9c189c4469f5b5ab918048ff72
   const classImages = [
     lecture1,
     lecture2,
@@ -40,6 +89,7 @@ const Home = () => {
     lecture11,
     lecture12,
   ];
+<<<<<<< HEAD
 
   const baseURL = process.env.REACT_APP_STUDYAI_API;
   // const getAllSession = `${baseURL}/student/rooms`;
@@ -96,6 +146,67 @@ const Home = () => {
   // console.log("responses are : ", responses);
 
   // console.log("allrooms", allRooms);
+=======
+
+  // const baseURL = process.env.REACT_APP_STUDYAI_API;
+  // const getAllSession = `${baseURL}/student/rooms`;
+
+  console.log("student token", tokem);
+
+  const [rooms, setRooms] = useState([]);
+  // console.log(rooms);
+
+  const newData = {
+    classroom: `${student.classroom}`
+    // clg: `${student.clg}`,
+  };
+
+  // const getStudentSessions = useCallback(async () => {
+
+  //   const config = {
+  //     headers: {
+  //       Authorization: `${student.tokem}`,
+  //     }
+  //   };
+  //   const newData ={
+  //     classroom: `${student.classroom}`,
+  //     clg:`${student.clg}`
+  //   }
+
+  //   try {
+  //     console.log("inside trycatch student classroom",student.classroom)
+  //     const response = await axios.get("/student/rooms", newData , config);
+  //     if(!response){
+  //       console.log("empty")
+  //       return
+  //     }
+  //     console.log("after sending axios", response)
+  //     // const { data } = response.data;
+  //     // const parsedData = JSON.parse(data);
+  //     // console.log("data of session", parsedData)
+
+  //   } catch (error) {
+  //     console.log("Error while fetching classrooms", error);
+  //   }
+  // }, []);
+
+  // useEffect(() => {
+  //   getStudentSessions()
+  // }, [getStudentSessions]);
+
+  const {
+    isLoading,
+    error,
+    data,
+  } = useQuery({
+    queryKey: ["studentrooms"],
+    queryFn: getAllRoomsForStudent({
+      classroom: `${student.classroom}`
+    }, "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Mzk2MGZkYzY2NmJkMjE4YTg4MmYyNiIsImlhdCI6MTY4MTgyMDczOX0.JWv_qOUQjq0U6gcrnVEHz0bFbtCwr0SojiierKAtN6c"),
+  });
+
+  console.log("allrooms", data);
+>>>>>>> fbd6ec98c56c7e9c189c4469f5b5ab918048ff72
 
   const navigate = useNavigate();
 
@@ -110,6 +221,7 @@ const Home = () => {
         <Banner1 bannerName={"Lectures taken throughout the classroom"} />
       </div>
       <div className="px-[3rem]">
+<<<<<<< HEAD
         {responses.length > 0 ? (
           <div className="grid grid-cols-1 msm:grid-cols-2
 mmd:grid-cols-2 mlg:grid-cols-3 mxl:grid-cols-4 m2xl:grid-cols-4 gap-6
@@ -120,6 +232,15 @@ mt-8 h-full py-5">
                 lecture={lecture}
                 tokem={tokem}
                 image={classImages[index % responses.length]}
+=======
+        {lectures.length > 0 ? (
+          <div className="grid grid-cols-1 msm:grid-cols-2 mmd:grid-cols-2 mlg:grid-cols-3 mxl:grid-cols-4 m2xl:grid-cols-4 gap-6 mt-8 h-full py-5">
+            {lectures.map((lecture, index) => (
+              <LectureCard
+                lecture={lecture}
+                tokem={tokem}
+                image={classImages[index % lectures.length]}
+>>>>>>> fbd6ec98c56c7e9c189c4469f5b5ab918048ff72
               />
             ))}
           </div>
