@@ -20,13 +20,9 @@ const Dashboard = () => {
   
   var teacherData = sessionStorage.getItem("teacher");
   const tdata = JSON.parse(teacherData);
-  console.log("teacher toekm" , tdata.tokem);
+  console.log("teacher tokem" , tdata.tokem);
   
   const addClassKey = `${apiKey}/teacher/${tdata.teacher._id}/add-new-classroom`;
-
-
-
-
 
   const handleAddClass = (event) => {
     event.preventDefault();
@@ -118,7 +114,7 @@ const Dashboard = () => {
 
           <button className="text-white text-2xl" onClick={()=> showModal(true)}><div className="absolute right-5 top-5 p-2 stroke-5 text-white bg-blue-600 rounded-full flex justify-center items-center  hover:top-4 transition-all"><MdAdd/></div></button>
         <div className="col-start-3 msm:col-start-1 col-end-12 w-full p-5 ">
-          <div className="mt-14 grid sm:grid-cols-1 md:grid-cols-1 grid-cols-2 gap-5 md:grid-cols-2 ">
+          <div className="mt-14 grid sm:grid-cols-1  grid-cols-2 gap-5 md:grid-cols-1 ">
             <div className=" rounded-lg bg-white shadow-lg">
               <Attentiveness/>
             </div>

@@ -10,7 +10,9 @@ import Spinner from "react-spinkit";
 import { useLocation } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 
-const Sidebar = () => {
+
+const Sidebar = ({name}) => {
+
   let params = useLocation();
   const path = params.pathname;
 
@@ -19,13 +21,17 @@ const Sidebar = () => {
 
 
   useEffect(() => {
+
     // const teacherData = ReactSession.get("teacher");
+
     var teacherData = sessionStorage.getItem("teacher");
     setTeacher(JSON.parse(teacherData));
+    console.log(teacher);
     setLoading(false);
-    // console.log(JSON.parse(teacherData).teacher.emailID)
-  }, []);
 
+    // console.log(JSON.parse(teacherData).teacher.emailID)
+
+  }, []);
 
 
   const navigate = useNavigate();
@@ -45,9 +51,9 @@ const Sidebar = () => {
           to="/teacher/home"
         >
 
-          <div className="flex gap-4 justify-center items-center w-full h-[7rem]">
+          <div className="flex flex-col gap-4 justify-center items-center w-full h-[7rem]">
             <FaUserCircle className="text-gray-400 h-10 w-10"/>
-            <h1 className="font-serif text-xl font-bold">{ teacher.teacher.emailID.length < 15 ? teacher.teacher.emailID: `${teacher.teacher.emailID.substring(0, 10)}...`}</h1>
+            <h1 className="font-serif text-xl font-bold">{ teacher.teacher.emailID.length < 15 ? teacher.teacher.emailID: `${teacher.teacher.firstName.substring(0, 10)}`}</h1>
           </div>
         </Link>
       </div>

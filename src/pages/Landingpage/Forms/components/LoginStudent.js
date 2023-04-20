@@ -78,7 +78,7 @@ export default function LoginStudent() {
           <h5 className="text-center">{error}</h5>
         </div>
       )}
-      <div className="-space-y-px">
+      <div className="space-y-6">
         {fields.map((field) => (
           <Input
             key={field.id}

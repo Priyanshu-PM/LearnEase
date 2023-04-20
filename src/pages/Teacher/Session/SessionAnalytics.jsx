@@ -69,6 +69,7 @@ const SessionAnalytics = () => {
     getAllTeacherSessions()
 
   }
+  
   const goToNextPage=()=>{
     setPageNumber(nxt => nxt+1);
     getAllTeacherSessions()

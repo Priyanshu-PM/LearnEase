@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import Signup from "../components/Signup";
+import signup from "../../../../assets/signup.jpg";
 
 export default function SignupPage() {
   return (
@@ -9,7 +10,7 @@ export default function SignupPage() {
         </p>
       
       <div className="grow h-screen w-1/2 flex justify-center items-center bg-gray-200 sm:hidden">
-        Signup Image
+      <img src={signup} alt="login" className="h-full w-full"/>
       </div>
       <div className="grow h-screen items-center p-10 sm:mt-5">
         <Header

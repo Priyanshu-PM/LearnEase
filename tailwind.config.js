@@ -53,7 +53,8 @@ module.exports = {
         fontColor:'#142D65',
         orngColor:'#F98A1E',
         babyPink:'#F02769',
-        purplebg: "#f9f7ff"
+        purplebg: "#f9f7ff",
+        backgroundColor: "#5E17EC"
       },
       dropShadow: {
         '3xl': '0 0 8px rgb(249, 138, 30)',

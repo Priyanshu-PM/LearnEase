@@ -20,12 +20,12 @@ const SelectProfile = () => {
 
   return (
     <div className=" p-10 mb-5 justify-center  h-screen items-center align-center flex flex-row flex-grow flex-wrap  grid-flow-row  gap-6 font-poppins">
-      <Link to={'/'} className="absolute left-2 top-2 text-2xl font-righteous font-bold">
+      <Link to={'/'} className="absolute left-2 top-2 text-3xl font-righteous font-bold">
           Learn<span className="text-babyPink">Ease</span>
         </Link>
       <div className="w-full max-w-md bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-50">
-        <h5 className="pt-5 text-xl text-center font-serif tracking-tight text-gray-900">
-          Continue as a Teacher or Student
+        <h5 className="pt-5 text-2xl font-poppins text-center tracking-tight text-gray-900">
+          Continue as
         </h5>
 
         <div className="my-5 flex flex-row flex-grow flex-wrap  grid-flow-row  gap-6 justify-around align-center p-5">

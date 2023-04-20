@@ -2,7 +2,6 @@
 export const barChartDataDailyTraffic = [
     {
   
-      
       name: "Attendance",
       // yaha par total-attendance dalna hai
       data: [20, 30, 40, 20, 45, 50, 30],

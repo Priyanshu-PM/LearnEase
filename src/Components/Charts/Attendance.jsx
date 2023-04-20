@@ -2,7 +2,20 @@ import BarChart from "./BarChart";
 import { barChartDataDailyTraffic, barChartOptionsDailyTraffic } from "../../pages/Teacher/Dashboard/ChartsData";
 import { MdArrowDropUp } from "react-icons/md";
 import Card from "../SessionComponents";
+import { useEffect, useState } from "react";
+
 const Attendance = () => {
+
+  const [teacher, setTeacher] = useState();
+
+  useEffect(()=> {
+
+    var teacherData = sessionStorage.getItem("teacher");
+    const tdata = JSON.parse(teacherData);
+    // console.log(tdata);
+    setTeacher(tdata);
+    console.log(teacher);
+  }, [])
   
   return (
     <Card extra="pb-7 p-[20px]">

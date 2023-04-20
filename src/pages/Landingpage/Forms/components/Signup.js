@@ -102,7 +102,7 @@ useEffect(()=> {
   };
 
   return (
-    <form className="space-y-3" onSubmit={handleSubmit}>
+    <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="">
         {fields.map((field) => (
           <Input

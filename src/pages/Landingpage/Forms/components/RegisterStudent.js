@@ -7,6 +7,7 @@ import axios from "../../../../axios/axios";
 import { useNavigate } from "react-router-dom";
 
 import Select from "react-select";
+import signup from "../../../../assets/signup.jpg"
 
 const fields = signupFields;
 let fieldsState = {};
@@ -111,7 +112,7 @@ export default function RegisterStudent() {
 
   return (
 
-        <form className="space-y-3" onSubmit={handleSubmit}>
+        <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="">
         {fields.map((field) => (
           <Input

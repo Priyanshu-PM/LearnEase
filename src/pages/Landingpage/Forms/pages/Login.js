@@ -1,5 +1,6 @@
 import Header from "../components/Header";
 import Login from "../components/Login";
+import login from "../../../../assets/login.jpg";
 
 export default function LoginPage() {
   return (
@@ -9,7 +10,8 @@ export default function LoginPage() {
         </p>
       
       <div className="grow h-screen w-1/2 flex justify-center items-center bg-gray-200 sm:hidden">
-        Login Image
+      <img src={login} alt="login" className="h-full"/>
+        
       </div>
     <div className="grow h-screen items-center p-10 sm:mt-5">
       <Header

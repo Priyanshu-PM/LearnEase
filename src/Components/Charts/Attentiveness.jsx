@@ -14,7 +14,7 @@ import LineChart from './LineChart';
 
 const Attentiveness = () => {
     return (
-      <Card extra="!p-[20px] text-center">
+      <Card extra="!p-[20px] text-center h-full md:h-full">
         <div className="flex justify-between">
           <div className="linear mt-1 flex items-center justify-center gap-2 rounded-lg bg-[#edf2ff] p-2 text-gray-600 transition duration-200 hover:cursor-pointer hover:bg-gray-100 active:bg-gray-200 dark:bg-navy-700 dark:hover:opacity-90 dark:active:opacity-80">
             <MdOutlineCalendarToday />

@@ -10,8 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import Card from "."; 
 
-const LectureCard = ({lecture, tokem,image, extra}) => {
-
+const LectureCard = ({lecture, tokem ,image, extra}) => {
   
   const handleSessionClick = (sessionId) => {
     navigate(`/student/room/${sessionId}`);
@@ -51,8 +50,8 @@ const LectureCard = ({lecture, tokem,image, extra}) => {
             
             <p className=" text-sm font-medium text-gray-600 dark:text-white py-1 ">
               {" "}
-              {lecture.createdAt}
-              <Moment interval={0} format='MMMM Do YYYY'></Moment>
+              
+              <Moment interval={0} format='MMMM Do YYYY'>{lecture.createdAt}</Moment>
               {" "}
             </p>
           </div> 
@@ -66,7 +65,7 @@ const LectureCard = ({lecture, tokem,image, extra}) => {
             
              
             <p className="mt-1 text-md text-gray-600 ">
-              Conducted by {lecture.creator}{" "}
+              Conducted by {lecture.creator.firstName}{" "}
               </p>
             </div>
           </div>
